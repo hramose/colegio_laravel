@@ -18,10 +18,10 @@ class ConfiguracionManager extends BaseManager
 	{
 
 		$rules = [
-			'nombre'  	 => 'required',
-			'parametro1' => 'required',
-			'parametro2' => 'required',
-			'parametro3' => 'required',
+			'descripcion'	=> 'required',
+			'parametro1' 	=> 'required',
+			'parametro2' 	=> 'required',
+			'parametro3' 	=> 'required',
 		];
 
 		return $rules;

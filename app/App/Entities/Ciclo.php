@@ -3,11 +3,11 @@
 namespace App\App\Entities;
 use Variable;
 
-class Equipo extends \Eloquent {
+class Ciclo extends \Eloquent {
 	
-	protected $fillable = ['nombre','nombre_corto','siglas','logo','estado'];
+	protected $fillable = ['descripcion','fecha_inicio','fecha_fin','estado'];
 
-	protected $table = 'equipo';
+	protected $table = 'ciclo';
 
 	public function getDescripcionEstadoAttribute()
 	{

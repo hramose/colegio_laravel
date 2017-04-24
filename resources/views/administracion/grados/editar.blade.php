@@ -11,7 +11,7 @@
 		</div>
 		<div class="box-footer">
 		    <input type="submit" value="Editar" class="btn btn-primary btn-flat">
-            <a href="{{ route('grados') }}" class="btn btn-danger">Cancelar</a>
+            <a href="{{ route('grados') }}" class="btn btn-danger btn-flat">Cancelar</a>
 		</div>
 	{!! Form::close() !!}
 </div>

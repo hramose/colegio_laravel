@@ -2,13 +2,13 @@
 
 namespace App\App\Repositories;
 
-use App\App\Entities\Domo;
+use App\App\Entities\Ciclo;
 
-class DomoRepo extends BaseRepo{
+class CicloRepo extends BaseRepo{
 
 	public function getModel()
 	{
-		return new Domo;
+		return new Ciclo;
 	}
 
 }

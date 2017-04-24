@@ -15,7 +15,7 @@
 
 /*Tables*/
 div.table-responsive {
-	overflow-x: hidden !important;
+	/*overflow-x: hidden !important;*/
 }
 tfoot input {
     width: 100%;
@@ -34,6 +34,18 @@ tfoot.search {
 }
 thead tr th {
 	text-align: center !important; 
+}
+
+@media screen and (max-width: 767px){
+    .table-responsive {
+        border: none;
+    }
+    div.container{
+        padding: 0px;
+    }
+    section.content{
+        padding: 15px 0;
+    }
 }
 
 /* OTROS */

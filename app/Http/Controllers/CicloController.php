@@ -2,57 +2,57 @@
 
 namespace App\Http\Controllers;
 
-use App\App\Repositories\DomoRepo;
-use App\App\Managers\DomoManager;
-use App\App\Entities\Domo;
+use App\App\Repositories\CicloRepo;
+use App\App\Managers\CicloManager;
+use App\App\Entities\Ciclo;
 use Controller, Redirect, Input, View, Session, Variable;
 
-class DomoController extends BaseController {
+class CicloController extends BaseController {
 
-	protected $domoRepo;
+	protected $cicloRepo;
 
-	public function __construct(DomoRepo $domoRepo)
+	public function __construct(CicloRepo $cicloRepo)
 	{
-		$this->domoRepo = $domoRepo;
+		$this->cicloRepo = $cicloRepo;
 		View::composer('layouts.admin', 'App\Http\Controllers\AdminMenuController');
 	}
 
 	public function listado()
 	{
-		$domos = $this->domoRepo->all('nombre');
-		return view('administracion/domos/listado', compact('domos'));
+		$ciclos = $this->cicloRepo->all('descripcion');
+		return view('administracion/ciclos/listado', compact('ciclos'));
 	}
 
 	public function mostrarAgregar()
 	{
 		$estados = Variable::getEstadosGenerales();
-		return view('administracion/domos/agregar', compact('estados'));
+		return view('administracion/ciclos/agregar', compact('estados'));
 	}
 
 	public function agregar()
 	{
 		$data = Input::all();
-		$manager = new DomoManager(new Domo(), $data);
+		$manager = new CicloManager(new Ciclo(), $data);
 		$manager->save();
-		Session::flash('success', 'Se agregó el domo '.$data['nombre'].'con éxito.');
-		return redirect(route('domos'));
+		Session::flash('success', 'Se agregó el ciclo '.$data['descripcion'].' con éxito.');
+		return redirect(route('ciclos'));
 	}
 
 	public function mostrarEditar($id)
 	{
-		$domo = $this->domoRepo->find($id);
+		$ciclo = $this->cicloRepo->find($id);
 		$estados = Variable::getEstadosGenerales();
-		return view('administracion/domos/editar', compact('domo','estados'));
+		return view('administracion/ciclos/editar', compact('ciclo','estados'));
 	}
 
 	public function editar($id)
 	{
-		$domo = $this->domoRepo->find($id);
+		$ciclo = $this->cicloRepo->find($id);
 		$data = Input::all();
-		$manager = new DomoManager($domo, $data);
+		$manager = new CicloManager($ciclo, $data);
 		$manager->save();
-		Session::flash('success', 'Se editó el domo '.$domo->nombre.'con éxito.');
-		return redirect(route('domos'));
+		Session::flash('success', 'Se editó el ciclo '.$ciclo->descripcion.' con éxito.');
+		return redirect(route('ciclos'));
 	}
 
 

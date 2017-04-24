@@ -2,7 +2,7 @@
 
 namespace App\App\Managers;
 
-class DomoManager extends BaseManager
+class CicloManager extends BaseManager
 {
 
 	protected $entity;
@@ -18,8 +18,9 @@ class DomoManager extends BaseManager
 	{
 
 		$rules = [
-			'nombre'  => 'required',
-			'direccion' => 'required',
+			'descripcion'  => 'required',
+			'fecha_inicio' => 'required|date',
+			'fecha_fin' => 'required|date',
 			'estado' => 'required'
 		];
 

@@ -4,6 +4,12 @@ Route::group(['middleware' => 'auth'], function(){
 
 	Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'AuthController@mostrarDashboard']);
 
+	/* CICLOS */
+	Route::get('ciclos', ['as' => 'ciclos', 'uses' => 'CicloController@listado']);
+	Route::get('ciclos/agregar', ['as' => 'agregar_ciclo', 'uses' => 'CicloController@mostrarAgregar']);
+	Route::post('ciclos/agregar', ['as' => 'agregar_ciclo', 'uses' => 'CicloController@agregar']);
+	Route::get('ciclos/editar/{id}', ['as' => 'editar_ciclo', 'uses' => 'CicloController@mostrarEditar']);
+	Route::post('ciclos/editar/{id}', ['as' => 'editar_ciclo', 'uses' => 'CicloController@editar']);
 	/* GRADOS */
 	Route::get('grados', ['as' => 'grados', 'uses' => 'GradoController@listado']);
 	Route::get('grados/agregar', ['as' => 'agregar_grado', 'uses' => 'GradoController@mostrarAgregar']);
