@@ -22,6 +22,13 @@ class StaticVariables {
 		'P' => 'Padre de Familia'
 	];
 
+	protected $secciones = [
+		'A' => 'A',
+		'B' => 'B',
+		'C' => 'C',
+		'D' => 'D'
+	];
+
 	public function getEstadosGenerales(){ return $this->estadosGenerales; }
 	public function getEstadoGeneral($key){ return $this->estadosGenerales[$key]; }
 
@@ -30,5 +37,8 @@ class StaticVariables {
 
 	public function getRoles(){ return $this->roles; }
 	public function getRol($key){ return $this->roles[$key]; }
+
+	public function getSecciones(){ return $this->secciones; }
+	public function getSeccion($key){ return $this->secciones[$key]; }
 
 }

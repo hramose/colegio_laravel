@@ -182,8 +182,6 @@ return [
         App\App\Components\FieldServiceProvider::class,
         App\App\Components\VariableServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
-        Laravel\Socialite\SocialiteServiceProvider::class,
-        Thujohn\Twitter\TwitterServiceProvider::class,
 
     ],
 
@@ -240,8 +238,6 @@ return [
         
         'Field'     => App\App\Components\Field::class,
         'Variable'  => App\App\Components\Variable::class,
-        'Socialize' => Laravel\Socialite\Facades\Socialite::class,
-        'Twitter' => Thujohn\Twitter\Facades\Twitter::class,
 
     ],
 

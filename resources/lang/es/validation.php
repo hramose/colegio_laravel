@@ -101,14 +101,9 @@ return array(
         'password' => 'contraseña',
         'password_confirmation' => 'confirmación de contraseña',
         'perfil_id' => 'perfil',
-        'pais_id' => 'pais',
-        'departamento_id' => 'departamento',
-        'municipio_id' => 'municipio',
-        'equipo_id' => 'equipo',
-        'liga_id' => 'liga',
-        'domo_id' => 'domo',
-        'persona_id' => 'persona',
-        'tecnico_id' => 'tecnico'
-        
+        'maestro_id' => 'maestro',
+        'grado_id' => 'grado',
+        'ciclo_id' => 'ciclo',
+        'persona_id' => 'persona',        
     ),
 );

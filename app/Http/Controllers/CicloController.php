@@ -55,5 +55,18 @@ class CicloController extends BaseController {
 		return redirect(route('ciclos'));
 	}
 
+	public function mostrarElegir(){
+		$ciclos = $this->cicloRepo->getByEstado(['A'],'fecha_inicio');
+		return View::make('administracion/ciclos/elegir', compact('ciclos'));
+	}
+
+	public function elegir(){
+		$id = Input::get('ciclo_id');
+		$ciclo = $this->cicloRepo->find($id);
+		session(['ciclo_id' => $ciclo->id]);
+		session(['ciclo_nombre' => $ciclo->descripcion]);
+		return Redirect::route('dashboard');		
+	}
+
 
 }

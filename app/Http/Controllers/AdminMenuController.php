@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Collection; 
 use Auth, URL;
 
-class AdminMenuController {
+class AdminMenuController extends BaseController{
 
-	public function __construct(){	}
+	protected $cicloNombre;
+
+	public function __construct(){
+	}
 
     public function compose($view)
     {        
@@ -21,12 +24,13 @@ class AdminMenuController {
 		$subMenu->push((object)['title' => 'Grados', 'url' => URL::route('grados')]);
 		$subMenu->push((object)['title' => 'Maestros', 'url' => URL::route('maestros')]);
 		$subMenu->push((object)['title' => 'Materias', 'url' => URL::route('materias')]);
+		$subMenu->push((object)['title' => 'Secciones', 'url' => URL::route('secciones')]);
 		$menu->push((object)['title' => 'Catálogos', 'url' => '#', 'subMenu'=> $subMenu]);
 		
 				
 		$view->menu = $menu;
 		/* GET USUARIO */
-		$view->usuario = Auth::user();
+		$view->usuario = Auth::user();	
 
     }
 

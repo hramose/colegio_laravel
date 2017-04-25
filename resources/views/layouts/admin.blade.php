@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>@yield('title')</title>
+  <link rel="shortcut icon" href="{{ asset('assets/imagenes/logos/ico.png') }}">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -35,7 +36,7 @@
     <nav class="navbar navbar-static-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="{{route('dashboard')}}" class="navbar-brand"><b>Admin</b>LTE</a>
+          <a href="{{route('dashboard')}}" class="navbar-brand"><img src="{{asset('assets/imagenes/logos/logo.png')}}" height="20px"></a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
             <i class="fa fa-bars"></i>
           </button>
