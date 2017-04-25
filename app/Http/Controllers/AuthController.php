@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Controller, Redirect, Input, Auth, View;
 
+use App\App\Repositories\PersonaRepo;
+
 class AuthController extends BaseController {
 
-	public function __construct()
+	protected $personaRepo;
+
+	public function __construct(PersonaRepo $personaRepo)
 	{
-		
+		$this->personaRepo = $personaRepo;
 	}
 
 	public function mostrarLogin()
@@ -36,7 +40,10 @@ class AuthController extends BaseController {
 	public function mostrarDashboard()
 	{
 		View::composer('layouts.admin', 'App\Http\Controllers\AdminMenuController');
-		return view('administracion/dashboard');
+
+		$maestros = $this->personaRepo->getByRolByEstado(['M'],['A']);
+		$maestrosActivos = count($maestros);
+		return view('administracion/dashboard',compact('maestrosActivos'));
 	}
 
 	public function logout()

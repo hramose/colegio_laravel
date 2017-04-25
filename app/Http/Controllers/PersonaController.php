@@ -7,62 +7,53 @@ use App\App\Managers\PersonaManager;
 use App\App\Entities\Persona;
 use Controller, Redirect, Input, View, Session, Variable;
 
-use App\App\Repositories\PaisRepo;
-
 class PersonaController extends BaseController {
 
 	protected $personaRepo;
-	protected $paisRepo;
 
-	public function __construct(PersonaRepo $personaRepo, PaisRepo $paisRepo)
+	public function __construct(PersonaRepo $personaRepo)
 	{
 		$this->personaRepo = $personaRepo;
-		$this->paisRepo = $paisRepo;
 		View::composer('layouts.admin', 'App\Http\Controllers\AdminMenuController');
 	}
 
-	public function listado()
+	/*Maestros*/
+	public function maestros()
 	{
-		$personas = $this->personaRepo->all('primer_nombre');
-		return view('administracion/personas/listado', compact('personas'));
+		$maestros = $this->personaRepo->all('primer_nombre');
+		return view('administracion/personas/listado_maestros', compact('maestros'));
 	}
 
-	public function mostrarAgregar()
+	public function mostrarAgregarMaestro()
 	{
-		$roles = Variable::getRoles();
-		$posiciones = Variable::getPosiciones();
 		$estados = Variable::getEstadosGenerales();
-		$paises = $this->paisRepo->lists('nombre','id');
-		return view('administracion/personas/agregar',compact('roles','posiciones','paises','estados'));
+		return view('administracion/personas/agregar_maestro',compact('estados'));
 	}
 
-	public function agregar()
+	public function agregarMaestro()
 	{
 		$data = Input::all();
 		$manager = new PersonaManager(new Persona(), $data);
-		$manager->save();
-		Session::flash('success', 'Se agregó la persona con éxito.');
-		return redirect(route('personas'));
+		$maestro = $manager->saveMaestro();
+		Session::flash('success', 'Se agregó el maestro '.$maestro->nombre_completo.' con éxito.');
+		return redirect(route('maestros'));
 	}
 
-	public function mostrarEditar($id)
+	public function mostrarEditarMaestro($id)
 	{
-		$roles = Variable::getRoles();
-		$posiciones = Variable::getPosiciones();
 		$estados = Variable::getEstadosGenerales();
-		$paises = $this->paisRepo->lists('nombre','id');
-		$persona = $this->personaRepo->find($id);
-		return view('administracion/personas/editar', compact('persona','roles','posiciones','paises','estados'));
+		$maestro = $this->personaRepo->find($id);
+		return view('administracion/personas/editar_maestro', compact('maestro','estados'));
 	}
 
-	public function editar($id)
+	public function editarMaestro($id)
 	{
-		$persona = $this->personaRepo->find($id);
+		$maestro = $this->personaRepo->find($id);
 		$data = Input::all();
-		$manager = new PersonaManager($persona, $data);
-		$manager->save();
-		Session::flash('success', 'Se editó la persona con éxito.');
-		return redirect(route('personas'));
+		$manager = new PersonaManager($maestro, $data);
+		$manager->saveMaestro();
+		Session::flash('success', 'Se editó el maestro '.$maestro->nombre_completo.' con éxito.');
+		return redirect(route('maestros'));
 	}
 
 

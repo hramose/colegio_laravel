@@ -205,7 +205,29 @@
       </section>
 
       <!-- Main content -->
-      <section class="content">        
+      <section class="content">
+        @if(Session::has('success'))
+        <div class="alert alert-success alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <i class="icon fa fa-check"></i> {{ Session::get('success') }}
+        </div>
+        @endif
+        @if(Session::has('error'))
+            <div class="alert alert-danger alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+               {{ Session::get('error') }}
+            </div>
+        @endif
+        @if(Session::has('errores'))
+            <div class="alert alert-danger alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              <i class="icon fa fa-times"></i> 
+              @foreach(Session::get('errores') as $error)
+                {{ $error }}
+                <br/>
+              @endforeach
+            </div>
+        @endif
         @yield('content')
       </section>
     </div>
@@ -232,8 +254,8 @@
 <script src="{{ asset('assets/admin/plugins/fastclick/fastclick.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('assets/admin/js/app.min.js') }}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{ asset('assets/admin/js/demo.js') }}"></script>
+
+<script src="{{ asset('assets/admin/js/form.validation.js') }}"></script>
 @yield('js')
 </body>
 </html>

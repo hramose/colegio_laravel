@@ -11,11 +11,6 @@ class PersonaRepo extends BaseRepo{
 		return new Persona;
 	}
 
-	public function all($orderBy)
-	{
-		return Persona::with('pais')->orderBy($orderBy)->get();
-	}
-
 	public function getByRol($roles)
 	{
 		return Persona::whereIn('rol',$roles)
@@ -26,13 +21,14 @@ class PersonaRepo extends BaseRepo{
 			->get();
 	}
 
-	public function getByRolOrderApellido($roles)
+	public function getByRolByEstado($roles, $estados)
 	{
 		return Persona::whereIn('rol',$roles)
-			->orderBy('primer_apellido')
-			->orderBy('segundo_apellido')
+			->whereIn('estado',$estados)
 			->orderBy('primer_nombre')
 			->orderBy('segundo_nombre')
+			->orderBy('primer_apellido')
+			->orderBy('segundo_apellido')
 			->get();
 	}
 

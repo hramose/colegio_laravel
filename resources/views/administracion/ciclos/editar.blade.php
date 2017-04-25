@@ -1,11 +1,11 @@
 @extends('layouts.admin')
-@section('title') Editar Ciclo @stop
+@section('title') Editar Ciclo - {{$ciclo->descripcion}} @stop
 @section('css')
 <link href="{{ asset('assets/admin/plugins/datepicker/datepicker3.css') }}" rel="stylesheet">
 @stop
 @section('content')
 <div class="box box-primary">
-	{!! Form::model($ciclo, ['route' => array('editar_ciclo', $ciclo->id), 'method' => 'POST', 'id' => 'form', 'class'=>'validate-form']) !!}
+	{!! Form::model($ciclo, ['route' => array('editar_ciclo', $ciclo->id), 'method' => 'PUT', 'id' => 'form', 'class'=>'validate-form']) !!}
 		<div class="box-body">
 			{!! Field::text('descripcion', null, ['data-required'=> 'true']) !!}
 			{!! Field::text('fecha_inicio', null, ['data-required'=> 'true','class'=>'fecha']) !!}

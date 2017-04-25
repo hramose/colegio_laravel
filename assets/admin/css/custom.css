@@ -32,8 +32,13 @@ tfoot.search {
 	background-color: #222d32 !important;
 	color: white !important;
 }
-thead tr th {
+.table-bordered thead tr th {
 	text-align: center !important; 
+    background-color: #3c8dbc;
+    color: #fff;
+}
+.table-bordered tbody tr td {
+    text-align: center !important;
 }
 
 @media screen and (max-width: 767px){
@@ -57,4 +62,26 @@ thead tr th {
 	border: 3px solid red !important;
 }
 
+/*MENUS*/
+.dropdown-menu>li>a {
+    font-size: 16px;
+    color: #fff;
+}
+.dropdown-menu>li>a:hover {
+    background-color: #e1e3e9;
+    color: #333;
+}
+.navbar-nav>li>.dropdown-menu {
+    background-color: #3c8dbc;
+}
+.dropdown-menu {
+    border-color: #3c8dbc;
+}
+
+@media (min-width: 768px){
+    
+    .navbar-nav>li {
+        font-size: 18px;
+    }
+}
 
