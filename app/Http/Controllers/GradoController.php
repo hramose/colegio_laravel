@@ -36,7 +36,7 @@ class GradoController extends BaseController {
 		$manager = new GradoManager(new Grado(), $data);
 		$manager->save();
 		Session::flash('success', 'Se agregó el grado '.$data['descripcion'].' con éxito.');
-		return redirect(route('grados'));
+		return redirect()->route('grados');
 	}
 
 	public function mostrarEditar($id)
@@ -54,7 +54,7 @@ class GradoController extends BaseController {
 		$manager = new GradoManager($grado, $data);
 		$manager->save();
 		Session::flash('success', 'Se editó el grado '.$grado->descripcion.' con éxito.');
-		return redirect(route('grados', $grado->liga_id));
+		return redirect()->route('grados', $grado->id);
 	}
 
 

@@ -1,8 +1,8 @@
 @extends('layouts.admin')
-@section('title') Agregar Maestro @stop
+@section('title') Agregar Maestro @endsection
 @section('css')
 <link href="{{ asset('assets/admin/plugins/datepicker/datepicker3.css') }}" rel="stylesheet">
-@stop
+@endsection
 @section('content')
 <div class="box box-primary">
 	{!! Form::open(['route' => 'agregar_maestro', 'method' => 'POST', 'id' => 'form', 'class'=>'validate-form']) !!}
@@ -32,7 +32,7 @@
 		</div>
 	{!! Form::close() !!}
 </div>
-@stop
+@endsection
 @section('js')
 <script src="{{ asset('assets/admin/plugins/datepicker/bootstrap-datepicker.js')}}"></script>
 <script src="{{ asset('assets/admin/plugins/datepicker/locales/bootstrap-datepicker.es.js')}}"></script>
@@ -47,4 +47,4 @@ $(function()
     });    
 });
 </script>
-@stop
+@endsection

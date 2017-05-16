@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
-@section('title') Personas @stop
+@section('title') Personas @endsection
 
 @section('css')
 <link href="{{asset('assets/admin/plugins/datatables/dataTables.bootstrap.css')}}" rel="stylesheet">
-@stop
+@endsection
 
 @section('content')
 <div class="box box-primary">
@@ -55,7 +55,7 @@
 	</div>
 </div>
 
-@stop
+@endsection
 
 @section('js')
 <script src="{{ asset('assets/admin/plugins/datatables/jquery.dataTables.js') }}"></script>
@@ -85,4 +85,4 @@
 	    } );
 	} );
 </script>
-@stop
+@endsection

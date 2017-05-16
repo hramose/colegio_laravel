@@ -2,50 +2,72 @@
 //
 Route::group(['middleware' => 'auth'], function(){
 
-	Route::get('ciclos/elegir', ['as' => 'elegir_ciclo', 'uses' => 'CicloController@mostrarElegir']);
-	Route::post('ciclos/elegir', ['as' => 'elegir_ciclo', 'uses' => 'CicloController@elegir']);
+Route::get('ciclos/elegir','CicloController@mostrarElegir')->name('elegir_ciclo');
+Route::post('ciclos/elegir','CicloController@elegir')->name('elegir_ciclo');
 
 Route::group(['middleware' => 'verificarCiclo'], function(){
 	
-	Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'AuthController@mostrarDashboard']);
+Route::get('dashboard','AuthController@mostrarDashboard')->name('dashboard');
 	
-	/* CICLOS */
-	Route::get('ciclos', ['as' => 'ciclos', 'uses' => 'CicloController@listado']);
-	Route::get('ciclos/agregar', ['as' => 'agregar_ciclo', 'uses' => 'CicloController@mostrarAgregar']);
-	Route::post('ciclos/agregar', ['as' => 'agregar_ciclo', 'uses' => 'CicloController@agregar']);
-	Route::get('ciclos/editar/{id}', ['as' => 'editar_ciclo', 'uses' => 'CicloController@mostrarEditar']);
-	Route::put('ciclos/editar/{id}', ['as' => 'editar_ciclo', 'uses' => 'CicloController@editar']);
+/* CICLOS */
+Route::group(['prefix' => 'ciclos'], function () {
+	Route::get('listado','CicloController@listado')->name('ciclos');
+	Route::get('agregar','CicloController@mostrarAgregar')->name('agregar_ciclo');
+	Route::post('agregar','CicloController@agregar')->name('agregar_ciclo');
+	Route::get('editar/{id}','CicloController@mostrarEditar')->name('editar_ciclo');
+	Route::put('editar/{id}','CicloController@editar')->name('editar_ciclo');
+});
 	
-	/* GRADOS */
-	Route::get('grados', ['as' => 'grados', 'uses' => 'GradoController@listado']);
-	Route::get('grados/agregar', ['as' => 'agregar_grado', 'uses' => 'GradoController@mostrarAgregar']);
-	Route::post('grados/agregar', ['as' => 'agregar_grado', 'uses' => 'GradoController@agregar']);
-	Route::get('grados/editar/{id}', ['as' => 'editar_grado', 'uses' => 'GradoController@mostrarEditar']);
-	Route::put('grados/editar/{id}', ['as' => 'editar_grado', 'uses' => 'GradoController@editar']);
-	/* MAESTROS */
-	Route::get('maestros', ['as' => 'maestros', 'uses' => 'PersonaController@maestros']);
-	Route::get('maestros/agregar', ['as' => 'agregar_maestro', 'uses' => 'PersonaController@mostrarAgregarMaestro']);
-	Route::post('maestros/agregar', ['as' => 'agregar_maestro', 'uses' => 'PersonaController@agregarMaestro']);
-	Route::get('maestros/editar/{id}', ['as' => 'editar_maestro', 'uses' => 'PersonaController@mostrarEditarMaestro']);
-	Route::put('maestros/editar/{id}', ['as' => 'editar_maestro', 'uses' => 'PersonaController@editarMaestro']);
-	/* MATERIAS */
-	Route::get('materias', ['as' => 'materias', 'uses' => 'MateriaController@listado']);
-	Route::get('materias/agregar', ['as' => 'agregar_materia', 'uses' => 'MateriaController@mostrarAgregar']);
-	Route::post('materias/agregar', ['as' => 'agregar_materia', 'uses' => 'MateriaController@agregar']);
-	Route::get('materias/editar/{id}', ['as' => 'editar_materia', 'uses' => 'MateriaController@mostrarEditar']);
-	Route::put('materias/editar/{id}', ['as' => 'editar_materia', 'uses' => 'MateriaController@editar']);
-	/* SECCIONS */
-	Route::get('secciones', ['as' => 'secciones', 'uses' => 'SeccionController@listado']);
-	Route::get('secciones/agregar', ['as' => 'agregar_seccion', 'uses' => 'SeccionController@mostrarAgregar']);
-	Route::post('secciones/agregar', ['as' => 'agregar_seccion', 'uses' => 'SeccionController@agregar']);
-	Route::get('secciones/editar/{id}', ['as' => 'editar_seccion', 'uses' => 'SeccionController@mostrarEditar']);
-	Route::put('secciones/editar/{id}', ['as' => 'editar_seccion', 'uses' => 'SeccionController@editar']);
+/* GRADOS */
+Route::group(['prefix' => 'grados'], function () {
+	Route::get('listado','GradoController@listado')->name('grados');
+	Route::get('agregar','GradoController@mostrarAgregar')->name('agregar_grado');
+	Route::post('agregar','GradoController@agregar')->name('agregar_grado');
+	Route::get('editar/{id}','GradoController@mostrarEditar')->name('editar_grado');
+	Route::put('editar/{id}','GradoController@editar')->name('editar_grado');
+});
+	
+/* MAESTROS */
+Route::group(['prefix' => 'maestros'], function () {
+	Route::get('listado','PersonaController@maestros')->name('maestros');
+	Route::get('agregar','PersonaController@mostrarAgregarMaestro')->name('agregar_maestro');
+	Route::post('agregar','PersonaController@agregarMaestro')->name('agregar_maestro');
+	Route::get('editar/{id}','PersonaController@mostrarEditarMaestro')->name('editar_maestro');
+	Route::put('editar/{id}','PersonaController@editarMaestro')->name('editar_maestro');
+});
+	
+/* MATERIAS */
+Route::group(['prefix' => 'materias'], function () {
+	Route::get('listado','MateriaController@listado')->name('materias');
+	Route::get('agregar','MateriaController@mostrarAgregar')->name('agregar_materia');
+	Route::post('agregar','MateriaController@agregar')->name('agregar_materia');
+	Route::get('editar/{id}','MateriaController@mostrarEditar')->name('editar_materia');
+	Route::put('editar/{id}','MateriaController@editar')->name('editar_materia');
+});
 
+/* SECCIONES */
+Route::group(['prefix' => 'secciones'], function () {
+	Route::get('listado','SeccionController@listado')->name('secciones');
+	Route::get('agregar','SeccionController@mostrarAgregar')->name('agregar_seccion');
+	Route::post('agregar','SeccionController@agregar')->name('agregar_seccion');
+	Route::get('editar/{id}','SeccionController@mostrarEditar')->name('editar_seccion');
+	Route::put('editar/{id}','SeccionController@editar')->name('editar_seccion');
+});
+
+/* CURSOS */
+Route::group(['prefix' => 'cursos'], function () {
+	Route::get('listado/{seccionId}','CursoController@listado')->name('cursos');
+	Route::get('agregar/{seccionId}','CursoController@mostrarAgregar')->name('agregar_curso');
+	Route::post('agregar/{seccionId}','CursoController@agregar')->name('agregar_curso');
+	Route::get('editar/{id}','CursoController@mostrarEditar')->name('editar_curso');
+	Route::put('editar/{id}','CursoController@editar')->name('editar_curso');
 });
 
 });
 
-Route::get('/', ['as' => 'inicio', 'uses' => 'AuthController@mostrarLogin']);
-Route::get('login', ['as' => 'login', 'uses' => 'AuthController@mostrarLogin']);
-Route::post('login', ['as' => 'login', 'uses' => 'AuthController@login']);
+});
+
+Route::get('/','AuthController@mostrarLogin')->name('inicio');
+Route::get('login','AuthController@mostrarLogin')->name('login');
+Route::post('login','AuthController@login')->name('login');
 

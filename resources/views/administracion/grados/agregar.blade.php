@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title') Agregar Grado @stop
+@section('title') Agregar Grado @endsection
 @section('content')
 <div class="box box-primary">
 	{!! Form::open(['route' => 'agregar_grado', 'method' => 'POST', 'id' => 'form', 'class'=>'validate-form']) !!}
@@ -15,4 +15,4 @@
 		</div>
 	{!! Form::close() !!}
 </div>
-@stop
+@endsection

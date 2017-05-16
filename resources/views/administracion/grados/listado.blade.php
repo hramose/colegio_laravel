@@ -1,8 +1,8 @@
 @extends('layouts.admin')
-@section('title') Grados @stop
+@section('title') Grados @endsection
 @section('css')
 <link href="{{asset('assets/admin/plugins/datatables/dataTables.bootstrap.css')}}" rel="stylesheet">
-@stop
+@endsection
 @section('content')
 <div class="box box-primary">
 	<div class="box-body">
@@ -36,7 +36,7 @@
 		</div>
 	</div>
 </div>
-@stop
+@endsection
 @section('js')
 <script src="{{ asset('assets/admin/plugins/datatables/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('assets/admin/plugins/datatables/dataTables.bootstrap.js') }}"></script>
@@ -47,4 +47,4 @@
    		});
 	});
 </script>
-@stop
+@endsection

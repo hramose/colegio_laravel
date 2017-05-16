@@ -1,8 +1,8 @@
 @extends('layouts.admin')
-@section('title') Secciones - {{$ciclo->descripcion}} @stop
+@section('title') Secciones - {{$ciclo->descripcion}} @endsection
 @section('css')
 <link href="{{asset('assets/admin/plugins/datatables/dataTables.bootstrap.css')}}" rel="stylesheet">
-@stop
+@endsection
 @section('content')
 <div class="box box-primary">
 	<div class="box-body">
@@ -37,6 +37,7 @@
 						<td>{{$seccion->descripcion_estado}}</td>
 						<td>
 							<a href="{{route('editar_seccion',$seccion->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar"></a>
+							<a href="{{route('cursos',$seccion->id)}}" class="btn btn-primary btn-sm btn-flat fa fa-list" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cursos"></a>
 						</td>
 					</tr>
 					@endforeach
@@ -45,7 +46,7 @@
 		</div>
 	</div>
 </div>
-@stop
+@endsection
 @section('js')
 <script src="{{ asset('assets/admin/plugins/datatables/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('assets/admin/plugins/datatables/dataTables.bootstrap.js') }}"></script>
@@ -71,4 +72,4 @@
 	    } );
 	} );
 </script>
-@stop
+@endsection

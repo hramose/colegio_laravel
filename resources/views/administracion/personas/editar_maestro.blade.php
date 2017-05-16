@@ -1,8 +1,8 @@
 @extends('layouts.admin')
-@section('title') Editar Maestro - {{$maestro->nombre_completo}} @stop
+@section('title') Editar Maestro - {{$maestro->nombre_completo}} @endsection
 @section('css')
 <link href="{{ asset('assets/admin/plugins/datepicker/datepicker3.css') }}" rel="stylesheet">
-@stop
+@endsection
 @section('content')
 <div class="box box-primary">
 	{!! Form::model($maestro, ['route' => ['editar_maestro',$maestro->id], 'method' => 'PUT', 'id' => 'form', 'class'=>'validate-form']) !!}
@@ -32,7 +32,7 @@
 		</div>
 	{!! Form::close() !!}
 </div>
-@stop
+@endsection
 @section('js')
 <script src="{{ asset('assets/admin/plugins/datepicker/bootstrap-datepicker.js')}}"></script>
 <script src="{{ asset('assets/admin/plugins/datepicker/locales/bootstrap-datepicker.es.js')}}"></script>
@@ -47,4 +47,4 @@ $(function()
     });    
 });
 </script>
-@stop
+@endsection

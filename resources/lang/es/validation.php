@@ -104,6 +104,9 @@ return array(
         'maestro_id' => 'maestro',
         'grado_id' => 'grado',
         'ciclo_id' => 'ciclo',
-        'persona_id' => 'persona',        
+        'persona_id' => 'persona',
+        'materia_id' => 'materia',
+        'curso_id' => 'curso',
+        'seccion_id' => 'seccion'
     ),
 );

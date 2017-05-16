@@ -1,9 +1,9 @@
 @extends('layouts.admin')
-@section('title') Agregar Secciones @stop
+@section('title') Agregar Secciones @endsection
 @section('css')
 <link href="{{asset('assets/admin/plugins/datepicker/datepicker3.css')}}" rel="stylesheet">
 <link href="{{ asset('assets/admin/plugins/select2/select2.css')}}" rel="stylesheet" type="text/css" />
-@stop
+@endsection
 @section('content')
 <div class="box box-primary">
     {!! Form::open(['route' => array('agregar_seccion'), 'method' => 'POST', 'id' => 'form', 'role' => 'form', 'class' => 'validate-form']) !!}				
@@ -33,7 +33,7 @@
 	</div>
     {!! Form::close() !!}
 </div>
-@stop
+@endsection
 
 @section('js')
 <script src="{{asset('assets/admin/plugins/datepicker/bootstrap-datepicker.js')}}"></script>
@@ -95,4 +95,4 @@
     	}
     }
 </script>
-@stop
+@endsection

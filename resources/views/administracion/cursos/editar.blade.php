@@ -1,15 +1,14 @@
 @extends('layouts.admin')
-@section('title') Editar Sección - {{$seccion->grado->descripcion}} {{$seccion->descripcion_seccion}} @endsection
+@section('title') Editar Curso - {{$curso->seccion->grado->descripcion}} {{$curso->seccion->descripcion_seccion}} @endsection
 @section('css')
 <link href="{{ asset('assets/admin/plugins/select2/select2.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
 <div class="box box-primary">
-	{!! Form::model($seccion, ['route' => array('editar_seccion', $seccion->id), 'method' => 'PUT', 'id' => 'form', 'class'=>'validate-form']) !!}
+	{!! Form::model($curso, ['route' => array('editar_curso', $curso->id), 'method' => 'PUT', 'id' => 'form', 'class'=>'validate-form']) !!}
 		<div class="box-body">
 			<div class="row">
-				<div class="col-lg-3">{!! Field::select('grado_id',$grados, null, ['disabled']) !!}</div>
-				<div class="col-lg-3">{!! Field::select('seccion',$secciones, null, ['disabled']) !!}</div>
+				<div class="col-lg-3">{!! Field::text('materia_id',$curso->materia->descripcion, ['disabled']) !!}</div>
 			</div>
 			<div class="row">
 				<div class="col-lg-3">
@@ -21,8 +20,6 @@
 					{!! Field::select('estado', $estados, null, ['data-required'=> 'true']) !!}
 				</div>
 			</div>
-			
-			
 		</div>
 		<div class="box-footer">
 		    <input type="submit" value="Editar" class="btn btn-primary btn-flat">

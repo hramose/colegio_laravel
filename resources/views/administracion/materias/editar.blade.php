@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title') Editar Materia - {{$materia->descripcion}} @stop
+@section('title') Editar Materia - {{$materia->descripcion}} @endsection
 @section('content')
 <div class="box box-primary">
 	{!! Form::model($materia, ['route' => array('editar_materia', $materia->id), 'method' => 'PUT', 'id' => 'form', 'class'=>'validate-form']) !!}
@@ -13,4 +13,4 @@
 		</div>
 	{!! Form::close() !!}
 </div>
-@stop
+@endsection

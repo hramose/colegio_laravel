@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title') Agregar Materia @stop
+@section('title') Agregar Materia @endsection
 @section('content')
 <div class="box box-primary">
 	{!! Form::open(['route' => 'agregar_materia', 'method' => 'POST', 'id' => 'form', 'class'=>'validate-form']) !!}
@@ -13,4 +13,4 @@
 		</div>
 	{!! Form::close() !!}
 </div>
-@stop
+@endsection

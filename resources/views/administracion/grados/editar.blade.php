@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title') Editar Grado - {{$grado->descripcion}} @stop
+@section('title') Editar Grado - {{$grado->descripcion}} @endsection
 @section('content')
 <div class="box box-primary">
 	{!! Form::model($grado, ['route' => array('editar_grado', $grado->id), 'method' => 'PUT', 'id' => 'form', 'class'=>'validate-form']) !!}
@@ -15,4 +15,4 @@
 		</div>
 	{!! Form::close() !!}
 </div>
-@stop
+@endsection
