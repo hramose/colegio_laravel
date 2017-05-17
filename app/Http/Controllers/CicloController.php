@@ -63,8 +63,9 @@ class CicloController extends BaseController {
 	public function elegir(){
 		$id = Input::get('ciclo_id');
 		$ciclo = $this->cicloRepo->find($id);
-		session(['ciclo_id' => $ciclo->id]);
-		session(['ciclo_nombre' => $ciclo->descripcion]);
+		$user = \Auth::user();
+		$user->ciclo_id = $ciclo->id;
+		$user->save();
 		return Redirect::route('dashboard');		
 	}
 

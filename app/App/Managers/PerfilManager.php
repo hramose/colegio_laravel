@@ -18,7 +18,8 @@ class PerfilManager extends BaseManager
 	{
 
 		$rules = [
-			'nombre'  => 'required',
+			'descripcion'  => 'required',
+			'estado'  => 'required',
 		];
 
 		return $rules;

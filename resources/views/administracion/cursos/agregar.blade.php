@@ -21,6 +21,7 @@ Agregar Cursos - {{$seccion->grado->descripcion}} {{$seccion->descripcion_seccio
 					<tr>
 						<th width="200px">MATERIA</th>
 						<th>MAESTRO</th>
+                        <th width="50px"></th>
 					</tr>
 				</thead>
 				<tbody>							
@@ -74,9 +75,14 @@ Agregar Cursos - {{$seccion->grado->descripcion}} {{$seccion->descripcion_seccio
     	var html = '<tr class="curso">';
     	html += '<td><select name=cursos['+filasActuales+'][materia] class="form-control materia" data-required="true" id="materia'+filasActuales+'">' + materias + '</select></td>';
     	html += '<td><select name=cursos['+filasActuales+'][maestro] class="form-control buscar-select" data-required="true" >' + maestros + '</select></td>';
+        html += '<td><a class="btn btn-danger btn-sm btn-flat fa fa-times delete"></a></td>'
     	html += '</tr>';
     	$('#tableDetalleCursos tr:last').after(html);
     	$("select.buscar-select").select2();
+        $(".delete").on('click', function(e) {
+            var whichtr = $(this).closest("tr");
+            whichtr.remove();      
+        });
     }
 
     function submit()

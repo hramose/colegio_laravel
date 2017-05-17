@@ -25,8 +25,9 @@ class CrearTablaPersona extends Migration
             $table->bigInteger('cui');
             $table->integer('encargado_id')->unsigned()->nullable();
             $table->string('direccion');
-            $table->string('telefono',10);
-            $table->string('celular',10);
+            $table->string('telefono',10)->nullable();
+            $table->string('celular',10)->nullable();
+            $table->string('fotografia');
             $table->string('estado',1);
             $table->timestamps();
             $table->string('created_by',45);

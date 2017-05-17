@@ -25,6 +25,8 @@ class SeccionRepo extends BaseRepo{
 						->whereIn('estado',$estados)
 						->with('grado')
 						->with('maestro')
+						->orderBy('grado_id')
+						->orderBy('seccion')
 						->get();
 	}
 

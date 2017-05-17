@@ -31,8 +31,7 @@
     			{!! Form::open(['route' => 'login', 'method' => 'POST', 'role' => 'form', 'class'=>'validate-form']) !!}
 	        		@if(Session::has('login-error'))
 		            	<div class="alert alert-danger alert-dismissable">
-		              		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-		              		<h4>Credenciales no válidas</h4>
+		              		<h4>{{Session::get('login-error')}}</h4>
 		           		</div>
 		          	@endif
 	          		<div class="form-group has-feedback">

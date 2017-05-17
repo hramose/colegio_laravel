@@ -4,7 +4,7 @@ namespace App\App\Entities;
 use Variable;
 
 class Persona extends \Eloquent {
-	protected $fillable = ['primer_nombre','segundo_nombre','primer_apellido','segundo_apellido','rol','fecha_nacimiento','cui','direccion','telefono','celular','estado'];
+	protected $fillable = ['primer_nombre','segundo_nombre','primer_apellido','segundo_apellido','rol','fecha_nacimiento','genero','fotografia','cui','direccion','telefono','celular','estado'];
 
 	protected $table = 'persona';
 
@@ -27,5 +27,10 @@ class Persona extends \Eloquent {
 			$nombre .= ' ' . $this->segundo_apellido;
 		return $nombre;
 	}
+
+	public function getFotografiaAttribute($fotografia)
+    {
+    	return \Storage::disk('public')->url($fotografia);
+    }
 
 }

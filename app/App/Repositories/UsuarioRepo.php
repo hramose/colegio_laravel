@@ -11,4 +11,9 @@ class UsuarioRepo extends BaseRepo{
 		return new User;
 	}
 
+	public function all($orderBy)
+	{
+		return User::with('perfil')->orderBy($orderBy)->get();
+	}
+
 }

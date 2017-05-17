@@ -40,6 +40,7 @@ class PersonaManager extends BaseManager
 			'fecha_nacimiento' => 'required|date',
 			'cui' => 'required',
 			'direccion' => 'required',
+			'genero' => 'required',
 			'estado' => 'required'
 		];
 		return $rules;
@@ -59,9 +60,24 @@ class PersonaManager extends BaseManager
         {
             throw new ValidationException('Validation failed', $validation->messages());
         }
-		try{			
-			$this->entity->fill($this->prepareDataMaestros($this->data));		
+		try{
+			\DB::beginTransaction();
+
+			$this->entity->fill($this->prepareDataMaestros($this->data));
+			if(is_null($this->entity->id))
+			{
+				$this->entity->fotografia = $this->entity->genero=='M'?'personas/male.png':'personas/female.png';
+			}
 			$this->entity->save();
+			if(\Input::hasFile('fotografia'))
+			{
+				$image = \Input::file('fotografia');
+				$imageName = $this->entity->id.'.'.$image->getClientOriginalExtension();
+				$this->entity->fotografia = $image->storeAs('personas',$imageName,'public');
+			}
+			$this->entity->save();
+
+			\DB::commit();
 			return $this->entity;
 		}
 		catch(\Exception $ex)

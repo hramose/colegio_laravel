@@ -17,8 +17,6 @@ class SeccionController extends BaseController {
 	protected $gradoRepo;
 	protected $cicloRepo;
 	protected $personaRepo;
-	
-	protected $cicloId;
 
 	public function __construct(SeccionRepo $seccionRepo, GradoRepo $gradoRepo, CicloRepo $cicloRepo, PersonaRepo $personaRepo)
 	{
@@ -26,23 +24,19 @@ class SeccionController extends BaseController {
 		$this->gradoRepo = $gradoRepo;
 		$this->cicloRepo = $cicloRepo;
 		$this->personaRepo = $personaRepo;
-		$this->middleware(function ($request, $next) {
-            $this->cicloId = session('ciclo_id');
-            return $next($request);
-        });
 		View::composer('layouts.admin', 'App\Http\Controllers\AdminMenuController');
 	}
 
 	public function listado()
 	{
-		$ciclo = $this->cicloRepo->find($this->cicloId);
-		$secciones = $this->seccionRepo->getByCiclo($this->cicloId);
+		$ciclo = Variable::getCiclo();
+		$secciones = $this->seccionRepo->getByCiclo($ciclo->id);
 		return view('administracion/secciones/listado', compact('secciones','ciclo'));
 	}
 
 	public function mostrarAgregar()
 	{
-		$ciclo = $this->cicloRepo->find($this->cicloId);
+		$ciclo = Variable::getCiclo();
 		$maestros = $this->personaRepo->getByRolByEstado(['M'],['A']);
 		$grados = $this->gradoRepo->getByEstado(['A'],'descripcion');
 		$secciones = Variable::getSecciones();
@@ -55,7 +49,8 @@ class SeccionController extends BaseController {
 	{
 		$data = Input::all();
 		$manager = new SeccionManager(new Seccion(), $data);
-		$manager->agregarSecciones($this->cicloId);
+		$ciclo = Variable::getCiclo();
+		$manager->agregarSecciones($this->ciclo->id);
 		Session::flash('success', 'Se agregaron las secciones con éxito.');
 		return redirect(route('secciones'));
 	}

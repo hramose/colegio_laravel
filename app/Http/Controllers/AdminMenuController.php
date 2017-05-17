@@ -18,6 +18,11 @@ class AdminMenuController extends BaseController{
         $menu = new Collection();
 
 		$menu->push((object)['title' => 'Dashboard', 'url' => route('dashboard'), 'class' => '' ,'icon' => 'fa fa-dashboard']);
+
+		$subMenu = new Collection();
+		$subMenu->push((object)['title' => 'Perfiles', 'url' => URL::route('perfiles')]);
+		$subMenu->push((object)['title' => 'Usuarios', 'url' => URL::route('usuarios')]);
+		$menu->push((object)['title' => 'Administración', 'url' => '#', 'subMenu'=> $subMenu]);
 		
 		$subMenu = new Collection();
 		$subMenu->push((object)['title' => 'Ciclos', 'url' => URL::route('ciclos')]);

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Variable;
+
 use App\App\Repositories\PerfilRepo;
 use App\App\Managers\PerfilManager;
 use App\App\Entities\Perfil;
@@ -21,13 +23,14 @@ class PerfilController extends BaseController {
 
 	public function listado()
 	{
-		$perfiles = $this->perfilRepo->all('nombre');
-		return view('administracion/Perfil/listado', compact('perfiles'));
+		$perfiles = $this->perfilRepo->all('descripcion');
+		return view('administracion/perfiles/listado', compact('perfiles'));
 	}
 
 	public function mostrarAgregar()
 	{
-		return view('administracion/Perfil/agregar');
+		$estados = Variable::getEstadosGenerales();
+		return view('administracion/perfiles/agregar',compact('estados'));
 	}
 
 	public function agregar()
@@ -35,13 +38,14 @@ class PerfilController extends BaseController {
 		$data = Input::all();
 		$manager = new PerfilManager(new Perfil(), $data);
 		$manager->save();
-		return redirect(route('perfiles'));
+		return redirect()->route('perfiles');
 	}
 
 	public function mostrarEditar($id)
 	{
+		$estados = Variable::getEstadosGenerales();
 		$perfil = $this->perfilRepo->find($id);
-		return view('administracion/Perfil/editar', compact('perfil'));
+		return view('administracion/perfiles/editar', compact('perfil','estados'));
 	}
 
 	public function editar($id)
@@ -51,7 +55,7 @@ class PerfilController extends BaseController {
 		$manager = new PerfilManager($perfil, $data);
 		$manager->save();
 		Session::flash('success', 'Se editó el perfil de usuario con éxito.');
-		return redirect(route('perfiles'));
+		return redirect()->route('perfiles');
 	}
 
 

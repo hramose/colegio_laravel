@@ -26,32 +26,46 @@ class UsuarioManager extends BaseManager
 		return $rules;
 	}
 
-	function getRulesForUpdate()
-	{
-		$rules = [];
-		if($this->data['password'] != '')
-		{
-			$rules['password'] = 'confirmed';
-		}
-		return $rules;
-	}
-
 	function prepareData($data)
 	{
+		$data['primera_vez'] = 1;
+		$data['estado'] = 'A';
 		return $data;
 	}
 
-	function update()
+	public function resetPassword()
 	{
-		$rules = $this->getRulesForUpdate();
-		$validation = \Validator::make($this->data, $rules);
-		if ($validation->fails())
-        {
-            throw new ValidationException('Validation failed', $validation->messages());
-        }
-		$this->entity->fill($this->prepareData($this->data));
-		$this->entity->save();
-		return true;
+		try{
+			\DB::beginTransaction();
+
+				$this->entity->password = $this->entity->username;
+				$this->entity->primera_vez = 1;
+				$this->entity->save();
+
+			\DB::commit();
+		}
+		catch(\Exception $ex)
+		{
+			throw new SaveDataException("Error!", $ex);
+			
+		}
+	}
+
+	public function inactivarUsuario()
+	{
+		try{
+			\DB::beginTransaction();
+
+				$this->entity->estado = 'I';
+				$this->entity->save();
+
+			\DB::commit();
+		}
+		catch(\Exception $ex)
+		{
+			throw new SaveDataException("Error!", $ex);
+			
+		}
 	}
 
 }

@@ -18,4 +18,13 @@ class CursoRepo extends BaseRepo{
 					->get();
 	}
 
+	public function getBySeccionByMateriasNotInSeccion($seccionId, $seccion2Id)
+	{
+		$materiasIds = \DB::table('curso')->where('seccion_id',$seccionId)
+							->pluck('materia_id')->toArray();
+		return Curso::where('seccion_id',$seccion2Id)
+					->whereNotIn('materia_id',$materiasIds)
+					->get();
+	}
+
 }

@@ -1,14 +1,14 @@
 <?php
-//
+
+Route::get('/','AuthController@mostrarLogin')->name('inicio');
+Route::get('login','AuthController@mostrarLogin')->name('login');
+Route::post('login','AuthController@login')->name('login');
+Route::get('logout','AuthController@logout')->name('logout');
+
 Route::group(['middleware' => 'auth'], function(){
 
-Route::get('ciclos/elegir','CicloController@mostrarElegir')->name('elegir_ciclo');
-Route::post('ciclos/elegir','CicloController@elegir')->name('elegir_ciclo');
-
-Route::group(['middleware' => 'verificarCiclo'], function(){
-	
 Route::get('dashboard','AuthController@mostrarDashboard')->name('dashboard');
-	
+
 /* CICLOS */
 Route::group(['prefix' => 'ciclos'], function () {
 	Route::get('listado','CicloController@listado')->name('ciclos');
@@ -16,6 +16,8 @@ Route::group(['prefix' => 'ciclos'], function () {
 	Route::post('agregar','CicloController@agregar')->name('agregar_ciclo');
 	Route::get('editar/{id}','CicloController@mostrarEditar')->name('editar_ciclo');
 	Route::put('editar/{id}','CicloController@editar')->name('editar_ciclo');
+	Route::get('elegir','CicloController@mostrarElegir')->name('elegir_ciclo');
+	Route::post('elegir','CicloController@elegir')->name('elegir_ciclo');
 });
 	
 /* GRADOS */
@@ -35,7 +37,7 @@ Route::group(['prefix' => 'maestros'], function () {
 	Route::get('editar/{id}','PersonaController@mostrarEditarMaestro')->name('editar_maestro');
 	Route::put('editar/{id}','PersonaController@editarMaestro')->name('editar_maestro');
 });
-	
+
 /* MATERIAS */
 Route::group(['prefix' => 'materias'], function () {
 	Route::get('listado','MateriaController@listado')->name('materias');
@@ -44,6 +46,8 @@ Route::group(['prefix' => 'materias'], function () {
 	Route::get('editar/{id}','MateriaController@mostrarEditar')->name('editar_materia');
 	Route::put('editar/{id}','MateriaController@editar')->name('editar_materia');
 });
+
+Route::group(['middleware' => 'verificarCiclo'], function(){
 
 /* SECCIONES */
 Route::group(['prefix' => 'secciones'], function () {
@@ -61,13 +65,33 @@ Route::group(['prefix' => 'cursos'], function () {
 	Route::post('agregar/{seccionId}','CursoController@agregar')->name('agregar_curso');
 	Route::get('editar/{id}','CursoController@mostrarEditar')->name('editar_curso');
 	Route::put('editar/{id}','CursoController@editar')->name('editar_curso');
+	Route::get('trasladar/{seccionId}/{seccion2Id}','CursoController@mostrarTrasladar')->name('trasladar_cursos');
+	Route::post('trasladar/{seccionId}/{seccion2Id}','CursoController@trasladar')->name('trasladar_cursos');
+});
+
+/* PERFILES */
+Route::group(['prefix' => 'perfiles'], function () {
+	Route::get('listado','PerfilController@listado')->name('perfiles');
+	Route::get('agregar','PerfilController@mostrarAgregar')->name('agregar_perfil');
+	Route::post('agregar','PerfilController@agregar')->name('agregar_perfil');
+	Route::get('editar/{id}','PerfilController@mostrarEditar')->name('editar_perfil');
+	Route::put('editar/{id}','PerfilController@editar')->name('editar_perfil');
+});
+
+/* USUARIOS */
+Route::group(['prefix' => 'usuarios'], function () {
+	Route::get('listado','UsuarioController@listado')->name('usuarios');
+	Route::get('agregar','UsuarioController@mostrarAgregar')->name('agregar_usuario');
+	Route::post('agregar','UsuarioController@agregar')->name('agregar_usuario');
+	Route::get('editar/{id}','UsuarioController@mostrarEditar')->name('editar_usuario');
+	Route::put('editar/{id}','UsuarioController@editar')->name('editar_usuario');
+	Route::get('reset-password/{id}','UsuarioController@resetPassword')->name('reset_password');
+	Route::get('inactivar/{id}','UsuarioController@inactivarUsuario')->name('inactivar_usuario');
 });
 
 });
 
 });
 
-Route::get('/','AuthController@mostrarLogin')->name('inicio');
-Route::get('login','AuthController@mostrarLogin')->name('login');
-Route::post('login','AuthController@login')->name('login');
+
 

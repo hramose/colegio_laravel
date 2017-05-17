@@ -8,7 +8,7 @@ use App\App\Entities\User;
 
 use App\App\Repositories\PerfilRepo;
 
-use Controller, Redirect, Input, View;
+use Controller, Redirect, Input, View, Session;
 
 class UsuarioController extends BaseController {
 
@@ -25,13 +25,13 @@ class UsuarioController extends BaseController {
 	public function listado()
 	{
 		$usuarios = $this->usuarioRepo->all('username');
-		return view('administracion/Usuario/listado', compact('usuarios'));
+		return view('administracion/usuarios/listado', compact('usuarios'));
 	}
 
 	public function mostrarAgregar()
 	{
-		$perfiles = $this->perfilRepo->lists('nombre','id');
-		return view('administracion/Usuario/agregar',compact('perfiles'));
+		$perfiles = $this->perfilRepo->lists('descripcion','id');
+		return view('administracion/usuarios/agregar',compact('perfiles'));
 	}
 
 	public function agregar()
@@ -39,23 +39,38 @@ class UsuarioController extends BaseController {
 		$data = Input::all();
 		$manager = new UsuarioManager(new User(), $data);
 		$manager->save();
-		return redirect(route('usuarios'));
+		Session::flash('success', 'Se agregó el usuario '.$data['username'].' con éxito.');
+		return redirect()->route('usuarios');
 	}
 
-	public function mostrarEditar($id)
+	public function resetPassword($id)
 	{
-		$perfiles = $this->perfilRepo->lists('nombre','id');
 		$usuario = $this->usuarioRepo->find($id);
-		return view('administracion/Usuario/editar', compact('usuario','perfiles'));
+		if(\Gate::allows('edit_super_admin',$usuario))
+		{			
+			$data = Input::all();
+			$manager = new UsuarioManager($usuario, $data);
+			$manager->resetPassword();
+			Session::flash('success', 'Se cambió la contraseña del usuario '.$usuario->username.' con éxito.');
+			return redirect()->route('usuarios');
+		}
+		Session::flash('error', 'Usted no es superadmin. No tiene permisos para realizar esta acción.');
+		return redirect()->route('usuarios');
 	}
 
-	public function editar($id)
+	public function inactivarUsuario($id)
 	{
 		$usuario = $this->usuarioRepo->find($id);
-		$data = Input::all();
-		$manager = new UsuarioManager($usuario, $data);
-		$manager->update();
-		return redirect(route('usuarios'));
+		if(\Gate::allows('is_super_admin'))
+		{			
+			$data = Input::all();
+			$manager = new UsuarioManager($usuario, $data);
+			$manager->inactivarUsuario();
+			Session::flash('success', 'Se inactivó el usuario '.$usuario->username.' con éxito.');
+			return redirect()->route('usuarios');
+		}
+		Session::flash('error', 'Usted no es superadmin. No tiene permisos para realizar esta acción.');
+		return redirect()->route('usuarios');
 	}
 
 

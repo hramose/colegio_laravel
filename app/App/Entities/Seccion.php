@@ -19,6 +19,11 @@ class Seccion extends \Eloquent {
 		return Variable::getSeccion($this->seccion);
 	}
 
+	public function getDescripcionConGradoAttribute()
+	{
+		return $this->grado->descripcion . ' ' . Variable::getSeccion($this->seccion);
+	}
+
 	public function ciclo()
 	{
 		return $this->belongsTo('App\App\Entities\Ciclo');

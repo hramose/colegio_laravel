@@ -26,8 +26,9 @@ class PersonaController extends BaseController {
 
 	public function mostrarAgregarMaestro()
 	{
+		$generos = Variable::getGeneros();
 		$estados = Variable::getEstadosGenerales();
-		return view('administracion/personas/agregar_maestro',compact('estados'));
+		return view('administracion/personas/agregar_maestro',compact('generos','estados'));
 	}
 
 	public function agregarMaestro()
@@ -41,9 +42,10 @@ class PersonaController extends BaseController {
 
 	public function mostrarEditarMaestro($id)
 	{
+		$generos = Variable::getGeneros();
 		$estados = Variable::getEstadosGenerales();
 		$maestro = $this->personaRepo->find($id);
-		return view('administracion/personas/editar_maestro', compact('maestro','estados'));
+		return view('administracion/personas/editar_maestro', compact('generos','maestro','estados'));
 	}
 
 	public function editarMaestro($id)

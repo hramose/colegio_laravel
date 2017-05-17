@@ -185,7 +185,7 @@
                     <a href="#" class="btn btn-default btn-flat">Perfil</a>
                   </div>
                   <div class="pull-right">
-                    <a href="#" class="btn btn-default btn-flat">Desconectarse</a>
+                    <a href="{{route('logout')}}" class="btn btn-default btn-flat">Desconectarse</a>
                   </div>
                 </li>
               </ul>

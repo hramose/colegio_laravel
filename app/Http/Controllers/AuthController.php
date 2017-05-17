@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Controller, Redirect, Input, Auth, View;
+use Controller, Redirect, Input, Auth, View, Session;
 
 use App\App\Repositories\PersonaRepo;
+use App\App\Repositories\CicloRepo;
 
 class AuthController extends BaseController {
 
@@ -31,10 +32,24 @@ class AuthController extends BaseController {
 
 		if(Auth::attempt($credentials))
 		{
+			$user = Auth::user();
+			
+			if($user->estado == 'I')
+			{
+				Session::flash('login-error','Usuario inactivo. Contacte a su administrador.');
+				return Redirect::back();
+			}
+
+
+			$cicloRepo = new CicloRepo();
+			$ciclo = $cicloRepo->getActual();
+			
+			$user->ciclo_id = $ciclo->id;
+			$user->save();
 			return Redirect::route('dashboard');
 		}
-		
-		return Redirect::back()->with('login-error',1);
+		Session::flash('login-error','Credenciales no válidas.');
+		return Redirect::back();
 	}
 
 	public function mostrarDashboard()
@@ -46,8 +61,20 @@ class AuthController extends BaseController {
 		return view('administracion/dashboard',compact('maestrosActivos'));
 	}
 
+	public function mostrarMaestros()
+	{
+		View::composer('layouts.maestros','App\Http\Controllers\MaestroMenuController');
+
+		$maestro = $this->personaRepo->getByRolByEstado(['M'],['A']);
+		$maestrosActivos = count($maestros);
+		return view('administracion/dashboard',compact('maestrosActivos'));
+	}
+
 	public function logout()
 	{
+		$user = Auth::user();
+		$user->ciclo_id = null;
+		$user->save();
 		Auth::logout();
 		return Redirect::route('login');
 	}

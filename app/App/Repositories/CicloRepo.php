@@ -11,4 +11,9 @@ class CicloRepo extends BaseRepo{
 		return new Ciclo;
 	}
 
+	public function getActual()
+	{
+		return Ciclo::where('actual',1)->first();
+	}
+
 }

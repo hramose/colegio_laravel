@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
     	$perfil = Perfil::create([
-    		'descripcion' => 'Administrador',
+    		'descripcion' => 'Super Administrador',
     		'estado' => 'A',
     		'created_by' => 'admin',
         	'updated_by' => 'admin'

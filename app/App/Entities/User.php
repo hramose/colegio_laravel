@@ -2,6 +2,8 @@
 
 namespace App\App\Entities;
 
+use Variable;
+
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -28,7 +30,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['username', 'password','perfil_id'];
+    protected $fillable = ['username', 'password','perfil_id','primera_vez','estado'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -42,11 +44,21 @@ class User extends Model implements AuthenticatableContract,
         return $this->belongsTo('App\App\Entities\Perfil');
     }
 
+    public function ciclo()
+    {
+        return $this->belongsTo('App\App\Entities\Ciclo');
+    }
+
     protected function setPasswordAttribute($value)
     {
         if( ! empty($value) )
         {
             $this->attributes['password'] = bcrypt($value);
         }
+    }
+
+    public function getDescripcionEstadoAttribute()
+    {
+        return Variable::getEstadoGeneral($this->estado);
     }
 }
