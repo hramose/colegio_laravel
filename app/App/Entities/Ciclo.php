@@ -5,7 +5,7 @@ use Variable;
 
 class Ciclo extends \Eloquent {
 	
-	protected $fillable = ['descripcion','fecha_inicio','fecha_fin','estado'];
+	protected $fillable = ['descripcion','fecha_inicio','fecha_fin','actual','estado'];
 
 	protected $table = 'ciclo';
 

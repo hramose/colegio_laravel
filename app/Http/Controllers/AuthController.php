@@ -46,7 +46,13 @@ class AuthController extends BaseController {
 			
 			$user->ciclo_id = $ciclo->id;
 			$user->save();
+
+			if($user->perfil_id == 3)
+				return Redirect::route('maestros.dashboard');
+			
 			return Redirect::route('dashboard');
+
+			
 		}
 		Session::flash('login-error','Credenciales no válidas.');
 		return Redirect::back();

@@ -26,17 +26,17 @@ class Seccion extends \Eloquent {
 
 	public function ciclo()
 	{
-		return $this->belongsTo('App\App\Entities\Ciclo');
+		return $this->belongsTo(Ciclo::class);
 	}
 
 	public function grado()
 	{
-		return $this->belongsTo('App\App\Entities\Grado');
+		return $this->belongsTo(Grado::class);
 	}
 
 	public function maestro()
 	{
-		return $this->belongsTo('App\App\Entities\Persona','maestro_id');
+		return $this->belongsTo(Persona::class,'maestro_id');
 	}
 	
 }

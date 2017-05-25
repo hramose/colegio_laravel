@@ -15,17 +15,18 @@ class CrearTablaTarea extends Migration
     {
         Schema::create('tarea', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('curso_unidad_id')->unsigned();
-            $table->string('descripcion',500);
+            $table->integer('unidad_id')->unsigned();
+            $table->text('descripcion');
             $table->double('porcentaje');
-            $table->date('fecha_inicio');
-            $table->date('fecha_fin');
+            $table->string('archivo')->nullable();
+            $table->date('fecha_inicio')->nullable();
+            $table->date('fecha_fin')->nullable();
             $table->string('estado',1);
             $table->timestamps();
             $table->string('created_by',45);
             $table->string('updated_by',45);
 
-            $table->foreign('curso_unidad_id')->references('id')->on('curso_unidad');
+            $table->foreign('unidad_id')->references('id')->on('unidad');
         });
     }
 

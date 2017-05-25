@@ -23,10 +23,27 @@ class DatabaseSeeder extends Seeder
         	'updated_by' => 'admin'
     	]);
 
+        $administrador = Perfil::create([
+            'primer_nombre' => 'Administrador',
+            'primer_apellido' => 'Administrador',
+            'fecha_nacimiento' => '2000-01-01',
+            'genero' => 'M',
+            'rol' => 'A',
+            'cui' => '0000000000000',
+            'direccion' => 'Guatemala',
+            'telefono' => '00000000',
+            'celular' => '00000000',
+            'fotografia' => 'personas/male.png',
+            'estado' => 'A',
+            'created_by' => 'admin',
+            'updated_by' => 'admin'
+        ]);
+
         $user = User::create([
         	'username' => 'admin',
         	'password' => 'admin',
         	'perfil_id' => $perfil->id,
+            'persona_id' => $adminsitrador->id,
         	'primera_vez' => 1,
         	'estado' => 'A',
         	'created_by' => 'admin',

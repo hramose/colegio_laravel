@@ -10,6 +10,7 @@
 			{!! Field::text('descripcion', null, ['data-required'=> 'true']) !!}
 			{!! Field::text('fecha_inicio', null, ['data-required'=> 'true','class'=>'fecha']) !!}
 			{!! Field::text('fecha_fin', null, ['data-required'=> 'true','class'=>'fecha']) !!}
+			{!! Field::checkbox('actual') !!}
 			{!! Field::select('estado', $estados, null, ['data-required'=> 'true']) !!}
 		</div>
 		<div class="box-footer">

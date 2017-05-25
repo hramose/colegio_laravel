@@ -41,12 +41,17 @@ class User extends Model implements AuthenticatableContract,
 
     public function perfil()
     {
-        return $this->belongsTo('App\App\Entities\Perfil');
+        return $this->belongsTo(Perfil::class);
     }
 
     public function ciclo()
     {
-        return $this->belongsTo('App\App\Entities\Ciclo');
+        return $this->belongsTo(Ciclo::class);
+    }
+
+    public function persona()
+    {
+        return $this->belongsTo(Persona::class);
     }
 
     protected function setPasswordAttribute($value)

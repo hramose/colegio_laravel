@@ -22,12 +22,14 @@ class CrearTablaUsers extends Migration
             $table->string('estado',1);
             $table->string('observacion')->nullable();
             $table->integer('ciclo_id')->nullable();
+            $table->integer('persona_id')->unsigned();
             $table->string('remember_token')->nullable();
             $table->timestamps();
             $table->string('created_by',45);
             $table->string('updated_by',45);
 
             $table->foreign('perfil_id')->references('id')->on('perfil');
+            $table->foreign('persona_id')->references('id')->on('persona');
         });
     }
 

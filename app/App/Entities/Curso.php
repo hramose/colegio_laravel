@@ -16,17 +16,17 @@ class Curso extends \Eloquent {
 
 	public function seccion()
 	{
-		return $this->belongsTo('App\App\Entities\Seccion');
+		return $this->belongsTo(Seccion::class);
 	}
 
 	public function materia()
 	{
-		return $this->belongsTo('App\App\Entities\Materia');
+		return $this->belongsTo(Materia::class);
 	}
 
 	public function maestro()
 	{
-		return $this->belongsTo('App\App\Entities\Persona','maestro_id');
+		return $this->belongsTo(Persona::class,'maestro_id');
 	}
 	
 }

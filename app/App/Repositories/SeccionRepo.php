@@ -30,4 +30,15 @@ class SeccionRepo extends BaseRepo{
 						->get();
 	}
 
+	public function getByCicloByMaestro($cicloId, $maestroId)
+	{
+		return Seccion::where('ciclo_id',$cicloId)
+						->where('maestro_id',$maestroId)
+						->with('grado')
+						->with('maestro')
+						->orderBy('grado_id')
+						->orderBy('seccion')
+						->get();
+	}
+
 }
