@@ -5,6 +5,7 @@
 	{!! Form::model($materia, ['route' => array('editar_materia', $materia->id), 'method' => 'PUT', 'id' => 'form', 'class'=>'validate-form']) !!}
 		<div class="box-body">
 			{!! Field::text('descripcion', null, ['data-required'=> 'true']) !!}
+			{!! Field::number('numero', null, ['data-required'=> 'true']) !!}
 			{!! Field::select('estado', $estados, null, ['data-required'=> 'true']) !!}
 		</div>
 		<div class="box-footer">

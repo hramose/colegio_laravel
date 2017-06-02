@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CrearTablaTarea extends Migration
+class CrearTablaTipoTarea extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,14 @@ class CrearTablaTarea extends Migration
      */
     public function up()
     {
-        Schema::create('tarea', function (Blueprint $table) {
+        Schema::create('tipo_tarea', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('unidad_id')->unsigned();
-            $table->text('descripcion');
-            $table->double('porcentaje');
-            $table->string('archivo')->nullable();
-            $table->date('fecha_inicio')->nullable();
-            $table->date('fecha_fin')->nullable();
+            $table->string('descripcion',100);
+            $table->tinyInteger('aplica_zona');
             $table->string('estado',1);
             $table->timestamps();
             $table->string('created_by',45);
             $table->string('updated_by',45);
-
-            $table->foreign('unidad_id')->references('id')->on('unidad');
         });
     }
 
@@ -37,6 +31,6 @@ class CrearTablaTarea extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tarea');
+        Schema::dropIfExists('tipo_tarea');
     }
 }

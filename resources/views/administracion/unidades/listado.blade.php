@@ -43,7 +43,7 @@ Unidades - {{$curso->seccion->grado->descripcion}}
 						</td>
 						<td>
 							<a href="{{route('editar_unidad',$unidad->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar"></a>
-							<a href="@{{route('cursos',$seccion->id)}}" class="btn btn-primary btn-sm btn-flat fa fa-book" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tareas"></a>
+							<a href="{{route('agregar_tarea',$unidad->id)}}" class="btn btn-primary btn-sm btn-flat fa fa-book" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tareas"></a>
 						</td>
 					</tr>
 					@endforeach

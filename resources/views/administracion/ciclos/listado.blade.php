@@ -26,8 +26,8 @@
 						<td>{{$ciclo->descripcion}}</td>
 						<td>{{date('d-m-Y',strtotime($ciclo->fecha_inicio))}}</td>
 						<td>{{date('d-m-Y',strtotime($ciclo->fecha_fin))}}</td>
+						<td>{{$ciclo->actual==1?"SI":"NO"}}</td>
 						<td>{{$ciclo->descripcion_estado}}</td>
-						<td>{{$ciclo->actual}}</td>
 						<td>
 							<a href="{{route('editar_ciclo',$ciclo->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar"></a>
 						</td>

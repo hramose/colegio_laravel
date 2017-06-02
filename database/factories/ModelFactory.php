@@ -14,6 +14,7 @@ $factory->define(\App\App\Entities\Persona::class, function (Faker\Generator $fa
 	    'direccion' => $faker->address,
 	    'telefono' => $faker->randomNumber($nbDigits = 8, $strict = true),
 	    'celular' => $faker->randomNumber($nbDigits = 8, $strict = true),
+	    'fotografia' => 'personas/'.$gender.'.png',
 	    'estado' => 'A',
 	    'created_by' => 'admin',
 	    'updated_by' => 'admin'

@@ -24,7 +24,7 @@ class UnidadController extends BaseController {
 
 	public function listado(Curso $curso)
 	{
-		$unidades = $this->unidadRepo->all('unidad');
+		$unidades = $this->unidadRepo->getByCurso($curso->id);
 		$totalPorcentaje = 0;
 		foreach($unidades as $unidad)
 			$totalPorcentaje += $unidad->porcentaje;

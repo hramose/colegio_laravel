@@ -1,13 +1,9 @@
 @extends('layouts.admin')
-
 @section('title') Agregar Persona @endsection
-
 @section('css')
 <link href="{{ asset('assets/admin/plugins/datepicker/datepicker3.css') }}" rel="stylesheet">
 @endsection
-
 @section('content')
-
 <div class="box box-primary">
 	{!! Form::open(['route' => 'agregar_persona', 'method' => 'POST', 'id' => 'form', 'class'=>'validate-form']) !!}
 	    <div class="box-body">
@@ -38,8 +34,7 @@
 @section('js')
 <script src="{{ asset('assets/admin/plugins/datepicker/bootstrap-datepicker.js')}}"></script>
 <script src="{{ asset('assets/admin/plugins/datepicker/locales/bootstrap-datepicker.es.js')}}"></script>
-<script>
-	
+<script>	
 $(function()
 {
 	$('.fecha').datepicker({
@@ -50,6 +45,5 @@ $(function()
     });
     
 });
-
 </script>
 @endsection

@@ -3,6 +3,7 @@
 namespace App\App\Repositories;
 
 use App\App\Entities\Persona;
+use App\App\Entities\User;
 
 class PersonaRepo extends BaseRepo{
 
@@ -31,5 +32,13 @@ class PersonaRepo extends BaseRepo{
 			->orderBy('segundo_apellido')
 			->get();
 	}
+
+	public function getWithNoUser()
+	{
+		$ids = User::pluck('persona_id');
+		return Persona::whereNotIn('id',$ids)->get();
+	}
+
+
 
 }

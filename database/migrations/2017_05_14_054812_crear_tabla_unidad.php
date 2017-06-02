@@ -18,7 +18,8 @@ class CrearTablaUnidad extends Migration
             $table->integer('curso_id')->unsigned();
             $table->string('unidad',1);
             $table->double('nota_ganar');
-            $table->double('porcentaje')->comment('Porcentaje que representa la nota de la unidad para la nota acumulada del año.');
+            $table->double('porcentaje')
+                    ->comment('Porcentaje que representa la nota de la unidad para la nota acumulada del año.');
             $table->text('planificacion')->nullable();
             $table->string('archivo_planificacion')->nullable();
             $table->string('estado',1);

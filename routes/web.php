@@ -89,6 +89,15 @@ Route::group(['prefix' => 'usuarios'], function () {
 	Route::get('inactivar/{id}','UsuarioController@inactivarUsuario')->name('inactivar_usuario');
 });
 
+/* TIPOS TAREAS */
+Route::group(['prefix' => 'tipos-tareas'], function () {
+	Route::get('listado','TipoTareaController@listado')->name('tipos_tareas');
+	Route::get('agregar','TipoTareaController@mostrarAgregar')->name('agregar_tipo_tarea');
+	Route::post('agregar','TipoTareaController@agregar')->name('agregar_tipo_tarea');
+	Route::get('editar/{id}','TipoTareaController@mostrarEditar')->name('editar_tipo_tarea');
+	Route::put('editar/{id}','TipoTareaController@editar')->name('editar_tipo_tarea');
+});
+
 });
 
 });

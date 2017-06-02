@@ -20,7 +20,7 @@ class PersonaController extends BaseController {
 	/*Maestros*/
 	public function maestros()
 	{
-		$maestros = $this->personaRepo->all('primer_nombre');
+		$maestros = $this->personaRepo->getByRol(['M']);
 		return view('administracion/personas/listado_maestros', compact('maestros'));
 	}
 

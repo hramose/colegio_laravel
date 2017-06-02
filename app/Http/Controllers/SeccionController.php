@@ -50,7 +50,7 @@ class SeccionController extends BaseController {
 		$data = Input::all();
 		$manager = new SeccionManager(new Seccion(), $data);
 		$ciclo = Variable::getCiclo();
-		$manager->agregarSecciones($this->ciclo->id);
+		$manager->agregarSecciones($ciclo->id);
 		Session::flash('success', 'Se agregaron las secciones con éxito.');
 		return redirect(route('secciones'));
 	}

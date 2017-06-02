@@ -7,6 +7,7 @@ use App\App\Managers\UsuarioManager;
 use App\App\Entities\User;
 
 use App\App\Repositories\PerfilRepo;
+use App\App\Repositories\PersonaRepo;
 
 use Controller, Redirect, Input, View, Session;
 
@@ -14,11 +15,13 @@ class UsuarioController extends BaseController {
 
 	protected $usuarioRepo;
 	protected $perfilRepo;
+	protected $personaRepo;
 
-	public function __construct(UsuarioRepo $usuarioRepo, PerfilRepo $perfilRepo)
+	public function __construct(UsuarioRepo $usuarioRepo, PerfilRepo $perfilRepo, PersonaRepo $personaRepo)
 	{
 		$this->usuarioRepo = $usuarioRepo;
 		$this->perfilRepo = $perfilRepo;
+		$this->personaRepo = $personaRepo;
 		View::composer('layouts.admin', 'App\Http\Controllers\AdminMenuController');
 	}
 
@@ -31,7 +34,8 @@ class UsuarioController extends BaseController {
 	public function mostrarAgregar()
 	{
 		$perfiles = $this->perfilRepo->lists('descripcion','id');
-		return view('administracion/usuarios/agregar',compact('perfiles'));
+		$personas = $this->personaRepo->getWithNoUser()->pluck('nombre_completo','id')->toArray();
+		return view('administracion/usuarios/agregar',compact('perfiles','personas'));
 	}
 
 	public function agregar()

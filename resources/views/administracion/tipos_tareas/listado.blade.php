@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title') Materias @endsection
+@section('title') Tipos de Tarea @endsection
 @section('css')
 <link href="{{asset('assets/admin/plugins/datatables/dataTables.bootstrap.css')}}" rel="stylesheet">
 @endsection
@@ -7,25 +7,31 @@
 <div class="box box-primary">
 	<div class="box-body">
 		<div class="table-responsive">
-			<a href="{{route('agregar_materia')}}" class="btn btn-primary btn-flat">Agregar</a>
+			<a href="{{route('agregar_tipo_tarea')}}" class="btn btn-primary btn-flat">Agregar</a>
 			<hr>
 			<table class="table table-bordered">
 				<thead>
 					<tr>
 						<th>DESCRIPCION</th>
-						<th>NUMERO</th>
+						<th>APLICA ZONA</th>
 						<th>ESTADO</th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
-					@foreach($materias as $materia)
+					@foreach($tipos as $tipo)
 					<tr>
-						<td>{{$materia->descripcion}}</td>
-						<td>{{$materia->numero}}</td>
-						<td>{{$materia->descripcion_estado}}</td>
+						<td>{{$tipo->descripcion}}</td>
 						<td>
-							<a href="{{route('editar_materia',$materia->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar"></a>
+							@if($tipo->aplica_zona)
+								SI
+							@else
+								NO
+							@endif
+						</td>
+						<td>{{$tipo->descripcion_estado}}</td>
+						<td>
+							<a href="{{route('editar_tipo_tarea',$tipo->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar"></a>
 						</td>
 					</tr>
 					@endforeach
