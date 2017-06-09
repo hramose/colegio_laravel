@@ -7,6 +7,7 @@ use App\App\Entities\Perfil;
 use App\App\Entities\Ciclo;
 use App\App\Entities\Materia;
 use App\App\Entities\Grado;
+use App\App\Entities\TipoTarea;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,12 +19,26 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         try{
-        	$perfil = Perfil::create([
+        	$perfilSuperAdmin = Perfil::create([
         		'descripcion' => 'Super Administrador',
         		'estado' => 'A',
         		'created_by' => 'admin',
             	'updated_by' => 'admin'
         	]);
+
+            $perfilAdmin = Perfil::create([
+                'descripcion' => 'Administrador',
+                'estado' => 'A',
+                'created_by' => 'admin',
+                'updated_by' => 'admin'
+            ]);
+
+            $perfilMaestro = Perfil::create([
+                'descripcion' => 'Maestro',
+                'estado' => 'A',
+                'created_by' => 'admin',
+                'updated_by' => 'admin'
+            ]);
 
             $administrador = Persona::create([
                 'primer_nombre' => 'Administrador',
@@ -41,15 +56,42 @@ class DatabaseSeeder extends Seeder
                 'updated_by' => 'admin'
             ]);
 
+            $maestro = Persona::create([
+                'primer_nombre' => 'Profesor',
+                'primer_apellido' => 'Jirafales',
+                'fecha_nacimiento' => '2000-01-01',
+                'genero' => 'M',
+                'rol' => 'M',
+                'cui' => '0000000000000',
+                'direccion' => 'Guatemala',
+                'telefono' => '00000000',
+                'celular' => '00000000',
+                'fotografia' => 'personas/male.png',
+                'estado' => 'A',
+                'created_by' => 'admin',
+                'updated_by' => 'admin'
+            ]);
+
             $user = User::create([
             	'username' => 'admin',
             	'password' => 'admin',
-            	'perfil_id' => $perfil->id,
+            	'perfil_id' => $perfilSuperAdmin->id,
                 'persona_id' => $administrador->id,
             	'primera_vez' => 1,
             	'estado' => 'A',
             	'created_by' => 'admin',
             	'updated_by' => 'admin'
+            ]);
+
+            $userMaestro = User::create([
+                'username' => 'maestro',
+                'password' => 'maestro',
+                'perfil_id' => $perfilMaestro->id,
+                'persona_id' => $maestro->id,
+                'primera_vez' => 1,
+                'estado' => 'A',
+                'created_by' => 'admin',
+                'updated_by' => 'admin'
             ]);
 
             $anioActual = intval( date('Y') );
@@ -101,6 +143,46 @@ class DatabaseSeeder extends Seeder
     	        	'updated_by' => 'admin'
             	]);
             }
+
+            TipoTarea::create([
+                    'descripcion' => 'Tarea',
+                    'aplica_zona' => 1,
+                    'estado' => 'A',
+                    'created_by' => 'admin',
+                    'updated_by' => 'admin'
+                ]);
+
+            TipoTarea::create([
+                    'descripcion' => 'Laboratorio',
+                    'aplica_zona' => 1,
+                    'estado' => 'A',
+                    'created_by' => 'admin',
+                    'updated_by' => 'admin'
+                ]);
+
+            TipoTarea::create([
+                    'descripcion' => 'Examen Corto',
+                    'aplica_zona' => 1,
+                    'estado' => 'A',
+                    'created_by' => 'admin',
+                    'updated_by' => 'admin'
+                ]);
+
+            TipoTarea::create([
+                    'descripcion' => 'Examen Parcial',
+                    'aplica_zona' => 1,
+                    'estado' => 'A',
+                    'created_by' => 'admin',
+                    'updated_by' => 'admin'
+                ]);
+
+            TipoTarea::create([
+                    'descripcion' => 'Examen Final',
+                    'aplica_zona' => 0,
+                    'estado' => 'A',
+                    'created_by' => 'admin',
+                    'updated_by' => 'admin'
+                ]);
         }
         catch(\Exception $ex)
         {

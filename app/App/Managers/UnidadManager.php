@@ -45,12 +45,21 @@ class UnidadManager extends BaseManager
 			$this->entity->save();
 			if(\Input::hasFile('archivo_planificacion'))
 			{
-				$image = \Input::file('archivo_planificacion');
-				$imageName = 'planificacion.'.$image->getClientOriginalExtension();
-				$url = 'documentos/'.\Auth::user()->ciclo->id . '/' . $this->entity->id;  
-				$this->entity->archivo_planificacion = $image->storeAs($url,$imageName,'public');
+				$file = \Input::file('archivo_planificacion');
+				$fileOriginalName = $file->getClientOriginalName();
+				$fileOrginalExtension = $file->getClientOriginalExtension();
+				$this->entity->nombre_original_archivo = $fileOriginalName;
+				$fileName = 'planificacion.'.$fileOrginalExtension;
+				$url = 'documentos/';
+				$url .= $this->entity->curso->seccion->ciclo_id . '/';
+				$url .= $this->entity->curso->seccion->grado_id . '/';
+				$url .= $this->entity->curso->seccion_id . '/';
+				$url .= $this->entity->curso->materia_id . '/';
+				$url .= $this->entity->id;
+
+				$this->entity->archivo_planificacion = $file->storeAs($url,$fileName,'public');
+				$this->entity->save();
 			}
-			$this->entity->save();
 
 			\DB::commit();
 			return $this->entity;

@@ -4,14 +4,12 @@ Tareas - {{$unidad->curso->seccion->grado->descripcion}}
 {{$unidad->curso->seccion->descripcion_seccion}} {{$unidad->descripcion}} - 
 {{$unidad->curso->materia->descripcion}} 
 @endsection
-@section('css')
-<link href="{{asset('assets/admin/plugins/datatables/dataTables.bootstrap.css')}}" rel="stylesheet">
-@endsection
 @section('content')
 <div class="box box-primary">
 	<div class="box-body">
 		<div class="table-responsive">
 			<a href="{{route('agregar_tarea',$unidad->id)}}" class="btn btn-primary btn-flat">Agregar</a>
+			<a href="{{route('unidades',$unidad->curso_id)}}" class="btn btn-danger btn-flat">Unidades</a>
 			<hr>
 			<table class="table table-bordered">
 				<thead>
@@ -40,7 +38,7 @@ Tareas - {{$unidad->curso->seccion->grado->descripcion}}
 						</td>
 						<td>
 							@if(!is_null($tarea->archivo))
-							<a href="{{$tarea->archivo}}">Descargar</a>
+							<a href="{{$tarea->archivo}}" download="{{$tarea->nombre_original_archivo}}" class="btn btn-primary btn-sm btn-flat fa fa-download"></a>
 							@endif
 						</td>
 						<td>{{$tarea->porcentaje}} %</td>
@@ -63,13 +61,4 @@ Tareas - {{$unidad->curso->seccion->grado->descripcion}}
 		</div>
 	</div>
 </div>
-@endsection
-@section('js')
-<script src="{{ asset('assets/admin/plugins/datatables/jquery.dataTables.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/datatables/dataTables.bootstrap.js') }}"></script>
-<script>
-	$(document).ready(function() {
-		 var table = $('.table').DataTable({'sort': false});
-	} );
-</script>
 @endsection

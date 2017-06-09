@@ -25,6 +25,7 @@ Route::group(['prefix' => 'tareas'], function () {
 	Route::post('agregar/{unidad}','TareaController@agregar')->name('agregar_tarea');
 	Route::get('editar/{tarea}','TareaController@mostrarEditar')->name('editar_tarea');
 	Route::put('editar/{tarea}','TareaController@editar')->name('editar_tarea');
+	Route::get('descargar-archivo/{tarea}','TareaController@descargarArchivo')->name('descargar_archivo_tarea');
 });
 
 }); //prefix-maestros

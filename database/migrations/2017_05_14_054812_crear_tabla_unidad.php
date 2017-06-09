@@ -22,6 +22,7 @@ class CrearTablaUnidad extends Migration
                     ->comment('Porcentaje que representa la nota de la unidad para la nota acumulada del año.');
             $table->text('planificacion')->nullable();
             $table->string('archivo_planificacion')->nullable();
+            $table->string('nombre_original_archivo')->nullable();
             $table->string('estado',1);
             $table->timestamps();
             $table->string('created_by',45);

@@ -38,12 +38,12 @@ Unidades - {{$curso->seccion->grado->descripcion}}
 						<td>{{$unidad->porcentaje}}</td>
 						<td>
 							@if(!is_null($unidad->archivo_planificacion))
-							<a href="{{$unidad->archivo_planificacion}}">Descargar</a>
+							<a href="{{$unidad->archivo_planificacion}}" download="{{$unidad->nombre_original_archivo}}" class="btn btn-primary btn-sm btn-flat fa fa-download"></a>
 							@endif
 						</td>
 						<td>
 							<a href="{{route('editar_unidad',$unidad->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar"></a>
-							<a href="{{route('agregar_tarea',$unidad->id)}}" class="btn btn-primary btn-sm btn-flat fa fa-book" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tareas"></a>
+							<a href="{{route('tareas',$unidad->id)}}" class="btn btn-primary btn-sm btn-flat fa fa-book" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tareas"></a>
 						</td>
 					</tr>
 					@endforeach

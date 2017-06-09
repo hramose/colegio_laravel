@@ -69,6 +69,7 @@ class SeccionController extends BaseController {
 	{
 		$seccion = $this->seccionRepo->find($id);
 		$data = Input::all();
+		$data['grado_id'] = $seccion->grado_id;
 		$manager = new SeccionManager($seccion, $data);
 		$manager->save();
 		Session::flash('success', 'Se editó el grado ' . $seccion->grado->descripcion . ' sección' . $seccion->descripcion_seccion . ' con éxito.');

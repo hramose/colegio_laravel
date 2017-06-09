@@ -21,6 +21,7 @@ class CrearTablaTarea extends Migration
             $table->text('descripcion');
             $table->double('porcentaje');
             $table->string('archivo')->nullable();
+            $table->string('nombre_original_archivo')->nullable();
             $table->tinyInteger('aplica_fecha');
             $table->date('fecha_inicio')->nullable();
             $table->date('fecha_fin')->nullable();

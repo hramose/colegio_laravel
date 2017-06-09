@@ -69,5 +69,10 @@ class TareaController extends BaseController {
 		return redirect()->route('tareas',$tarea->unidad_id);
 	}
 
+	public function descargarArchivo(Tarea $tarea)
+	{
+		return \Response::download($tarea->archivo, $tarea->nombre_original_archivo);
+	}
+
 
 }

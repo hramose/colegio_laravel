@@ -50,10 +50,19 @@ class TareaManager extends BaseManager
 			$this->entity->save();
 			if(\Input::hasFile('archivo'))
 			{
-				$image = \Input::file('archivo');
-				$imageName = 'planificacion.'.$image->getClientOriginalExtension();
-				$url = 'documentos/'.\Auth::user()->ciclo->id . '/' . $this->entity->id;  
-				$this->entity->archivo = $image->storeAs($url,$imageName,'public');
+				$file = \Input::file('archivo');
+				$fileOriginalName = $file->getClientOriginalName();
+				$fileOrginalExtension = $file->getClientOriginalExtension();
+				$this->entity->nombre_original_archivo = $fileOriginalName;
+				$fileName = 'Tarea'.$this->entity->id.'.'.$fileOrginalExtension;
+				$url = 'documentos/';
+				$url .= $this->entity->unidad->curso->seccion->ciclo_id . '/';
+				$url .= $this->entity->unidad->curso->seccion->grado_id . '/';
+				$url .= $this->entity->unidad->curso->seccion_id . '/';
+				$url .= $this->entity->unidad->curso->materia_id . '/';
+				$url .= $this->entity->unidad_id;
+
+				$this->entity->archivo = $file->storeAs($url,$fileName,'public');
 				$this->entity->save();
 			}
 
