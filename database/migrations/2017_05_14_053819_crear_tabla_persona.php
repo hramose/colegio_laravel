@@ -22,7 +22,7 @@ class CrearTablaPersona extends Migration
             $table->date('fecha_nacimiento');
             $table->string('genero',1);
             $table->string('rol',1);
-            $table->bigInteger('cui');
+            $table->bigInteger('cui')->nullable();
             $table->integer('encargado_id')->unsigned()->nullable();
             $table->string('direccion');
             $table->string('telefono',10)->nullable();

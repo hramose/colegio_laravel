@@ -58,5 +58,46 @@ class PersonaController extends BaseController {
 		return redirect(route('maestros'));
 	}
 
+	/*Estudiantes*/
+	public function estudiantes()
+	{
+		$estudiantes = $this->personaRepo->getByRol(['E']);
+		return view('administracion/personas/listado_estudiantes', compact('estudiantes'));
+	}
+
+	public function mostrarAgregarEstudiante()
+	{
+		$generos = Variable::getGeneros();
+		$estados = Variable::getEstadosGenerales();
+		return view('administracion/personas/agregar_estudiante',compact('generos','estados'));
+	}
+
+	public function agregarEstudiante()
+	{
+		$data = Input::all();
+		$manager = new PersonaManager(new Persona(), $data);
+		$estudiante = $manager->saveEstudiante();
+		Session::flash('success', 'Se agregó el estudiante '.$estudiante->nombre_completo.' con éxito.');
+		return redirect(route('estudiantes'));
+	}
+
+	public function mostrarEditarEstudiante($id)
+	{
+		$generos = Variable::getGeneros();
+		$estados = Variable::getEstadosGenerales();
+		$estudiante = $this->personaRepo->find($id);
+		return view('administracion/personas/editar_estudiante', compact('generos','estudiante','estados'));
+	}
+
+	public function editarEstudiante($id)
+	{
+		$estudiante = $this->personaRepo->find($id);
+		$data = Input::all();
+		$manager = new PersonaManager($estudiante, $data);
+		$manager->saveEstudiante();
+		Session::flash('success', 'Se editó el estudiante '.$estudiante->nombre_completo.' con éxito.');
+		return redirect(route('estudiantes'));
+	}
+
 
 }

@@ -38,6 +38,15 @@ Route::group(['prefix' => 'maestros'], function () {
 	Route::put('editar/{id}','PersonaController@editarMaestro')->name('editar_maestro');
 });
 
+/* ESTUDIANTES */
+Route::group(['prefix' => 'estudiantes'], function () {
+	Route::get('listado','PersonaController@estudiantes')->name('estudiantes');
+	Route::get('agregar','PersonaController@mostrarAgregarEstudiante')->name('agregar_estudiante');
+	Route::post('agregar','PersonaController@agregarEstudiante')->name('agregar_estudiante');
+	Route::get('editar/{id}','PersonaController@mostrarEditarEstudiante')->name('editar_estudiante');
+	Route::put('editar/{id}','PersonaController@editarEstudiante')->name('editar_estudiante');
+});
+
 /* MATERIAS */
 Route::group(['prefix' => 'materias'], function () {
 	Route::get('listado','MateriaController@listado')->name('materias');
