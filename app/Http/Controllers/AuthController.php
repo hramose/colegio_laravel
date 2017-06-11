@@ -49,6 +49,8 @@ class AuthController extends BaseController {
 
 			if($user->perfil_id == 3)
 				return Redirect::route('maestros.dashboard');
+			if($user->perfil_id == 4)
+				return Redirect::route('estudiantes.dashboard');
 			
 			return Redirect::route('dashboard');
 

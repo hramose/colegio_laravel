@@ -54,6 +54,8 @@ $(function()
         language: 'es'
     });
 
+     $('#summernote').summernote({minHeight: 300,});
+
 	$('input[name="aplica_fecha"]').on('change',function()
 	{
 		if($(this).is(':checked')){

@@ -26,3 +26,10 @@ $factory->state(\App\App\Entities\Persona::class, 'maestro', function (\Faker\Ge
     	'rol' => 'M',
   	];
 });
+
+$factory->state(\App\App\Entities\Persona::class, 'estudiante', function (\Faker\Generator $faker) {
+	return [
+    	'rol' => 'E',
+    	'fecha_nacimiento' => $faker->dateTimeBetween($startDate = '-17 years', $endDate = '-10 years', $timezone = date_default_timezone_get()),
+  	];
+});

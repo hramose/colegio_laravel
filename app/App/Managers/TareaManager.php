@@ -1,6 +1,8 @@
 <?php
 
 namespace App\App\Managers;
+use App\App\Repositories\EstudianteSeccionRepo;
+use App\App\Entities\TareaEstudiante;
 
 class TareaManager extends BaseManager
 {
@@ -33,11 +35,13 @@ class TareaManager extends BaseManager
 	function prepareData($data)
 	{
 		$data['aplica_fecha'] = isset($data['aplica_fecha']) ? 1 : 0;
+		$data['entrega_via_web'] = isset($data['entrega_via_web']) ? 1 : 0;
 		return $data;
 	}
 
 	function save()
 	{
+		$estudianteSeccionRepo = new EstudianteSeccionRepo();
 		$rules = $this->getRules();
 		$validation = \Validator::make($this->data, $rules);
 		if ($validation->fails())
@@ -64,6 +68,16 @@ class TareaManager extends BaseManager
 
 				$this->entity->archivo = $file->storeAs($url,$fileName,'public');
 				$this->entity->save();
+			}
+
+			$estudiantes = $estudianteSeccionRepo->getBySeccion($this->entity->unidad->curso->seccion_id);
+			foreach($estudiantes as $estudiante)
+			{
+				$te = new TareaEstudiante();
+				$te->tarea_id = $this->entity->id;
+				$te->estudiante_id = $estudiante->estudiante_id;
+				$te->estado = 'N';
+				$te->save();
 			}
 
 			\DB::commit();

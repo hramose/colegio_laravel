@@ -17,6 +17,7 @@ class Persona extends \Eloquent {
 	{
 		return Variable::getEstadoGeneral($this->estado);
 	}
+
 	public function getNombreCompletoAttribute()
 	{
 		$nombre = $this->primer_nombre;
@@ -32,5 +33,15 @@ class Persona extends \Eloquent {
     {
     	return \Storage::disk('public')->url($fotografia);
     }
+
+    public function getDescripcionGeneroAttribute()
+	{
+		return Variable::getGenero($this->genero);
+	}
+
+	public function getEdadAttribute()
+	{
+		return Variable::getAniosMesesBetweenFechas($this->fecha_nacimiento, date('Y-m-d'));
+	}
 
 }

@@ -13,12 +13,27 @@ class EstudianteSeccionRepo extends BaseRepo{
 
 	public function getBySeccion($seccionId)
 	{
-		return EstudianteSeccion::where('seccion_id',$seccionId)->get();
+		$estudiantes = EstudianteSeccion::where('seccion_id',$seccionId)
+									->with('estudiante')
+									->get();
+		$estudiantes = $estudiantes->sort(function ($a, $b){
+  			return strcasecmp($a->estudiante->nombre_completo, $b->estudiante->nombre_completo);
+		});
+		return $estudiantes;
 	}
 
 	public function getBySeccionByEstado($seccionId, $estados)
 	{
-		return EstudianteSeccion::where('seccion_id',$seccionId)->whereIn('estado',$estados)->get();
+		return EstudianteSeccion::where('seccion_id',$seccionId)->whereIn('estado',$estados)->with('estudiante')->get();
+	}
+
+	public function getByCicloByEstudiante($cicloId, $estudianteId)
+	{
+		return EstudianteSeccion::where('estudiante_id',$estudianteId)
+								->whereHas('seccion',function($q) use ($cicloId){
+									$q->where('ciclo_id',$cicloId);
+								})
+								->first();
 	}
 
 }

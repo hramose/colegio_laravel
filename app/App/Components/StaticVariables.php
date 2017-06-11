@@ -82,4 +82,12 @@ class StaticVariables {
 		return $cadena;
 	}
 
+	public function getAniosMesesBetweenFechas($fechaInicio, $fechaFin)
+	{
+		$date1 = new \DateTime($fechaInicio);
+		$date2 = new \DateTime($fechaFin);
+		$diff = $date1->diff($date2);
+		return $diff->y . " años " . $diff->m." meses ";
+	}
+
 }

@@ -40,6 +40,13 @@ class DatabaseSeeder extends Seeder
                 'updated_by' => 'admin'
             ]);
 
+            $perfilEstudiante = Perfil::create([
+                'descripcion' => 'Estudiante',
+                'estado' => 'A',
+                'created_by' => 'admin',
+                'updated_by' => 'admin'
+            ]);
+
             $administrador = Persona::create([
                 'primer_nombre' => 'Administrador',
                 'primer_apellido' => 'Administrador',
@@ -72,6 +79,22 @@ class DatabaseSeeder extends Seeder
                 'updated_by' => 'admin'
             ]);
 
+            $estudiante = Persona::create([
+                'primer_nombre' => 'Chavo',
+                'primer_apellido' => 'Del 8',
+                'fecha_nacimiento' => '2000-01-01',
+                'genero' => 'M',
+                'rol' => 'E',
+                'cui' => '0000000000000',
+                'direccion' => 'Guatemala',
+                'telefono' => '00000000',
+                'celular' => '00000000',
+                'fotografia' => 'personas/male.png',
+                'estado' => 'A',
+                'created_by' => 'admin',
+                'updated_by' => 'admin'
+            ]);
+
             $user = User::create([
             	'username' => 'admin',
             	'password' => 'admin',
@@ -84,10 +107,21 @@ class DatabaseSeeder extends Seeder
             ]);
 
             $userMaestro = User::create([
-                'username' => 'maestro',
-                'password' => 'maestro',
+                'username' => 'jirafales',
+                'password' => 'jirafales',
                 'perfil_id' => $perfilMaestro->id,
                 'persona_id' => $maestro->id,
+                'primera_vez' => 1,
+                'estado' => 'A',
+                'created_by' => 'admin',
+                'updated_by' => 'admin'
+            ]);
+
+            $userEstudiante = User::create([
+                'username' => 'chavo8',
+                'password' => 'chavo8',
+                'perfil_id' => $perfilEstudiante->id,
+                'persona_id' => $estudiante->id,
                 'primera_vez' => 1,
                 'estado' => 'A',
                 'created_by' => 'admin',
@@ -112,6 +146,9 @@ class DatabaseSeeder extends Seeder
 
             $maestros = factory(\App\App\Entities\Persona::class, 10)
             					->states('maestro')->create();
+
+            $estudiantes = factory(\App\App\Entities\Persona::class, 100)
+                                ->states('estudiante')->create();
 
             $materias = ['Matematicas','Idioma Español','Ciencias Naturales','Estudios Sociales'
             ,'Fisica Fundamental','Educación Física','Programación','Computación'];
@@ -147,6 +184,7 @@ class DatabaseSeeder extends Seeder
             TipoTarea::create([
                     'descripcion' => 'Tarea',
                     'aplica_zona' => 1,
+                    'es_examen' => 0,
                     'estado' => 'A',
                     'created_by' => 'admin',
                     'updated_by' => 'admin'
@@ -155,6 +193,7 @@ class DatabaseSeeder extends Seeder
             TipoTarea::create([
                     'descripcion' => 'Laboratorio',
                     'aplica_zona' => 1,
+                    'es_examen' => 0,
                     'estado' => 'A',
                     'created_by' => 'admin',
                     'updated_by' => 'admin'
@@ -163,6 +202,7 @@ class DatabaseSeeder extends Seeder
             TipoTarea::create([
                     'descripcion' => 'Examen Corto',
                     'aplica_zona' => 1,
+                    'es_examen' => 1,
                     'estado' => 'A',
                     'created_by' => 'admin',
                     'updated_by' => 'admin'
@@ -171,6 +211,7 @@ class DatabaseSeeder extends Seeder
             TipoTarea::create([
                     'descripcion' => 'Examen Parcial',
                     'aplica_zona' => 1,
+                    'es_examen' => 1,
                     'estado' => 'A',
                     'created_by' => 'admin',
                     'updated_by' => 'admin'
@@ -179,6 +220,7 @@ class DatabaseSeeder extends Seeder
             TipoTarea::create([
                     'descripcion' => 'Examen Final',
                     'aplica_zona' => 0,
+                    'es_examen' => 1,
                     'estado' => 'A',
                     'created_by' => 'admin',
                     'updated_by' => 'admin'

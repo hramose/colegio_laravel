@@ -28,5 +28,10 @@ class Curso extends \Eloquent {
 	{
 		return $this->belongsTo(Persona::class,'maestro_id');
 	}
+
+	public function unidades()
+	{
+		return $this->hasMany(Unidad::class);
+	}
 	
 }

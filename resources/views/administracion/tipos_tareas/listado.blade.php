@@ -14,6 +14,7 @@
 					<tr>
 						<th>DESCRIPCION</th>
 						<th>APLICA ZONA</th>
+						<th>ES EXAMEN</th>
 						<th>ESTADO</th>
 						<th></th>
 					</tr>
@@ -22,13 +23,8 @@
 					@foreach($tipos as $tipo)
 					<tr>
 						<td>{{$tipo->descripcion}}</td>
-						<td>
-							@if($tipo->aplica_zona)
-								SI
-							@else
-								NO
-							@endif
-						</td>
+						<td>{!!$tipo->descripcion_aplica_zona!!}</td>
+						<td>{!!$tipo->descripcion_es_examen!!}</td>
 						<td>{{$tipo->descripcion_estado}}</td>
 						<td>
 							<a href="{{route('editar_tipo_tarea',$tipo->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar"></a>

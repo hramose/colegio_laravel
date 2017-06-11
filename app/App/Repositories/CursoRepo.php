@@ -40,4 +40,19 @@ class CursoRepo extends BaseRepo{
 						->get();
 	}
 
+	public function getByCicloByEstudiante($cicloId, $estudianteId)
+	{
+		return Curso::whereHas('seccion',function($q) use ($estudianteId)
+						{
+							$q->whereHas('estudiantes', function($w) use ($estudianteId){
+								$w->where('estudiante_id',$estudianteId);
+							});
+						})
+						->with('seccion')
+						->with('seccion.grado')
+						->with('materia')
+						->orderBy('seccion_id')
+						->get();
+	}
+
 }

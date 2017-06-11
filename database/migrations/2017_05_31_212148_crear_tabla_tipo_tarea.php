@@ -17,6 +17,7 @@ class CrearTablaTipoTarea extends Migration
             $table->increments('id');
             $table->string('descripcion',100);
             $table->tinyInteger('aplica_zona');
+            $table->tinyInteger('es_examen');
             $table->string('estado',1);
             $table->timestamps();
             $table->string('created_by',45);

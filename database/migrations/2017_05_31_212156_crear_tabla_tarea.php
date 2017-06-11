@@ -25,6 +25,7 @@ class CrearTablaTarea extends Migration
             $table->tinyInteger('aplica_fecha');
             $table->date('fecha_inicio')->nullable();
             $table->date('fecha_fin')->nullable();
+            $table->tinyInteger('entrega_via_web');
             $table->string('estado',1);
             $table->timestamps();
             $table->string('created_by',45);

@@ -38,5 +38,10 @@ class Seccion extends \Eloquent {
 	{
 		return $this->belongsTo(Persona::class,'maestro_id');
 	}
+
+	public function estudiantes()
+	{
+		return $this->hasMany(EstudianteSeccion::class);
+	}
 	
 }

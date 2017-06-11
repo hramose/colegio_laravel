@@ -26,4 +26,9 @@ class Unidad extends \Eloquent {
     	return null;
     }
 
+    public function tareas()
+    {
+    	return $this->hasMany(Tarea::class);
+    }
+
 }

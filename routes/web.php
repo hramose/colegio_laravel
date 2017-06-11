@@ -5,6 +5,9 @@ Route::get('login','AuthController@mostrarLogin')->name('login');
 Route::post('login','AuthController@login')->name('login');
 Route::get('logout','AuthController@logout')->name('logout');
 
+include('maestros.php');
+include('estudiantes.php');
+
 Route::group(['middleware' => 'auth'], function(){
 
 Route::get('dashboard','AuthController@mostrarDashboard')->name('dashboard');
@@ -107,11 +110,20 @@ Route::group(['prefix' => 'tipos-tareas'], function () {
 	Route::put('editar/{id}','TipoTareaController@editar')->name('editar_tipo_tarea');
 });
 
+/* ESTUDIANTES EN SECCIONES */
+Route::group(['prefix' => 'estudiantes-seccion'], function () {
+	Route::get('listado/{seccion}','EstudianteSeccionController@listado')->name('estudiantes_seccion');
+	Route::get('agregar/{seccion}','EstudianteSeccionController@mostrarAgregar')->name('agregar_estudiante_seccion');
+	Route::post('agregar/{seccion}','EstudianteSeccionController@agregar')->name('agregar_estudiante_seccion');
+	Route::get('editar/{id}','EstudianteSeccionController@mostrarEditar')->name('editar_estudiante_seccion');
+	Route::put('editar/{id}','EstudianteSeccionController@editar')->name('editar_estudiante_seccion');
+	Route::get('corregir-codigos/{seccion}','EstudianteSeccionController@corregirCodigos')->name('corregir_codigos_estudiante_seccion');
 });
 
 });
 
+});
 
 
 
-include('maestros.php');
+

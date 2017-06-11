@@ -21,7 +21,6 @@ class SeccionManager extends BaseManager
 
 		$rules = [
 			'grado_id'  => 'required',
-			'curso_id'  => 'required',
 			'maestro_id'  => 'required',
 			'estado' => 'required'
 		];

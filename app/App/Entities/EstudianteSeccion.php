@@ -7,7 +7,7 @@ class EstudianteSeccion extends \Eloquent {
 
 	protected $fillable = ['estudiante_id','seccion_id','codigo','estado'];
 
-	protected $table = 'curso';
+	protected $table = 'estudiante_seccion';
 	
 	public function getDescripcionEstadoAttribute()
 	{
@@ -22,6 +22,6 @@ class EstudianteSeccion extends \Eloquent {
 	public function seccion()
 	{
 		return $this->belongsTo(Seccion::class);
-	}	
+	}
 	
 }
