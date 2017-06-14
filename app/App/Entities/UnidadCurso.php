@@ -3,20 +3,20 @@
 namespace App\App\Entities;
 use Variable;
 
-class Unidad extends \Eloquent {
+class UnidadCurso extends \Eloquent {
 
-	protected $fillable = ['curso_id','unidad','nota_ganar','porcentaje','planificacion','archivo_planificacion','estado'];
+	protected $fillable = ['curso_id','unidad_seccion_id','planificacion','archivo_planificacion','estado'];
 
-	protected $table = 'unidad';
+	protected $table = 'unidad_curso';
 
 	public function curso()
 	{
 		return $this->belongsTo(Curso::class);
 	}
 
-	public function getDescripcionAttribute()
+	public function unidad_seccion()
 	{
-		return Variable::getUnidad($this->unidad);
+		return $this->belongsTo(UnidadSeccion::class);
 	}
 
 	public function getArchivoPlanificacionAttribute($archivo_planificacion)

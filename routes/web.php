@@ -120,6 +120,15 @@ Route::group(['prefix' => 'estudiantes-seccion'], function () {
 	Route::get('corregir-codigos/{seccion}','EstudianteSeccionController@corregirCodigos')->name('corregir_codigos_estudiante_seccion');
 });
 
+/* UNIDADES SECCIONES */
+Route::group(['prefix' => 'unidades-secciones'], function () {
+	Route::get('listado/{seccion}','UnidadSeccionController@listado')->name('unidades_secciones');
+	Route::get('agregar/{seccion}','UnidadSeccionController@mostrarAgregar')->name('agregar_unidad_seccion');
+	Route::post('agregar/{seccion}','UnidadSeccionController@agregar')->name('agregar_unidad_seccion');
+	Route::get('editar/{unidad_seccion}','UnidadSeccionController@mostrarEditar')->name('editar_unidad_seccion');
+	Route::put('editar/{unidad_seccion}','UnidadSeccionController@editar')->name('editar_unidad_seccion');
+});
+
 });
 
 });

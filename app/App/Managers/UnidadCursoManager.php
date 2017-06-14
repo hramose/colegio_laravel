@@ -2,7 +2,7 @@
 
 namespace App\App\Managers;
 
-class UnidadManager extends BaseManager
+class UnidadCursoManager extends BaseManager
 {
 
 	protected $entity;
@@ -17,10 +17,8 @@ class UnidadManager extends BaseManager
 	function getRules()
 	{
 		$rules = [
-			'unidad'  => 'required',
-			'curso_id'  => 'required',
-			'nota_ganar'  => 'required',
-			'porcentaje' => 'required'
+			'unidad_seccion_id'  	=> 'required',
+			'curso_id'  			=> 'required',
 		];
 		return $rules;
 	}
