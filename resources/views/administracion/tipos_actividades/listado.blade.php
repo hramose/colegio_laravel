@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title') Tipos de Tarea @endsection
+@section('title') Tipos de Actividad @endsection
 @section('css')
 <link href="{{asset('assets/admin/plugins/datatables/dataTables.bootstrap.css')}}" rel="stylesheet">
 @endsection
@@ -7,7 +7,7 @@
 <div class="box box-primary">
 	<div class="box-body">
 		<div class="table-responsive">
-			<a href="{{route('agregar_tipo_tarea')}}" class="btn btn-primary btn-flat">Agregar</a>
+			<a href="{{route('agregar_tipo_actividad')}}" class="btn btn-primary btn-flat">Agregar</a>
 			<hr>
 			<table class="table table-bordered">
 				<thead>
@@ -27,7 +27,7 @@
 						<td>{!!$tipo->descripcion_es_examen!!}</td>
 						<td>{{$tipo->descripcion_estado}}</td>
 						<td>
-							<a href="{{route('editar_tipo_tarea',$tipo->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar"></a>
+							<a href="{{route('editar_tipo_actividad',$tipo->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar"></a>
 						</td>
 					</tr>
 					@endforeach

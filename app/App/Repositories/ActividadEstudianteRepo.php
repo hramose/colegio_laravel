@@ -2,24 +2,24 @@
 
 namespace App\App\Repositories;
 
-use App\App\Entities\TareaEstudiante;
+use App\App\Entities\ActividadEstudiante;
 
 
-class TareaEstudianteRepo extends BaseRepo{
+class ActividadEstudianteRepo extends BaseRepo{
 
 	public function getModel()
 	{
-		return new TareaEstudiante;
+		return new ActividadEstudiante;
 	}
 
 	public function getByEstudianteByUnidad($estudianteId, $unidadId)
 	{
-		return TareaEstudiante::whereHas('tarea', function($q) use ($unidadId){
+		return ActividadEstudiante::whereHas('actividad', function($q) use ($unidadId){
 									$q->where('unidad_id',$unidadId);
 								})
 								->where('estudiante_id',$estudianteId)
-								->with('tarea')
-								->with('tarea.tipo')
+								->with('actividad')
+								->with('actividad.tipo')
 								->get();
 	}
 

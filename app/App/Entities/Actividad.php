@@ -3,11 +3,11 @@
 namespace App\App\Entities;
 use Variable;
 
-class Tarea extends \Eloquent {
+class Actividad extends \Eloquent {
 
-	protected $fillable = ['unidad_id','tipo_tarea_id','porcentaje','titulo','descripcion','archivo','aplica_fecha','fecha_inicio','fecha_fin','entrega_via_web','estado'];
+	protected $fillable = ['unidad_id','tipo_actividad_id','porcentaje','titulo','descripcion','archivo','aplica_fecha','fecha_inicio','fecha_fin','entrega_via_web','estado'];
 
-	protected $table = 'tarea';
+	protected $table = 'actividad';
 
 	public function unidad()
 	{
@@ -16,7 +16,7 @@ class Tarea extends \Eloquent {
 
 	public function tipo()
 	{
-		return $this->belongsTo(TipoTarea::class, 'tipo_tarea_id');
+		return $this->belongsTo(TipoActividad::class, 'tipo_actividad_id');
 	}
 
 	public function getArchivoAttribute($archivo)

@@ -2,7 +2,7 @@
 
 namespace App\App\Managers;
 
-class TareaEstudianteManager extends BaseManager
+class TipoActividadManager extends BaseManager
 {
 
 	protected $entity;
@@ -17,14 +17,16 @@ class TareaEstudianteManager extends BaseManager
 	function getRules()
 	{
 		$rules = [
-			'tarea_id'  		=> 'required',
-			'estudiante_id'  	=> 'required',
+			'descripcion'  => 'required',
+			'estado'  => 'required',
 		];
 		return $rules;
 	}
 
 	function prepareData($data)
 	{
+		$data['aplica_zona'] = isset($data['aplica_zona']) ? 1 : 0;
+		$data['es_examen'] = isset($data['es_examen']) ? 1 : 0;
 		return $data;
 	}
 

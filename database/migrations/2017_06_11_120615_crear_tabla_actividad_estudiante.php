@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CrearTablaTareaEstudiante extends Migration
+class CrearTablaActividadEstudiante extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CrearTablaTareaEstudiante extends Migration
      */
     public function up()
     {
-        Schema::create('tarea_estudiante', function (Blueprint $table) {
+        Schema::create('actividad_estudiante', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('tarea_id')->unsigned();
+            $table->integer('actividad_id')->unsigned();
             $table->integer('estudiante_id')->unsigned();
             $table->integer('nota')->nullable();
             $table->string('archivo')->nullable();
@@ -26,9 +26,9 @@ class CrearTablaTareaEstudiante extends Migration
             $table->string('created_by',45);
             $table->string('updated_by',45);
 
-            $table->foreign('tarea_id')->references('id')->on('tarea');
+            $table->foreign('actividad_id')->references('id')->on('actividad');
             $table->foreign('estudiante_id')->references('id')->on('persona');
-            $table->unique(['tarea_id','estudiante_id']);
+            $table->unique(['actividad_id','estudiante_id']);
         });
     }
 
@@ -39,6 +39,6 @@ class CrearTablaTareaEstudiante extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tarea_estudiante');
+        Schema::dropIfExists('actividad_estudiante');
     }
 }
