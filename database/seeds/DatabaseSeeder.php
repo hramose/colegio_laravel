@@ -7,7 +7,7 @@ use App\App\Entities\Perfil;
 use App\App\Entities\Ciclo;
 use App\App\Entities\Materia;
 use App\App\Entities\Grado;
-use App\App\Entities\TipoTarea;
+use App\App\Entities\TipoActividad;
 
 class DatabaseSeeder extends Seeder
 {
@@ -181,8 +181,8 @@ class DatabaseSeeder extends Seeder
             	]);
             }
 
-            TipoTarea::create([
-                    'descripcion' => 'Tarea',
+            TipoActividad::create([
+                    'descripcion' => 'Actividad',
                     'aplica_zona' => 1,
                     'es_examen' => 0,
                     'estado' => 'A',
@@ -190,7 +190,7 @@ class DatabaseSeeder extends Seeder
                     'updated_by' => 'admin'
                 ]);
 
-            TipoTarea::create([
+            TipoActividad::create([
                     'descripcion' => 'Laboratorio',
                     'aplica_zona' => 1,
                     'es_examen' => 0,
@@ -199,7 +199,7 @@ class DatabaseSeeder extends Seeder
                     'updated_by' => 'admin'
                 ]);
 
-            TipoTarea::create([
+            TipoActividad::create([
                     'descripcion' => 'Examen Corto',
                     'aplica_zona' => 1,
                     'es_examen' => 1,
@@ -208,7 +208,7 @@ class DatabaseSeeder extends Seeder
                     'updated_by' => 'admin'
                 ]);
 
-            TipoTarea::create([
+            TipoActividad::create([
                     'descripcion' => 'Examen Parcial',
                     'aplica_zona' => 1,
                     'es_examen' => 1,
@@ -217,7 +217,7 @@ class DatabaseSeeder extends Seeder
                     'updated_by' => 'admin'
                 ]);
 
-            TipoTarea::create([
+            TipoActividad::create([
                     'descripcion' => 'Examen Final',
                     'aplica_zona' => 0,
                     'es_examen' => 1,

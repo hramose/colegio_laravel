@@ -22,14 +22,13 @@ Route::group(['prefix' => 'unidades'], function () {
 	Route::put('editar/{unidad}','UnidadController@editar')->name('editar_unidad');
 });
 
-/* TAREAS */
-Route::group(['prefix' => 'tareas'], function () {
-	Route::get('listado/{unidad}','TareaController@listado')->name('tareas');
-	Route::get('agregar/{unidad}','TareaController@mostrarAgregar')->name('agregar_tarea');
-	Route::post('agregar/{unidad}','TareaController@agregar')->name('agregar_tarea');
-	Route::get('editar/{tarea}','TareaController@mostrarEditar')->name('editar_tarea');
-	Route::put('editar/{tarea}','TareaController@editar')->name('editar_tarea');
-	Route::get('descargar-archivo/{tarea}','TareaController@descargarArchivo')->name('descargar_archivo_tarea');
+/* ACTIVIDADES */
+Route::group(['prefix' => 'actividades'], function () {
+	Route::get('listado/{unidad}','ActividadController@listado')->name('actividades');
+	Route::get('agregar/{unidad}','ActividadController@mostrarAgregar')->name('agregar_actividad');
+	Route::post('agregar/{unidad}','ActividadController@agregar')->name('agregar_actividad');
+	Route::get('editar/{actividad}','ActividadController@mostrarEditar')->name('editar_actividad');
+	Route::put('editar/{actividad}','ActividadController@editar')->name('editar_actividad');
 });
 
 }); //prefix-maestros

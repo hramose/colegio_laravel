@@ -20,7 +20,7 @@
         	<h4>Actividades</h4>
         	<hr>
         	@foreach($unidades as $index => $unidad)
-        	<div class="tab-pane active" id="{{$unidad->id}}">
+        	<div class="tab-pane @if($index == 0) active @endif" id="{{$unidad->id}}">
 				<div class="table-responsive">
 					<table class="table responsive">
 						<thead>
@@ -33,12 +33,12 @@
 							</tr>
 						</thead>
 						<tbody>
-							 @foreach($unidad->tareas as $tarea)
+							 @foreach($unidad->actividades as $actividad)
 							<tr>
-								<td> {{$tarea->tarea->titulo}} </td>
-								<td> {{$tarea->tarea->tipo->descripcion}} </td>
-								<td> {{$tarea->tarea->porcentaje}} pts </td>
-								<td> {{$tarea->estado}} </td>
+								<td> {{$actividad->actividad->titulo}} </td>
+								<td> {{$actividad->actividad->tipo->descripcion}} </td>
+								<td> {{$actividad->actividad->porcentaje}} pts </td>
+								<td> {{$actividad->estado}} </td>
 							</tr>
 							 @endforeach 
 						</tbody>

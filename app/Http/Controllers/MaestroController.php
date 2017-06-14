@@ -8,13 +8,13 @@ use App\App\Repositories\CicloRepo;
 use App\App\Repositories\SeccionRepo;
 use App\App\Repositories\CursoRepo;
 use App\App\Repositories\EstudianteSeccionRepo;
-use App\App\Repositories\TareaRepo;
-use App\App\Repositories\TareaEstudianteRepo;
+use App\App\Repositories\ActividadRepo;
+use App\App\Repositories\ActividadEstudianteRepo;
 
 use App\App\Entities\Seccion;
 use App\App\Entities\Curso;
 use App\App\Entities\EstudianteSeccion;
-use App\App\Entities\Tarea;
+use App\App\Entities\Actividad;
 
 class MaestroController extends BaseController {
 
@@ -22,17 +22,17 @@ class MaestroController extends BaseController {
 	protected $seccionRepo;
 	protected $cursoRepo;
 	protected $estudianteSeccionRepo;
-	protected $tareaRepo;
-	protected $estudianteSeccionRepo;
+	protected $actividadRepo;
+	protected $actividadEstudianteRepo;
 
-	public function __construct(CicloRepo $cicloRepo, SeccionRepo $seccionRepo, CursoRepo $cursoRepo, EstudianteSeccionRepo $estudianteSeccionRepo, TareaRepo $tareaRepo, TareaEstudianteRepo $tareaEstudianteRepo)
+	public function __construct(CicloRepo $cicloRepo, SeccionRepo $seccionRepo, CursoRepo $cursoRepo, EstudianteSeccionRepo $estudianteSeccionRepo, ActividadRepo $actividadRepo, ActividadEstudianteRepo $actividadEstudianteRepo)
 	{
 		$this->cicloRepo = $cicloRepo;
 		$this->seccionRepo = $seccionRepo;
 		$this->cursoRepo = $cursoRepo;
 		$this->estudianteSeccionRepo = $estudianteSeccionRepo;
-		$this->tareaRepo = $tareaRepo;
-		$this->estudianteSeccionRepo = $estudianteSeccionRepo;
+		$this->actividadRepo = $actividadRepo;
+		$this->actividadEstudianteRepo = $actividadEstudianteRepo;
 		View::composer('layouts.admin', 'App\Http\Controllers\AdminMenuController');
 	}
 

@@ -3,11 +3,11 @@
 namespace App\App\Entities;
 use Variable;
 
-class TipoTarea extends \Eloquent {
+class TipoActividad extends \Eloquent {
 
 	protected $fillable = ['descripcion','aplica_zona','es_examen','estado'];
 
-	protected $table = 'tipo_tarea';
+	protected $table = 'tipo_actividad';
 	
 	public function getDescripcionEstadoAttribute()
 	{

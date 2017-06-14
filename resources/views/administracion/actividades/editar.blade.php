@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 @section('title') 
-Editar Tarea - {{$tarea->titulo}} - 
-{{$tarea->unidad->curso->seccion->grado->descripcion}} 
-{{$tarea->unidad->curso->seccion->descripcion_seccion}} 
-{{$tarea->unidad->descripcion}}  - 
-{{$tarea->unidad->curso->materia->descripcion}} 
+Editar Actividad - {{$actividad->titulo}} - 
+{{$actividad->unidad->curso->seccion->grado->descripcion}} 
+{{$actividad->unidad->curso->seccion->descripcion_seccion}} 
+{{$actividad->unidad->descripcion}}  - 
+{{$actividad->unidad->curso->materia->descripcion}} 
 @endsection
 @section('css')
 <link href="{{ asset('assets/admin/plugins/datepicker/datepicker3.css') }}" rel="stylesheet">
@@ -12,11 +12,11 @@ Editar Tarea - {{$tarea->titulo}} -
 @endsection
 @section('content')
 <div class="box box-primary">
-	{!! Form::model($tarea, ['route' => ['editar_tarea',$tarea->id], 'method' => 'PUT', 'id' => 'form', 'class'=>'validate-form','files'=>'true']) !!}
+	{!! Form::model($actividad, ['route' => ['editar_actividad',$actividad->id], 'method' => 'PUT', 'id' => 'form', 'class'=>'validate-form','files'=>'true']) !!}
 	    <div class="box-body">
 	       	<div class="row">
 	    		<div class="col-lg-6">{!! Field::text('titulo', null, ['data-required'=> 'true']) !!}</div>
-	    		<div class="col-lg-3">{!! Field::select('tipo_tarea_id', $tipos, null, ['data-required'=> 'true']) !!}</div>
+	    		<div class="col-lg-3">{!! Field::select('tipo_actividad_id', $tipos, null, ['data-required'=> 'true']) !!}</div>
 	    		<div class="col-lg-3">{!! Field::number('porcentaje', null, ['data-required'=> 'true']) !!}</div>
 	    	</div>
 	    	<div class="row">
@@ -35,7 +35,7 @@ Editar Tarea - {{$tarea->titulo}} -
 	  	</div>
 		<div class="box-footer">
        		<input type="submit" value="Editar" class="btn btn-primary btn-flat">
-            <a href="{{ route('tareas',$tarea->unidad_id) }}" class="btn btn-danger btn-flat">Cancelar</a>     
+            <a href="{{ route('actividades',$actividad->unidad_id) }}" class="btn btn-danger btn-flat">Cancelar</a>     
 		</div>
 	{!! Form::close() !!}
 </div>

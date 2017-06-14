@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CrearTablaTipoTarea extends Migration
+class CrearTablaTipoActividad extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CrearTablaTipoTarea extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_tarea', function (Blueprint $table) {
+        Schema::create('tipo_actividad', function (Blueprint $table) {
             $table->increments('id');
             $table->string('descripcion',100);
             $table->tinyInteger('aplica_zona');
@@ -32,6 +32,6 @@ class CrearTablaTipoTarea extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_tarea');
+        Schema::dropIfExists('tipo_actividad');
     }
 }

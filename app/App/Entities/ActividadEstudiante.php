@@ -3,15 +3,15 @@
 namespace App\App\Entities;
 use Variable;
 
-class TareaEstudiante extends \Eloquent {
+class ActividadEstudiante extends \Eloquent {
 
-	protected $fillable = ['tarea_id','estudiante_id','nota','texto','archivo','fecha_entrega','estado'];
+	protected $fillable = ['actividad_id','estudiante_id','nota','texto','archivo','fecha_entrega','estado'];
 
-	protected $table = 'tarea_estudiante';
+	protected $table = 'actividad_estudiante';
 
-	public function tarea()
+	public function actividad()
 	{
-		return $this->belongsTo(Tarea::class);
+		return $this->belongsTo(Actividad::class);
 	}
 
 	public function estudiante()

@@ -2,9 +2,9 @@
 
 namespace App\App\Managers;
 use App\App\Repositories\EstudianteSeccionRepo;
-use App\App\Entities\TareaEstudiante;
+use App\App\Entities\ActividadEstudiante;
 
-class TareaManager extends BaseManager
+class ActividadManager extends BaseManager
 {
 
 	protected $entity;
@@ -58,7 +58,7 @@ class TareaManager extends BaseManager
 				$fileOriginalName = $file->getClientOriginalName();
 				$fileOrginalExtension = $file->getClientOriginalExtension();
 				$this->entity->nombre_original_archivo = $fileOriginalName;
-				$fileName = 'Tarea'.$this->entity->id.'.'.$fileOrginalExtension;
+				$fileName = 'Actividad'.$this->entity->id.'.'.$fileOrginalExtension;
 				$url = 'documentos/';
 				$url .= $this->entity->unidad->curso->seccion->ciclo_id . '/';
 				$url .= $this->entity->unidad->curso->seccion->grado_id . '/';
@@ -73,8 +73,8 @@ class TareaManager extends BaseManager
 			$estudiantes = $estudianteSeccionRepo->getBySeccion($this->entity->unidad->curso->seccion_id);
 			foreach($estudiantes as $estudiante)
 			{
-				$te = new TareaEstudiante();
-				$te->tarea_id = $this->entity->id;
+				$te = new ActividadEstudiante();
+				$te->actividad_id = $this->entity->id;
 				$te->estudiante_id = $estudiante->estudiante_id;
 				$te->estado = 'N';
 				$te->save();

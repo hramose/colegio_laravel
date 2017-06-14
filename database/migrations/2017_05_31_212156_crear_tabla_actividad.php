@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CrearTablaTarea extends Migration
+class CrearTablaActividad extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CrearTablaTarea extends Migration
      */
     public function up()
     {
-        Schema::create('tarea', function (Blueprint $table) {
+        Schema::create('actividad', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('unidad_id')->unsigned();
-            $table->integer('tipo_tarea_id')->unsigned();
+            $table->integer('tipo_actividad_id')->unsigned();
             $table->string('titulo');
             $table->text('descripcion');
             $table->double('porcentaje');
@@ -32,7 +32,7 @@ class CrearTablaTarea extends Migration
             $table->string('updated_by',45);
 
             $table->foreign('unidad_id')->references('id')->on('unidad');
-            $table->foreign('tipo_tarea_id')->references('id')->on('tipo_tarea');
+            $table->foreign('tipo_actividad_id')->references('id')->on('tipo_actividad');
         });
     }
 
@@ -43,6 +43,6 @@ class CrearTablaTarea extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tarea');
+        Schema::dropIfExists('actividad');
     }
 }
