@@ -5,6 +5,8 @@ use Variable;
 
 class TipoActividad extends \Eloquent {
 
+	use UserStamps;
+
 	protected $fillable = ['descripcion','aplica_zona','es_examen','estado'];
 
 	protected $table = 'tipo_actividad';
@@ -23,7 +25,7 @@ class TipoActividad extends \Eloquent {
 
 	public function getDescripcionEsExamenAttribute()
 	{
-		if($this->aplica_zona)
+		if($this->es_examen)
 			return '<i class="fa fa-check square text-white bg-green"></i>';
 		return '<i class="fa fa-times square text-white bg-red"></i>';
 	}

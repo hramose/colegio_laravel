@@ -46,8 +46,8 @@ class CursoController extends BaseController {
 	{
 		$data = Input::all();
 		$manager = new CursoManager(null, $data);
-		$manager->agregarCursos($seccionId);
 		$seccion = $this->seccionRepo->find($seccionId);
+		$manager->agregarCursos($seccionId, $seccion->unidades);
 		Session::flash('success', 'Se agregaron los cursos a '.$seccion->grado->descripcion .' '.$seccion->descripcion_seccion.' con éxito.');
 		return redirect()->route('cursos',$seccion->id);
 	}

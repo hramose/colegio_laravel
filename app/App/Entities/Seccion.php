@@ -5,6 +5,8 @@ use Variable;
 
 class Seccion extends \Eloquent {
 
+	use UserStamps;
+
 	protected $fillable = ['ciclo_id','grado_id','maestro_id','seccion','estado'];
 
 	protected $table = 'seccion';
@@ -42,6 +44,11 @@ class Seccion extends \Eloquent {
 	public function estudiantes()
 	{
 		return $this->hasMany(EstudianteSeccion::class);
+	}
+
+	public function unidades()
+	{
+		return $this->hasMany(UnidadSeccion::class);
 	}
 	
 }

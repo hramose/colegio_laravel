@@ -4,6 +4,9 @@ namespace App\App\Entities;
 use Variable;
 
 class Persona extends \Eloquent {
+
+	use UserStamps;
+	
 	protected $fillable = ['primer_nombre','segundo_nombre','primer_apellido','segundo_apellido','rol','fecha_nacimiento','genero','fotografia','cui','direccion','telefono','celular','estado'];
 
 	protected $table = 'persona';

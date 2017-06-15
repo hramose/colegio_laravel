@@ -11,7 +11,7 @@ use App\App\Entities\Seccion;
 use App\App\Repositories\SeccionRepo;
 use App\App\Repositories\CursoRepo;
 
-class UnidadController extends BaseController {
+class UnidadSeccionController extends BaseController {
 
 	protected $unidadSeccionRepo;
 	protected $seccionRepo;
@@ -46,26 +46,27 @@ class UnidadController extends BaseController {
 		$data['seccion_id'] = $seccion->id;
 		$data['estado'] = 'A';
 		$manager = new UnidadSeccionManager(new UnidadSeccion(), $data);
-		$manager->save();
+		$cursos = $this->cursoRepo->getBySeccion($seccion->id);
+		$manager->agregar($cursos);
 		Session::flash('success', 'Se agregó la unidad '.Variable::getUnidad($data['unidad']).' a '.$seccion->grado->descripcion . ' ' . $seccion->descripcion_seccion .' con éxito.');
 		return redirect()->route('unidades_secciones',$seccion->id);
 	}
 
-	public function mostrarEditar(UnidadSeccion $unidad)
+	public function mostrarEditar(UnidadSeccion $unidadSeccion)
 	{
-		return view('administracion/unidades_secciones/editar', compact('unidad'));
+		return view('administracion/unidades_secciones/editar', compact('unidadSeccion'));
 	}
 
-	public function editar(UnidadSeccion $unidad)
+	public function editar(UnidadSeccion $unidadSeccion)
 	{
 		$data = Input::all();
-		$data['seccion_id'] = $unidad->seccion_id;
-		$data['estado'] = $unidad->estado;
-		$data['unidad'] = $unidad->unidad;
-		$manager = new UnidadManager($unidad, $data);
+		$data['seccion_id'] = $unidadSeccion->seccion_id;
+		$data['estado'] = $unidadSeccion->estado;
+		$data['unidad'] = $unidadSeccion->unidad;
+		$manager = new UnidadSeccionManager($unidadSeccion, $data);
 		$manager->save();
 		Session::flash('success', 'Se editó la unidad con éxito.');
-		return redirect()->route('unidades_secciones',$unidad->seccion_id);
+		return redirect()->route('unidades_secciones',$unidadSeccion->seccion_id);
 	}
 
 

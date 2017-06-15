@@ -5,6 +5,8 @@ use Variable;
 
 class Grado extends \Eloquent {
 
+	use UserStamps;
+
 	protected $fillable = ['descripcion','numero','nivel_academico','estado'];
 
 	protected $table = 'grado';

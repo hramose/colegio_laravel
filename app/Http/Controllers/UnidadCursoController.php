@@ -10,7 +10,7 @@ use Controller, Redirect, Input, View, Session, Variable;
 use App\App\Entities\Curso;
 use App\App\Repositories\CursoRepo;
 
-class UnidadController extends BaseController {
+class UnidadCursoController extends BaseController {
 
 	protected $unidadRepo;
 	protected $cursoRepo;

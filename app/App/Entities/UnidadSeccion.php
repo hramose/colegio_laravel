@@ -5,6 +5,8 @@ use Variable;
 
 class UnidadSeccion extends \Eloquent {
 
+	use UserStamps;
+
 	protected $fillable = ['seccion_id','unidad','nota_ganar','porcentaje','estado'];
 
 	protected $table = 'unidad_seccion';

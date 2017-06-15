@@ -2,6 +2,8 @@
 
 namespace App\App\Managers;
 use App\App\Entities\UnidadCurso;
+use App\App\Repositories\SeccionRepo;
+use Variable;
 
 class UnidadSeccionManager extends BaseManager
 {
@@ -50,6 +52,7 @@ class UnidadSeccionManager extends BaseManager
 				$unidadCurso->unidad_seccion_id = $this->entity->id;
 				$unidadCurso->curso_id = $curso->id;
 				$unidadCurso->estado = 'A';
+				$unidadCurso->save();
 			}
 
 			\DB::commit();
@@ -57,7 +60,19 @@ class UnidadSeccionManager extends BaseManager
 		}
 		catch(\Exception $ex)
 		{
-			throw new SaveDataException("Error!", $ex);			
+			$mensaje = $ex->getMessage();
+			$unidad = $ex->getBindings()[0];
+			$seccionId = $ex->getBindings()[3];
+
+			$seccionRepo = new SeccionRepo();
+
+			$seccion = $seccionRepo->find($seccionId);
+			$unidad = Variable::getUnidad($unidad);
+
+			if(str_contains($mensaje, 'unidad_seccion_seccion_id_unidad_unique')){
+				throw new SaveDataException("Error", new \Exception('La unidad '.$unidad.' en '.$seccion->grado->descripcion . ' ' . $seccion->descripcion_seccion . ' ya existe.'));
+			}
+			throw new SaveDataException("Error", $ex);		
 		}
 	}
 

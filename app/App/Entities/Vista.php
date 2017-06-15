@@ -4,6 +4,8 @@ namespace App\App\Entities;
 
 class Vista extends \Eloquent {
 
+	use UserStamps;
+
 	protected $fillable = ['nombre','ruta','icono','menu','modulo_id'];
 
 	protected $table = 'vista';

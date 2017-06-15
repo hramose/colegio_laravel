@@ -15,7 +15,7 @@ class CrearTablaActividad extends Migration
     {
         Schema::create('actividad', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('unidad_id')->unsigned();
+            $table->integer('unidad_curso_id')->unsigned();
             $table->integer('tipo_actividad_id')->unsigned();
             $table->string('titulo');
             $table->text('descripcion');
@@ -31,7 +31,7 @@ class CrearTablaActividad extends Migration
             $table->string('created_by',45);
             $table->string('updated_by',45);
 
-            $table->foreign('unidad_id')->references('id')->on('unidad');
+            $table->foreign('unidad_curso_id')->references('id')->on('unidad_curso');
             $table->foreign('tipo_actividad_id')->references('id')->on('tipo_actividad');
         });
     }

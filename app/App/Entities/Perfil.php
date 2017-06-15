@@ -4,6 +4,8 @@ namespace App\App\Entities;
 use Variable;
 
 class Perfil extends \Eloquent {
+
+	use UserStamps;
 	
 	protected $fillable = ['descripcion','estado'];
 
