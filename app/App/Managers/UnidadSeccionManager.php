@@ -75,5 +75,4 @@ class UnidadSeccionManager extends BaseManager
 			throw new SaveDataException("Error", $ex);		
 		}
 	}
-
 }
