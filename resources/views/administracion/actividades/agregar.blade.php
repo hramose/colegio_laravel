@@ -1,10 +1,8 @@
 @extends('layouts.admin')
 @section('title') 
-Agregar Actividad -
-{{$unidad->curso->seccion->grado->descripcion}} 
-{{$unidad->curso->seccion->descripcion_seccion}} 
-{{$unidad->descripcion}}  - 
-{{$unidad->curso->materia->descripcion}} 
+Agregar Actividad - 
+{{$unidadCurso->unidad_seccion->descripcion}}  - 
+{{$unidadCurso->curso->descripcion}} 
 @endsection
 @section('css')
 <link href="{{ asset('assets/admin/plugins/datepicker/datepicker3.css') }}" rel="stylesheet">
@@ -12,7 +10,7 @@ Agregar Actividad -
 @endsection
 @section('content')
 <div class="box box-primary">
-	{!! Form::open(['route' => ['agregar_actividad',$unidad->id], 'method' => 'POST', 'id' => 'form', 'class'=>'validate-form','files'=>'true']) !!}
+	{!! Form::open(['route' => ['agregar_actividad',$unidadCurso->id], 'method' => 'POST', 'id' => 'form', 'class'=>'validate-form','files'=>'true']) !!}
 	    <div class="box-body">
 	    	<div class="row">
 	    		<div class="col-lg-6">{!! Field::text('titulo', null, ['data-required'=> 'true']) !!}</div>
@@ -35,7 +33,7 @@ Agregar Actividad -
 	  	</div>
 		<div class="box-footer">
        		<input type="submit" value="Agregar" class="btn btn-primary btn-flat">
-            <a href="{{ route('actividades',$unidad->id) }}" class="btn btn-danger btn-flat">Cancelar</a>     
+            <a href="{{ route('actividades',$unidadCurso->id) }}" class="btn btn-danger btn-flat">Cancelar</a>     
 		</div>
 	{!! Form::close() !!}
 </div>

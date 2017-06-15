@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\App\Repositories\UnidadRepo;
-use App\App\Managers\UnidadManager;
-use App\App\Entities\Unidad;
+use App\App\Repositories\UnidadCursoRepo;
+use App\App\Managers\UnidadCursoManager;
+use App\App\Entities\UnidadCurso;
 use Controller, Redirect, Input, View, Session, Variable;
 
 use App\App\Entities\Curso;
@@ -12,57 +12,37 @@ use App\App\Repositories\CursoRepo;
 
 class UnidadCursoController extends BaseController {
 
-	protected $unidadRepo;
+	protected $unidadCursoRepo;
 	protected $cursoRepo;
 
-	public function __construct(UnidadRepo $unidadRepo, CursoRepo $cursoRepo)
+	public function __construct(UnidadCursoRepo $unidadCursoRepo, CursoRepo $cursoRepo)
 	{
-		$this->unidadRepo = $unidadRepo;
+		$this->unidadCursoRepo = $unidadCursoRepo;
 		$this->cursoRepo = $cursoRepo;
 		View::composer('layouts.admin', 'App\Http\Controllers\AdminMenuController');
 	}
 
 	public function listado(Curso $curso)
 	{
-		$unidades = $this->unidadRepo->getByCurso($curso->id);
-		$totalPorcentaje = 0;
-		foreach($unidades as $unidad)
-			$totalPorcentaje += $unidad->porcentaje;
-		return view('administracion/unidades/listado', compact('unidades','curso','totalPorcentaje'));
+		$unidades = $this->unidadCursoRepo->getByCurso($curso->id);
+		return view('administracion/unidades_cursos/listado', compact('unidades','curso'));
 	}
 
-	public function mostrarAgregar(Curso $curso)
+	public function mostrarEditar(UnidadCurso $unidadCurso)
 	{
-		$unidades = Variable::getUnidades();
-		return view('administracion/unidades/agregar',compact('curso','unidades'));
+		return view('administracion/unidades_cursos/editar', compact('unidadCurso'));
 	}
 
-	public function agregar(Curso $curso)
+	public function editar(UnidadCurso $unidadCurso)
 	{
 		$data = Input::all();
-		$data['curso_id'] = $curso->id;
-		$data['estado'] = 'A';
-		$manager = new UnidadManager(new Unidad(), $data);
+		$data['curso_id'] = $unidadCurso->curso_id;
+		$data['unidad_seccion_id'] = $unidadCurso->unidad_seccion_id;
+		$data['estado'] = $unidadCurso->estado;
+		$manager = new UnidadCursoManager($unidadCurso, $data);
 		$manager->save();
-		Session::flash('success', 'Se agregó la unidad con éxito.');
-		return redirect()->route('unidades',$curso->id);
-	}
-
-	public function mostrarEditar(Unidad $unidad)
-	{
-		return view('administracion/unidades/editar', compact('unidad'));
-	}
-
-	public function editar(Unidad $unidad)
-	{
-		$data = Input::all();
-		$data['curso_id'] = $unidad->curso_id;
-		$data['estado'] = $unidad->estado;
-		$data['unidad'] = $unidad->unidad;
-		$manager = new UnidadManager($unidad, $data);
-		$manager->save();
-		Session::flash('success', 'Se editó la unidad con éxito.');
-		return redirect()->route('unidades',$unidad->curso_id);
+		Session::flash('success', 'Se editó la unidad del curso con éxito.');
+		return redirect()->route('unidades_cursos',$unidadCurso->curso_id);
 	}
 
 

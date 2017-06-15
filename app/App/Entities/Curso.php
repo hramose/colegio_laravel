@@ -35,5 +35,10 @@ class Curso extends \Eloquent {
 	{
 		return $this->hasMany(Unidad::class);
 	}
+
+	public function getDescripcionAttribute()
+	{
+		return $this->seccion->grado->descripcion . ' ' . $this->seccion->descripcion_seccion . ' - ' . $this->materia->descripcion;
+	}
 	
 }

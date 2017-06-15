@@ -34,7 +34,7 @@ class EstudianteSeccionController extends BaseController {
 
 	public function mostrarAgregar(Seccion $seccion)
 	{
-		$estudiantes = $this->personaRepo->getNotInSeccionByRolByEstado($seccion->id, ['E'], ['A']);
+		$estudiantes = $this->personaRepo->getNotInCicloByRolByEstado($seccion->ciclo_id, ['E'], ['A']);
 		return view('administracion/estudiantes_seccion/agregar', compact('seccion','estudiantes'));
 	}
 

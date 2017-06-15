@@ -12,10 +12,10 @@ class ActividadEstudianteRepo extends BaseRepo{
 		return new ActividadEstudiante;
 	}
 
-	public function getByEstudianteByUnidad($estudianteId, $unidadId)
+	public function getByEstudianteByUnidad($estudianteId, $unidadCursoId)
 	{
 		return ActividadEstudiante::whereHas('actividad', function($q) use ($unidadId){
-									$q->where('unidad_id',$unidadId);
+									$q->where('unidad_curso_id',$unidadCursoId);
 								})
 								->where('estudiante_id',$estudianteId)
 								->with('actividad')

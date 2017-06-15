@@ -63,7 +63,7 @@ tfoot.search {
 }
 
 /*MENUS*/
-.dropdown-menu>li>a {
+/*.dropdown-menu>li>a {
     font-size: 16px;
     color: #fff;
 }
@@ -83,5 +83,5 @@ tfoot.search {
     .navbar-nav>li {
         font-size: 18px;
     }
-}
+}*/
 

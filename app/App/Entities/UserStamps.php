@@ -12,8 +12,15 @@ trait UserStamps
     	parent::boot();
 
         static::creating(function ($model) {
-            $model->created_by = \Auth::user()->username;
-            $model->updated_by = \Auth::user()->username;
+            $user = \Auth::user();
+            if($user){
+                $username = $user->username;
+            }
+            else{
+                $username = "admin";
+            }
+            $model->created_by = $username;
+            $model->updated_by = $username;
         });
 
         static::updating(function ($model) {

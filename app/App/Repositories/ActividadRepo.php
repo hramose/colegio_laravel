@@ -12,9 +12,9 @@ class ActividadRepo extends BaseRepo{
 		return new Actividad;
 	}
 
-	public function getByUnidad($unidadId)
+	public function getByUnidad($unidadCursoId)
 	{
-		return Actividad::where('unidad_id',$unidadId)->get();
+		return Actividad::where('unidad_curso_id',$unidadCursoId)->get();
 	}
 
 }

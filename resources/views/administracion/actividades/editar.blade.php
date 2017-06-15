@@ -1,10 +1,8 @@
 @extends('layouts.admin')
 @section('title') 
 Editar Actividad - {{$actividad->titulo}} - 
-{{$actividad->unidad->curso->seccion->grado->descripcion}} 
-{{$actividad->unidad->curso->seccion->descripcion_seccion}} 
-{{$actividad->unidad->descripcion}}  - 
-{{$actividad->unidad->curso->materia->descripcion}} 
+{{$actividad->unidad_curso->unidad_seccion->descripcion}}  - 
+{{$actividad->unidad_curso->curso->descripcion}} 
 @endsection
 @section('css')
 <link href="{{ asset('assets/admin/plugins/datepicker/datepicker3.css') }}" rel="stylesheet">
@@ -35,7 +33,7 @@ Editar Actividad - {{$actividad->titulo}} -
 	  	</div>
 		<div class="box-footer">
        		<input type="submit" value="Editar" class="btn btn-primary btn-flat">
-            <a href="{{ route('actividades',$actividad->unidad_id) }}" class="btn btn-danger btn-flat">Cancelar</a>     
+            <a href="{{ route('actividades',$actividad->unidad_curso_id) }}" class="btn btn-danger btn-flat">Cancelar</a>     
 		</div>
 	{!! Form::close() !!}
 </div>
@@ -54,7 +52,7 @@ $(function()
         language: 'es'
     });
 
-     $('#summernote').summernote({minHeight: 300,});
+    $('#summernote').summernote({minHeight: 300,});
 
 	$('input[name="aplica_fecha"]').on('change',function()
 	{

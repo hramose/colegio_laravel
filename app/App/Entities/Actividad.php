@@ -7,13 +7,13 @@ class Actividad extends \Eloquent {
 
 	use UserStamps;
 
-	protected $fillable = ['unidad_id','tipo_actividad_id','porcentaje','titulo','descripcion','archivo','aplica_fecha','fecha_inicio','fecha_fin','entrega_via_web','estado'];
+	protected $fillable = ['unidad_curso_id','tipo_actividad_id','porcentaje','titulo','descripcion','archivo','aplica_fecha','fecha_inicio','fecha_fin','entrega_via_web','estado'];
 
 	protected $table = 'actividad';
 
-	public function unidad()
+	public function unidad_curso()
 	{
-		return $this->belongsTo(Unidad::class);
+		return $this->belongsTo(UnidadCurso::class);
 	}
 
 	public function tipo()

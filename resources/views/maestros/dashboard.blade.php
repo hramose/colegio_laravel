@@ -62,7 +62,7 @@
 									</td>
 									<td>{{$c->materia->descripcion}}</td>
 									<td>
-										<a href="{{route('unidades',$c->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-list" data-toggle="tooltip" data-placement="top" title="" data-original-title="Unidades"></a>
+										<a href="{{route('unidades_cursos',$c->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-list" data-toggle="tooltip" data-placement="top" title="" data-original-title="Unidades"></a>
 										<a href="{{route('maestros.estudiantes_curso',$c->id)}}" class="btn btn-info btn-sm btn-flat fa fa-users" data-toggle="tooltip" data-placement="top" title="" data-original-title="Estudiantes"></a>
 									</td>
 								</tr>

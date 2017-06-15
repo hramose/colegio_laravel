@@ -11,6 +11,7 @@ Unidades - {{$seccion->grado->descripcion}}
 	<div class="box-body">
 		<div class="table-responsive">
 			<a href="{{route('agregar_unidad_seccion',$seccion->id)}}" class="btn btn-primary btn-flat">Agregar</a>
+			<a href="{{route('secciones')}}" class="btn btn-danger btn-flat">Regresar</a>
 			<hr>
 			@if($totalPorcentaje != 100)
 				<div class="alert alert-danger alert-dismissable">

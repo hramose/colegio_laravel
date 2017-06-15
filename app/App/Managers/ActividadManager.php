@@ -19,15 +19,15 @@ class ActividadManager extends BaseManager
 	function getRules()
 	{
 		$rules = [
-			'titulo'  		=> 'required',
-			'unidad_id'  	=> 'required',
-			'descripcion'  	=> 'required',
-			'porcentaje' 	=> 'required'
+			'titulo'  			=> 'required',
+			'unidad_curso_id'  	=> 'required',
+			'descripcion'  		=> 'required',
+			'porcentaje' 		=> 'required'
 		];
 		
 		if(isset($this->data['aplica_fecha'])){
 			$rules['fecha_inicio'] = 'required';
-			$rules['fecha_fin'] = 'required';
+			$rules['fecha_entrega'] = 'required';
 		}
 		return $rules;
 	}
@@ -41,6 +41,10 @@ class ActividadManager extends BaseManager
 
 	function save()
 	{
+		$action = 'save';
+		if(!is_null($this->entity->id)){
+			$action = 'update';
+		}
 		$estudianteSeccionRepo = new EstudianteSeccionRepo();
 		$rules = $this->getRules();
 		$validation = \Validator::make($this->data, $rules);
@@ -60,24 +64,26 @@ class ActividadManager extends BaseManager
 				$this->entity->nombre_original_archivo = $fileOriginalName;
 				$fileName = 'Actividad'.$this->entity->id.'.'.$fileOrginalExtension;
 				$url = 'documentos/';
-				$url .= $this->entity->unidad->curso->seccion->ciclo_id . '/';
-				$url .= $this->entity->unidad->curso->seccion->grado_id . '/';
-				$url .= $this->entity->unidad->curso->seccion_id . '/';
-				$url .= $this->entity->unidad->curso->materia_id . '/';
-				$url .= $this->entity->unidad_id;
+				$url .= $this->entity->unidad_curso->curso->seccion->ciclo_id . '/';
+				$url .= $this->entity->unidad_curso->curso->seccion->grado_id . '/';
+				$url .= $this->entity->unidad_curso->curso->seccion_id . '/';
+				$url .= $this->entity->unidad_curso->curso->materia_id . '/';
+				$url .= $this->entity->unidad_curso_id;
 
 				$this->entity->archivo = $file->storeAs($url,$fileName,'public');
 				$this->entity->save();
 			}
 
-			$estudiantes = $estudianteSeccionRepo->getBySeccion($this->entity->unidad->curso->seccion_id);
-			foreach($estudiantes as $estudiante)
-			{
-				$te = new ActividadEstudiante();
-				$te->actividad_id = $this->entity->id;
-				$te->estudiante_id = $estudiante->estudiante_id;
-				$te->estado = 'N';
-				$te->save();
+			if($action == 'save'){
+				$estudiantes = $estudianteSeccionRepo->getBySeccion($this->entity->unidad_curso->curso->seccion_id);
+				foreach($estudiantes as $estudiante)
+				{
+					$te = new ActividadEstudiante();
+					$te->actividad_id = $this->entity->id;
+					$te->estudiante_id = $estudiante->estudiante_id;
+					$te->estado = 'N';
+					$te->save();
+				}
 			}
 
 			\DB::commit();
@@ -85,6 +91,7 @@ class ActividadManager extends BaseManager
 		}
 		catch(\Exception $ex)
 		{
+			dd($ex);
 			throw new SaveDataException("Error!", $ex);			
 		}
 	}

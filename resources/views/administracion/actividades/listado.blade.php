@@ -1,15 +1,14 @@
 @extends('layouts.admin')
 @section('title') 
-Actividades - {{$unidad->curso->seccion->grado->descripcion}} 
-{{$unidad->curso->seccion->descripcion_seccion}} {{$unidad->descripcion}} - 
-{{$unidad->curso->materia->descripcion}} 
+Actividades - {{$unidadCurso->unidad_seccion->descripcion}} - 
+{{$unidadCurso->curso->descripcion}} 
 @endsection
 @section('content')
 <div class="box box-primary">
 	<div class="box-body">
 		<div class="table-responsive">
-			<a href="{{route('agregar_actividad',$unidad->id)}}" class="btn btn-primary btn-flat">Agregar</a>
-			<a href="{{route('unidades',$unidad->curso_id)}}" class="btn btn-danger btn-flat">Unidades</a>
+			<a href="{{route('agregar_actividad',$unidadCurso->id)}}" class="btn btn-primary btn-flat">Agregar</a>
+			<a href="{{route('unidades_cursos',$unidadCurso->curso_id)}}" class="btn btn-danger btn-flat">Unidades</a>
 			<hr>
 			<table class="table table-bordered">
 				<thead>

@@ -51,6 +51,20 @@ class PersonaRepo extends BaseRepo{
     			->get();
     }
 
+    public function getNotInCicloByRolByEstado($cicloId, $roles, $estado)
+    {
+    	$ids = EstudianteSeccion::whereHas('seccion', function($q) use ($cicloId){
+    								$q->where('ciclo_id',$cicloId);
+    							})
+    							->pluck('estudiante_id');
+    	return Persona::whereNotIn('id',$ids)->whereIn('rol',$roles)->whereIn('estado',$estado)
+    			->orderBy('primer_nombre')
+				->orderBy('segundo_nombre')
+				->orderBy('primer_apellido')
+				->orderBy('segundo_apellido')
+    			->get();
+    }
+
 
 
 }

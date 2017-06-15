@@ -19,6 +19,7 @@ class UnidadCursoManager extends BaseManager
 		$rules = [
 			'unidad_seccion_id'  	=> 'required',
 			'curso_id'  			=> 'required',
+			'archivo_planificacion' => 'mimes:pdf'
 		];
 		return $rules;
 	}
