@@ -42,6 +42,12 @@ class StaticVariables {
 		'5' => 'Unidad 5'
 	];
 
+	protected $estadosActividades = [
+		'N' => 'No Entregada',
+		'E' => 'Entregada',
+		'C' => 'Calificada',
+	];
+
 	public function getEstadosGenerales(){ return $this->estadosGenerales; }
 	public function getEstadoGeneral($key){ return $this->estadosGenerales[$key]; }
 
@@ -59,6 +65,9 @@ class StaticVariables {
 
 	public function getUnidades(){ return $this->unidades; }
 	public function getUnidad($key){ return $this->unidades[$key]; }
+
+	public function getEstadosActividades(){ return $this->estadosActividades; }
+	public function getEstadoActividad($key){ return $this->estadosActividades[$key]; }
 
 	public function getCiclo()
 	{

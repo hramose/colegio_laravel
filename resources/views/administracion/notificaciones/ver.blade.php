@@ -6,7 +6,7 @@
 		{!! $notificacion->data['descripcion'] !!}
   	</div>
 		<div class="box-footer">
-            <a href="{{ route('notificaciones') }}" class="btn btn-danger btn-flat">Notificaciones</a>     
+            <a href="{{ route('notificaciones') }}" class="btn btn-primary btn-flat fa fa-bell">Ver Notificaciones</a>     
 		</div>
 	{!! Form::close() !!}
 </div>

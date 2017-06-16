@@ -33,7 +33,7 @@ class Curso extends \Eloquent {
 
 	public function unidades()
 	{
-		return $this->hasMany(Unidad::class);
+		return $this->hasMany(UnidadCurso::class)->with('unidad_seccion');
 	}
 
 	public function getDescripcionAttribute()

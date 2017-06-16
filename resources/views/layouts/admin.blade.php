@@ -107,24 +107,23 @@
               <!-- Menu toggle button -->
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-bell-o"></i>
-                <span class="label label-warning">{{count($usuario->persona->unreadNotifications)}}</span>
+                <span class="label label-warning">{{$notificacionesNoLeidas}}</span>
               </a>
               <ul class="dropdown-menu">
-                <li class="header">Tienes {{count($usuario->persona->unreadNotifications)}} notificaciones.</li>
+                <li class="header">Tienes {{$notificacionesNoLeidas}} notificaciones sin leer.</li>
                 <li>
                   <!-- Inner Menu: contains the notifications -->
                   <ul class="menu">
-                    @foreach($usuario->persona->unreadNotifications as $notification)
-                    <li><!-- start notification -->
-                      <a href="{{route('ver_notificacion',$notification->id)}}">
+                    @foreach($notificaciones as $notification)
+                    <li>
+                      <a href="{{route('ver_notificacion',$notification->id)}}" class="@if($notification->unread()) text-bold @endif">
                         <i class="fa {{$notification->data['icon']}} text-aqua"></i> {{$notification->data['titulo']}}
                       </a>
                     </li>
                     @endforeach
-                    <!-- end notification -->
                   </ul>
                 </li>
-                <li class="footer"><a href="#">View all</a></li>
+                <li class="footer"><a href=" {{route('notificaciones')}} ">Ver todas</a></li>
               </ul>
             </li>
             <!-- Tasks Menu -->

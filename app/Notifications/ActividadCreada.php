@@ -63,12 +63,28 @@ class ActividadCreada extends Notification
     {
         $descripcion = 'Hola <b>' . $this->estudiante->nombre_completo.'! </b>';
         $descripcion .= '<br/><br/>' ;
-        $descripcion .= 'La actividad ' . $this->actividad->titulo .' ha sido creada en tu curso ' . $this->actividad->unidad_curso->curso->materia->descripcion.'.';
+        $descripcion .= 'La actividad ' . $this->actividad->titulo .' ha sido creada en tu curso ' . $this->actividad->unidad_curso->curso->materia->descripcion.'.<br/><br/>';
         return [
             'titulo' => 'Actividad agregada',
             'descripcion' => $descripcion,
             'icon' => 'fa-book',
-            'created_by' => \Auth::user()->username
+        ];
+    }
+
+    public function toDatabase($notifiable)
+    {
+        $descripcion = 'Hola <b>' . $this->estudiante->nombre_completo.'! </b>';
+        $descripcion .= '<br/><br/>' ;
+        $descripcion .= 'La actividad ' . $this->actividad->titulo .' ha sido creada en tu curso ' . $this->actividad->unidad_curso->curso->materia->descripcion.'.<br/><br/>';
+
+        $user = \Auth::user();
+        return [
+            'titulo' => 'Actividad agregada',
+            'descripcion' => $descripcion,
+            'icon' => 'fa-book',
+            'user' => $user->username,
+            'created_by' => $user->persona->nombre_completo,
+            'created_by_id' => $user->persona_id
         ];
     }
 }

@@ -44,7 +44,11 @@ class AdminMenuController extends BaseController{
 				
 		$view->menu = $menu;
 		/* GET USUARIO */
-		$view->usuario = Auth::user();	
+		$user = Auth::user();
+		$view->usuario = $user;
+
+		$view->notificacionesNoLeidas = count($user->persona->unreadNotifications); 
+		$view->notificaciones = $user->persona->notifications()->limit(3)->get();
 
     }
 
