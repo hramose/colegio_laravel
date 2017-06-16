@@ -77,11 +77,9 @@ tfoot.search {
 .dropdown-menu {
     border-color: #3c8dbc;
 }
-
 @media (min-width: 768px){
     
     .navbar-nav>li {
         font-size: 18px;
     }
 }*/
-

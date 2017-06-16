@@ -69,7 +69,7 @@ class CursoController extends BaseController {
 		$manager = new CursoManager($curso, $data);
 		$manager->save();
 		Session::flash('success', 'Se editó el curso '.$curso->materia->descripcion.' de '.$curso->seccion->grado->descripcion.' '.$curso->seccion->descripcion_seccion.' con éxito.');
-		return redirect()->route('cursos', $curso->id);
+		return redirect()->route('cursos', $curso->seccion_id);
 	}
 
 	/*

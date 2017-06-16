@@ -74,7 +74,7 @@
                 <span class="label label-success">4</span>
               </a>
               <ul class="dropdown-menu">
-                <li class="header">Tienes 4 mensajes nuevos</li>
+                <li class="header">You have 4 messages</li>
                 <li>
                   <!-- inner menu: contains the messages -->
                   <ul class="menu">
@@ -97,7 +97,7 @@
                   </ul>
                   <!-- /.menu -->
                 </li>
-                <li class="footer"><a href="#">Ver todos los mensajes</a></li>
+                <li class="footer"><a href="#">See All Messages</a></li>
               </ul>
             </li>
             <!-- /.messages-menu -->
@@ -107,22 +107,24 @@
               <!-- Menu toggle button -->
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-bell-o"></i>
-                <span class="label label-warning">10</span>
+                <span class="label label-warning">{{count($usuario->persona->unreadNotifications)}}</span>
               </a>
               <ul class="dropdown-menu">
-                <li class="header">Tienes 10 notificaciones</li>
+                <li class="header">Tienes {{count($usuario->persona->unreadNotifications)}} notificaciones.</li>
                 <li>
                   <!-- Inner Menu: contains the notifications -->
                   <ul class="menu">
+                    @foreach($usuario->persona->unreadNotifications as $notification)
                     <li><!-- start notification -->
-                      <a href="#">
-                        <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                      <a href="{{route('ver_notificacion',$notification->id)}}">
+                        <i class="fa {{$notification->data['icon']}} text-aqua"></i> {{$notification->data['titulo']}}
                       </a>
                     </li>
+                    @endforeach
                     <!-- end notification -->
                   </ul>
                 </li>
-                <li class="footer"><a href="#">Ver todas</a></li>
+                <li class="footer"><a href="#">View all</a></li>
               </ul>
             </li>
             <!-- Tasks Menu -->
@@ -133,7 +135,7 @@
                 <span class="label label-danger">9</span>
               </a>
               <ul class="dropdown-menu">
-                <li class="header">Tienes 9 tareas</li>
+                <li class="header">You have 9 tasks</li>
                 <li>
                   <!-- Inner menu: contains the tasks -->
                   <ul class="menu">
@@ -157,7 +159,7 @@
                   </ul>
                 </li>
                 <li class="footer">
-                  <a href="#">Ver todas las tareas</a>
+                  <a href="#">View all tasks</a>
                 </li>
               </ul>
             </li>
@@ -166,17 +168,18 @@
               <!-- Menu Toggle Button -->
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <!-- The user image in the navbar-->
-                <img src="../../dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                <img src="{{$usuario->persona->fotografia}}" class="user-image" alt="User Image">
                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
                 <span class="hidden-xs">{{$usuario->username}}</span>
               </a>
               <ul class="dropdown-menu">
                 <!-- The user image in the menu -->
                 <li class="user-header">
-                  <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                  <img src="{{$usuario->persona->fotografia}}" class="img-circle" alt="User Image">
 
                   <p>
-                    {{$usuario->username}} - {{$usuario->perfil->descripcion}}
+                    {{$usuario->persona->nombre_completo}}
+                    <small>{{$usuario->perfil->descripcion}}</small>
                   </p>
                 </li>
                 <!-- Menu Footer-->
@@ -246,7 +249,7 @@
 <!-- ./wrapper -->
 
 <!-- jQuery 2.2.3 -->
-<script src="{{ asset('assets/admin/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/jQuery/jquery-3.1.1.min.js') }}"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="{{ asset('assets/admin/bootstrap/js/bootstrap.min.js') }}"></script>
 <!-- SlimScroll -->
@@ -254,7 +257,7 @@
 <!-- FastClick -->
 <script src="{{ asset('assets/admin/plugins/fastclick/fastclick.js') }}"></script>
 <!-- AdminLTE App -->
-<script src="{{ asset('assets/admin/js/app.min.js') }}"></script>
+<script src="{{ asset('assets/admin/js/adminlte.min.js') }}"></script>
 
 <script src="{{ asset('assets/admin/js/form.validation.js') }}"></script>
 @yield('js')

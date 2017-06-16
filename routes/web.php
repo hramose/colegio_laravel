@@ -129,6 +129,12 @@ Route::group(['prefix' => 'unidades-secciones'], function () {
 	Route::put('editar/{unidad_seccion}','UnidadSeccionController@editar')->name('editar_unidad_seccion');
 });
 
+/* PERFILES */
+Route::group(['prefix' => 'notificaciones'], function () {
+	Route::get('listado','NotificacionController@listado')->name('notificaciones');
+	Route::get('ver/{id}','NotificacionController@ver')->name('ver_notificacion');
+});
+
 });
 
 });

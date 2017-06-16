@@ -1,11 +1,12 @@
 <?php
 
 namespace App\App\Entities;
+use Illuminate\Notifications\Notifiable;
 use Variable;
 
 class Persona extends \Eloquent {
 
-	use UserStamps;
+	use UserStamps, Notifiable;
 	
 	protected $fillable = ['primer_nombre','segundo_nombre','primer_apellido','segundo_apellido','rol','fecha_nacimiento','genero','fotografia','cui','direccion','telefono','celular','estado'];
 

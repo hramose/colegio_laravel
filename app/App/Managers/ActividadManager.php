@@ -3,6 +3,7 @@
 namespace App\App\Managers;
 use App\App\Repositories\EstudianteSeccionRepo;
 use App\App\Entities\ActividadEstudiante;
+use App\Notifications\ActividadCreada;
 
 class ActividadManager extends BaseManager
 {
@@ -83,6 +84,9 @@ class ActividadManager extends BaseManager
 					$te->estudiante_id = $estudiante->estudiante_id;
 					$te->estado = 'N';
 					$te->save();
+
+					$estudiante->estudiante->notify(new ActividadCreada($estudiante->estudiante, $this->entity));
+
 				}
 			}
 

@@ -10,6 +10,7 @@ use Controller, Redirect, Input, View, Session, Variable;
 use App\App\Repositories\SeccionRepo;
 use App\App\Repositories\PersonaRepo;
 use App\App\Repositories\MateriaRepo;
+use App\App\Repositories\ActividadRepo;
 use App\App\Entities\Seccion;
 
 class EstudianteSeccionController extends BaseController {
@@ -17,12 +18,14 @@ class EstudianteSeccionController extends BaseController {
 	protected $estudianteSeccionRepo;
 	protected $seccionRepo;
 	protected $personaRepo;
+	protected $actividadRepo;
 
-	public function __construct(EstudianteSeccionRepo $estudianteSeccionRepo, SeccionRepo $seccionRepo, PersonaRepo $personaRepo)
+	public function __construct(EstudianteSeccionRepo $estudianteSeccionRepo, SeccionRepo $seccionRepo, PersonaRepo $personaRepo, ActividadRepo $actividadRepo)
 	{
 		$this->estudianteSeccionRepo = $estudianteSeccionRepo;
 		$this->seccionRepo = $seccionRepo;
 		$this->personaRepo = $personaRepo;
+		$this->actividadRepo = $actividadRepo;
 		View::composer('layouts.admin', 'App\Http\Controllers\AdminMenuController');
 	}
 
@@ -41,8 +44,9 @@ class EstudianteSeccionController extends BaseController {
 	public function agregar(Seccion $seccion)
 	{
 		$data = Input::all();
+		$actividades = $this->actividadRepo->getBySeccion($seccion->id);
 		$manager = new EstudianteSeccionManager(null, $data);
-		$manager->agregarEstudiantes($seccion);
+		$manager->agregarEstudiantes($seccion, $actividades);
 		Session::flash('success', 'Se agregaron los estudiantes a '.$seccion->grado->descripcion .' '.$seccion->descripcion_seccion.' con éxito.');
 		return redirect()->route('estudiantes_seccion',$seccion->id);
 	}

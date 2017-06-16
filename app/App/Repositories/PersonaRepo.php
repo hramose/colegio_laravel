@@ -65,6 +65,4 @@ class PersonaRepo extends BaseRepo{
     			->get();
     }
 
-
-
 }

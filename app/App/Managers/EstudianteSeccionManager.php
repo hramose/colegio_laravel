@@ -3,6 +3,7 @@
 namespace App\App\Managers;
 use App\App\Entities\EstudianteSeccion;
 use App\App\Repositories\SeccionRepo;
+use App\App\Entities\ActividadEstudiante;
 use Exception;
 
 class EstudianteSeccionManager extends BaseManager
@@ -34,7 +35,7 @@ class EstudianteSeccionManager extends BaseManager
 		return $data;
 	}
 
-	function agregarEstudiantes($seccion)
+	function agregarEstudiantes($seccion, $actividades)
 	{
 		try{
 			\DB::beginTransaction();
@@ -48,6 +49,16 @@ class EstudianteSeccionManager extends BaseManager
 						$es->codigo = 0;
 						$es->estado = 'A';
 						$es->save();
+
+						foreach($actividades as $actividad)
+						{
+							$ae = new ActividadEstudiante();
+							$ae->actividad_id = $actividad->id;
+							$ae->estudiante_id = $es->estudiante_id;
+							$ae->estado = 'N';
+							$ae->save();
+						}
+
 					}
 				}
 
