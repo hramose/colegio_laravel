@@ -5,7 +5,41 @@
 @endsection
 @section('content')
 <div class="row">
-	<div class="col-lg-9">
+	<div class="col-lg-3">
+		<div class="row">
+			<div class="col-md-12">
+	        	<div class="box box-widget widget-user-2">
+	            	<div class="widget-user-header bg-yellow">
+	              		<div class="widget-user-image">
+	                		<img class="img-circle" src="{{$seccion->maestro->fotografia}}" alt="User Avatar">
+	              		</div>
+	              		<h3 class="widget-user-username">{{$seccion->maestro->nombre_completo}}</h3>
+	              		<h5 class="widget-user-desc">Maestro Guía</h5>
+	            	</div>
+	          	</div>
+	        </div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+          		<div class="info-box bg-green">
+        			<span class="info-box-icon"><i class="fa fa-users"></i></span>
+        			<div class="info-box-content">
+						<span class="info-box-text">Compañeros</span>
+						<span class="info-box-number">{{$cantidadEstudiantes}}</span>
+						<div class="progress">
+                			<div class="progress-bar" style="width: 70%"></div>
+              			</div>
+                  		<span class="progress-description">
+                			<a href="{{route('estudiantes.companeros')}}" style="color: white !important">
+              					Ver <i class="fa fa-arrow-circle-right"></i>
+            				</a>
+                  		</span>
+                  	</div>
+            	</div>
+            </div>
+		</div>
+	</div>
+	<div class="col-lg-6">
 		@if(count($cursos) > 0)
 		<div class="col-lg-12">
 			<div class="box box-primary">
@@ -17,7 +51,6 @@
 						<table class="table table-bordered">
 							<thead>
 								<tr>
-									<th>SECCIONES</th>
 									<th>MATERIA</th>
 									<th>MAESTRO</th>
 									<th></th>
@@ -26,14 +59,10 @@
 							<tbody>
 								@foreach($cursos as $c)
 								<tr>
-									<td>
-										{{$c->seccion->grado->descripcion}} 
-										{{$c->seccion->descripcion_seccion}}
-									</td>
 									<td>{{$c->materia->descripcion}}</td>
 									<td>{{$c->maestro->nombre_completo}}</td>
 									<td>
-										<a href="{{route('estudiantes.ver_curso',$c->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-list" data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver Curso"></a>
+										<a href="{{route('estudiantes.ver_curso',$c->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-eye" data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver Curso"></a>
 									</td>
 								</tr>
 								@endforeach
@@ -60,9 +89,6 @@
 					<div id="calendar" style="width: 100%"></div>
 				</div>
 			</div>
-		</div>
-		<div class="row">
-			
 		</div>
 	</div>
 </div>

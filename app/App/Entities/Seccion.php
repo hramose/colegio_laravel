@@ -43,7 +43,7 @@ class Seccion extends \Eloquent {
 
 	public function estudiantes()
 	{
-		return $this->hasMany(EstudianteSeccion::class);
+		return $this->hasMany(EstudianteSeccion::class)->with('estudiante');
 	}
 
 	public function unidades()

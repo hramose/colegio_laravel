@@ -44,8 +44,10 @@ class EstudianteController extends BaseController {
 		if(is_null($seccion)){
 			Session::flash('error', $estudiante->nombre_completo . ', no estás asignado a ninguna sección en el ciclo ' . $ciclo->descripcion);
 		}
-		$cursos = $this->cursoRepo->getByCicloByEstudiante($ciclo->id, $estudiante->id);
-		return view('estudiantes/dashboard', compact('secciones','cursos'));
+		$seccion = $seccion->seccion;
+		$cursos = $this->cursoRepo->getBySeccion($seccion->id);
+		$cantidadEstudiantes = count($seccion->estudiantes);
+		return view('estudiantes/dashboard', compact('seccion','cursos', 'cantidadEstudiantes'));
 	}
 
 	public function verCurso(Curso $curso)
@@ -57,6 +59,19 @@ class EstudianteController extends BaseController {
 			$unidad->actividades = $this->actividadEstudianteRepo->getByEstudianteByUnidad($estudiante->id, $unidad->id);
 		}
 		return view('estudiantes/ver_curso', compact('curso','unidades'));
+	}
+
+	public function companeros()
+	{
+		$ciclo = \Auth::user()->ciclo;
+		$estudiante = \Auth::user()->persona;
+		$seccion = $this->estudianteSeccionRepo->getByCicloByEstudiante($ciclo->id, $estudiante->id);
+		$seccion = $seccion->seccion;
+		if(is_null($seccion)){
+			Session::flash('error', $estudiante->nombre_completo . ', no estás asignado a ninguna sección en el ciclo ' . $ciclo->descripcion);
+		}
+		$estudiantes = $this->estudianteSeccionRepo->getBySeccion($seccion->id);
+		return view('estudiantes/companeros', compact('seccion','estudiantes'));
 	}
 
 
