@@ -56,6 +56,9 @@
 													<td> {{$actividad->actividad->tipo->descripcion}} </td>
 													<td> {{$actividad->actividad->porcentaje}} pts </td>
 													<td> {{$actividad->descripcion_estado}} </td>
+													<td> 
+														<a href="{{route('estudiantes.ver_actividad',$actividad->id)}}" class="btn btn-warning btn-flat fa fa-eye"></a> 
+													</td>
 												</tr>
 												 @endforeach 
 											</tbody>

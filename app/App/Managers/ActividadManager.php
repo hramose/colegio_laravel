@@ -23,7 +23,8 @@ class ActividadManager extends BaseManager
 			'titulo'  			=> 'required',
 			'unidad_curso_id'  	=> 'required',
 			'descripcion'  		=> 'required',
-			'porcentaje' 		=> 'required'
+			'porcentaje' 		=> 'required',
+			'archivo'			=> 'mimes:pdf'
 		];
 		
 		if(isset($this->data['aplica_fecha'])){

@@ -15,6 +15,7 @@ use App\App\Entities\Seccion;
 use App\App\Entities\Curso;
 use App\App\Entities\EstudianteSeccion;
 use App\App\Entities\Actividad;
+use App\App\Entities\ActividadEstudiante;
 
 class EstudianteController extends BaseController {
 
@@ -72,6 +73,11 @@ class EstudianteController extends BaseController {
 		}
 		$estudiantes = $this->estudianteSeccionRepo->getBySeccion($seccion->id);
 		return view('estudiantes/companeros', compact('seccion','estudiantes'));
+	}
+
+	public function verActividad(ActividadEstudiante $actividadEstudiante)
+	{
+		return view('estudiantes/ver_actividad', compact('actividadEstudiante'));
 	}
 
 
