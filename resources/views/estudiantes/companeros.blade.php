@@ -1,8 +1,5 @@
 @extends('layouts.admin')
 @section('title') Compañeros {{$seccion->grado->descripcion}} {{$seccion->descripcion_seccion}} @endsection
-@section('css')
-<link rel="stylesheet" href="{{asset('assets/admin/plugins/datepicker/datepicker3.css')}}">
-@endsection
 @section('content')
 <div class="row">
 	<div class="col-lg-12">
@@ -21,15 +18,3 @@
 	</div>
 </div>
 @endsection
-@section('js')
-<script src="{{asset('assets/admin/plugins/datepicker/bootstrap-datepicker.js')}}"></script>
-<script src="{{asset('assets/admin/plugins/datepicker/locales/bootstrap-datepicker.es.js')}}"></script>
-<script type="text/javascript">
-	  $(function(){
-	  		$("#calendar").datepicker({
-	  			language: 'es'
-	  		});
-	  	});
-
-</script>
-@stop

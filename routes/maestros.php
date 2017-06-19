@@ -20,6 +20,24 @@ Route::group(['prefix' => 'unidades-curso'], function () {
 	Route::put('editar/{unidad_curso}','UnidadCursoController@editar')->name('editar_unidad_curso');
 });
 
+/* FOROS */
+Route::group(['prefix' => 'foros'], function () {
+	Route::get('listado/{curso}','ForoController@listado')->name('foros');
+	Route::get('agregar/{curso}','ForoController@mostrarAgregar')->name('agregar_foro');
+	Route::post('agregar/{curso}','ForoController@agregar')->name('agregar_foro');
+	Route::get('editar/{foro}','ForoController@mostrarEditar')->name('editar_foro');
+	Route::put('editar/{foro}','ForoController@editar')->name('editar_foro');
+});
+
+/* FOROS */
+Route::group(['prefix' => 'mensajes-foros'], function () {
+	Route::get('listado/{foro}','MensajeForoController@listado')->name('mensajes_foro');
+	Route::get('agregar/{foro}','MensajeForoController@mostrarAgregar')->name('agregar_mensaje_foro');
+	Route::post('agregar/{foro}','MensajeForoController@agregar')->name('agregar_mensaje_foro');
+	Route::get('editar/{mensaje_foro}','MensajeForoController@mostrarEditar')->name('editar_mensaje_foro');
+	Route::put('editar/{mensaje_foro}','MensajeForoController@editar')->name('editar_mensaje_foro');
+});
+
 /* ACTIVIDADES */
 Route::group(['prefix' => 'actividades'], function () {
 	Route::get('listado/{unidad_curso}','ActividadController@listado')->name('actividades');

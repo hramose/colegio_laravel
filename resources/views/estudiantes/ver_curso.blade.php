@@ -11,7 +11,7 @@
 		<div class="box box-primary">
 			<div class="box-body">
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-12">
 			        	<div class="box box-widget widget-user-2">
 			            	<div class="widget-user-header bg-yellow">
 			              		<div class="widget-user-image">
@@ -25,8 +25,6 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6">
-						<a href="{{route('estudiantes.dashboard')}}" class="btn btn-danger btn-flat">Regresar</a>
-						<br/><br/>
 						<div class="nav-tabs-custom">
 					    	<ul class="nav nav-tabs">
 					    		@foreach($unidades as $index => $unidad)
@@ -34,10 +32,14 @@
 					        	@endforeach
 					        </ul>
 					        <div class="tab-content">
-					        	<h4>Actividades</h4>
-					        	<hr>
 					        	@foreach($unidades as $index => $unidad)
 					        	<div class="tab-pane @if($index == 0) active @endif" id="{{$unidad->id}}">
+									@if($unidad->archivo_planificacion)
+									<a href="{{$unidad->archivo_planificacion}}" class="btn btn-primary btn-flat fa fa-file"> Descargar Planificación</a>
+									<hr>
+									<h4>Actividades</h4>
+					        		<hr>
+									@endif
 									<div class="table-responsive">
 										<table class="table responsive">
 											<thead>
@@ -69,6 +71,49 @@
 					            @endforeach
 					      	</div>
 					    </div>
+					</div>
+					<div class="col-md-6">
+						<h4>FORO</h4>
+						<div class="info-box bg-red">
+           					<span class="info-box-icon"><i class="fa fa-comments-o"></i></span>
+							<div class="info-box-content">
+								<span class="info-box-text">Temas</span>
+								<span class="info-box-number">{{$curso->cantidadForos}}</span>
+									<div class="progress">
+										<div class="progress-bar" style="width: 100%"></div>
+									</div>
+									<span class="progress-description">
+									¡Participa!
+								</span>
+							</div>
+						</div>
+						<div class="table-responsive">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th>TEMA</th>
+										<th>MENSAJES / VISITAS</th>
+										<th>ULTIMO MENSAJE</th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach($foros as $foro)
+									<tr>
+										<td>
+											<a href="{{route('mensajes_foro',$foro->id)}}">{{$foro->tema}}</a> <br/>
+											Iniciado por {{$foro->autor->nombre_completo}} el {{date('d/m/Y - H:i', strtotime($foro->created_at))}}
+										</td>
+										<td>Respuestas: {{$foro->respuestas}} <br/> Visitas: {{$foro->visitas}}</td>
+										<td>
+											@if($foro->ultima_respuesta)
+												De {{$foro->ultima_respuesta->autor->nombre_completo}} el {{date('d/m/Y - H:i', strtotime($foro->ultima_respuesta->created_at))}}
+											@endif
+										</td>
+									</tr>
+									@endforeach
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>

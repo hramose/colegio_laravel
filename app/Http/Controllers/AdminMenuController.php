@@ -40,6 +40,7 @@ class AdminMenuController extends BaseController{
 		}
 		elseif($user->perfil_id == 4){
 			$menu->push((object)['title' => 'Dashboard', 'url' => route('estudiantes.dashboard'), 'class' => '' ,'icon' => 'fa fa-dashboard']);
+			$menu->push((object)['title' => 'Cursos', 'url' => route('estudiantes.cursos'), 'class' => '' ,'icon' => 'fa fa-dashboard']);
 		}
 				
 		$view->menu = $menu;

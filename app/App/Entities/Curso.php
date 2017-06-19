@@ -41,4 +41,16 @@ class Curso extends \Eloquent {
 		return $this->seccion->grado->descripcion . ' ' . $this->seccion->descripcion_seccion . ' - ' . $this->materia->descripcion;
 	}
 	
+	public function foros()
+	{
+		return $this->hasMany(Foro::class);
+	}
+
+	public function getCantidadForosAttribute()
+	{
+		return count($this->foros);
+	}
+
+
+	
 }

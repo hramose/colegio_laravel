@@ -1,0 +1,47 @@
+@extends('layouts.admin')
+@section('title') Cursos {{$seccion->grado->descripcion}} {{$seccion->descripcion_seccion}} @endsection
+@section('css')
+<style>
+    .ver-curso {
+        padding-top: 2px !important; 
+        padding-bottom: 2px !important; 
+        color: white !important;
+    }
+    .ver-curso:hover{
+        color: black !important;
+    }
+</style>
+@endsection
+<?php $colors=['bg-yellow','bg-red','bg-green','bg-blue']; $columna=0; ?>
+@section('content')
+<div class="row">
+	<div class="col-lg-12">
+            <div class="row">
+                @foreach($cursos as $index => $curso)
+                <div class="col-md-3">
+                    <div class="box box-widget widget-user-2">
+                        <div class="widget-user-header {{$colors[$columna]}}">
+                            <div class="widget-user-image">
+                                <img class="img-circle" src="{{$curso->maestro->fotografia}}" alt="User Avatar">
+                            </div>
+                            <h5 class="widget-user-username" style="font-size: 20px">{{$curso->maestro->nombre_completo}}</h5>
+                            <h5 class="widget-user-desc">{{$curso->materia->descripcion}}</h5>
+                        </div>
+                        <div class="box-footer no-padding">
+                            <ul class="nav nav-stacked">
+                                <li><a href="{{route('foros',$curso->id)}}">Foros <span class="pull-right badge bg-blue">{{$curso->cantidad_foros}}</span></a></li>
+                                <li><a href="#">Tasks <span class="pull-right badge bg-aqua">5</span></a></li>
+                                <li><a href="#">Completed Projects <span class="pull-right badge bg-green">12</span></a></li>
+                                <li style="background-color:#57beef; font-weight: bold;">
+                                    <a href="{{route('estudiantes.ver_curso',$curso->id)}}" class="ver-curso">Ver Curso <i class="fa fa-chevron-right"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <?php $columna++; if($columna == 4) $columna==0; ?>
+                </div>
+                @endforeach
+		</div>
+	</div>
+</div>
+@endsection

@@ -12,9 +12,7 @@
 			<div class="box-body">
                 <h3>{{$actividadEstudiante->actividad->titulo}}</h3>
                 {!! $actividadEstudiante->actividad->descripcion !!}
-			</div>
-            @if($actividadEstudiante->actividad->archivo)
-            <div class="box-footer">
+                @if($actividadEstudiante->actividad->archivo)
                 <ul class="mailbox-attachments clearfix">
                     <li>
                         <span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
@@ -32,8 +30,10 @@
                         </div>
                     </li>
                 </ul>
-            </div>
-            @endif
+                @endif
+                <a href="{{route('estudiantes.ver_curso',$actividadEstudiante->actividad->unidad_curso->curso_id)}}" class="btn btn-danger btn-flat fa fa-chevron-circle-left"> Regresar</a>
+			</div>
+            <br/>
 		</div>
 	</div>
 </div>

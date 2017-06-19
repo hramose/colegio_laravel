@@ -1,5 +1,8 @@
 <?php
 
+date_default_timezone_set('America/Guatemala');
+setlocale(LC_TIME, 'es_ES.UTF-8');
+
 Route::get('/','AuthController@mostrarLogin')->name('inicio');
 Route::get('login','AuthController@mostrarLogin')->name('login');
 Route::post('login','AuthController@login')->name('login');
