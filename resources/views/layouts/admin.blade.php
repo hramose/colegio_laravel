@@ -123,7 +123,7 @@
                     @endforeach
                   </ul>
                 </li>
-                <li class="footer"><a href=" {{route('notificaciones')}} ">Ver todas</a></li>
+                <li class="footer"><a href=" {{route('notificaciones',0)}} ">Ver todas</a></li>
               </ul>
             </li>
             <!-- Tasks Menu -->
@@ -198,7 +198,7 @@
     <div class="container">
       <!-- Content Header (Page header) -->
       <section class="content-header">
-        <h1>@yield('title')</h1>
+        <h1>@yield('icon-title') @yield('title')</h1>
       </section>
 
       <!-- Main content -->

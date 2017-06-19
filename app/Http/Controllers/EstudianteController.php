@@ -17,6 +17,7 @@ use App\App\Entities\Curso;
 use App\App\Entities\EstudianteSeccion;
 use App\App\Entities\Actividad;
 use App\App\Entities\ActividadEstudiante;
+use App\App\Entities\Foro;
 
 
 class EstudianteController extends BaseController {
@@ -92,6 +93,18 @@ class EstudianteController extends BaseController {
 		}
 		$cursos = $this->cursoRepo->getBySeccion($seccion->id)->load('foros');
 		return view('estudiantes/cursos', compact('seccion','cursos'));
+	}
+
+	public function foros(Curso $curso)
+	{
+		$foros = $this->foroRepo->getByCurso($curso->id);
+		return view('estudiantes/foros', compact('foros','curso'));
+	}
+
+	public function mensajesForo(Foro $foro)
+	{
+		$mensajes = $foro->mensajes;
+		return view('estudiantes/mensajes_foro', compact('foro','mensajes'));
 	}
 
 	public function maestros()

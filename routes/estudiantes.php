@@ -13,6 +13,8 @@ Route::get('maestros','EstudianteController@maestros')->name('estudiantes.maestr
 Route::get('cursos','EstudianteController@cursos')->name('estudiantes.cursos');
 Route::get('ver-curso/{curso}','EstudianteController@verCurso')->name('estudiantes.ver_curso');
 Route::get('ver-actividad/{actividad_estudiante}','EstudianteController@verActividad')->name('estudiantes.ver_actividad');
+Route::get('foros/{curso}','EstudianteController@foros')->name('estudiantes.foros');
+Route::get('mensajes-foro/{foro}','EstudianteController@mensajesForo')->name('estudiantes.mensajes_foro');
 
 });
 

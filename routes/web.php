@@ -134,7 +134,7 @@ Route::group(['prefix' => 'unidades-secciones'], function () {
 
 /* PERFILES */
 Route::group(['prefix' => 'notificaciones'], function () {
-	Route::get('listado','NotificacionController@listado')->name('notificaciones');
+	Route::get('listado/{tipo}','NotificacionController@listado')->name('notificaciones');
 	Route::get('ver/{id}','NotificacionController@ver')->name('ver_notificacion');
 });
 

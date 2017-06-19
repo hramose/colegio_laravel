@@ -49,7 +49,7 @@
                 			<div class="progress-bar" style="width: 70%"></div>
               			</div>
                   		<span class="progress-description">
-                			<a href="{{route('estudiantes.maestros')}}" style="color: white !important">
+                			<a href="{{route('estudiantes.cursos')}}" style="color: white !important">
               					Conocer maestros <i class="fa fa-arrow-circle-right"></i>
             				</a>
                   		</span>
@@ -82,7 +82,7 @@
 										<td>{{$c->maestro->nombre_completo}}</td>
 										<td>
 											<a href="{{route('estudiantes.ver_curso',$c->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-eye" data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver Curso"></a>
-											<a href="{{route('foros',$c->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-comments" data-toggle="tooltip" data-placement="top" title="" data-original-title="Foros"></a>
+											<a href="{{route('estudiantes.foros',$c->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-comments" data-toggle="tooltip" data-placement="top" title="" data-original-title="Foros"></a>
 										</td>
 									</tr>
 									@endforeach
@@ -96,17 +96,38 @@
 	</div>
 	<div class="col-lg-3">
 		<div class="row">
-			<div class="box box-solid bg-blue">
-				<div class="box-header">
-					<i class="fa fa-calendar"></i>
-					<h3 class="box-title">Calendario</h3>
-					<div class="pull-right box-tools">
-						<button type="button" class="btn btn-default btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
-						</button>
+			<div class="col-lg-12">
+				<div class="info-box bg-red">
+        			<span class="info-box-icon"><i class="fa fa-bell"></i></span>
+        			<div class="info-box-content">
+						<span class="info-box-text">Notificaciones</span>
+						<span class="info-box-number">{{count(\Auth::user()->persona->unreadNotifications)}}</span>
+						<div class="progress">
+                			<div class="progress-bar" style="width: 70%"></div>
+              			</div>
+                  		<span class="progress-description">
+                			<a href="{{route('notificaciones',0)}}" style="color: white !important">
+              					Ver notificaciones <i class="fa fa-arrow-circle-right"></i>
+            				</a>
+                  		</span>
+                  	</div>
+            	</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="box box-solid bg-blue">
+					<div class="box-header">
+						<i class="fa fa-calendar"></i>
+						<h3 class="box-title">Calendario</h3>
+						<div class="pull-right box-tools">
+							<button type="button" class="btn btn-default btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
+							</button>
+						</div>
 					</div>
-				</div>
-				<div class="box-body no-padding">
-					<div id="calendar" style="width: 100%"></div>
+					<div class="box-body no-padding">
+						<div id="calendar" style="width: 100%"></div>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -12,10 +12,20 @@ class NotificacionController extends BaseController {
 		View::composer('layouts.admin', 'App\Http\Controllers\AdminMenuController');
 	}
 
-	public function listado()
+	/*
+	* 0 = todas
+	* 1 = leidas
+	* 2 = no-leidas
+	*/
+	public function listado($tipo)
 	{
 		$persona = \Auth::user()->persona;
-		$notificaciones = $persona->notifications;
+		if($tipo==1)
+			$notificaciones = $persona->readNotifications;
+		elseif($tipo==2)
+			$notificaciones = $persona->unreadNotifications;
+		else
+			$notificaciones = $persona->notifications;
 		return view('administracion/notificaciones/listado', compact('notificaciones'));
 	}
 

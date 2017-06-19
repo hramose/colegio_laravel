@@ -8,7 +8,7 @@
         color: white !important;
     }
     .ver-curso:hover{
-        color: black !important;
+        background-color:#57beef !important;
     }
 </style>
 @endsection
@@ -29,10 +29,10 @@
                         </div>
                         <div class="box-footer no-padding">
                             <ul class="nav nav-stacked">
-                                <li><a href="{{route('foros',$curso->id)}}">Foros <span class="pull-right badge bg-blue">{{$curso->cantidad_foros}}</span></a></li>
-                                <li><a href="#">Tasks <span class="pull-right badge bg-aqua">5</span></a></li>
-                                <li><a href="#">Completed Projects <span class="pull-right badge bg-green">12</span></a></li>
-                                <li style="background-color:#57beef; font-weight: bold;">
+                                <li><a href="{{route('estudiantes.foros',$curso->id)}}">Foros <span class="pull-right badge bg-blue">{{$curso->cantidad_foros}}</span></a></li>
+                                <li><a href="#">Tareas <span class="pull-right badge bg-green">{{rand(0,10)}}</span></a></li>
+                                <!--<li><a href="#">Completed Projects <span class="pull-right badge bg-green">12</span></a></li>-->
+                                <li class="{{$colors[$columna]}}" style="font-weight: bold;">
                                     <a href="{{route('estudiantes.ver_curso',$curso->id)}}" class="ver-curso">Ver Curso <i class="fa fa-chevron-right"></i></a>
                                 </li>
                             </ul>
