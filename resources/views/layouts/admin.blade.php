@@ -36,7 +36,7 @@
     <nav class="navbar navbar-static-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="{{route('dashboard')}}" class="navbar-brand"><img src="{{asset('assets/imagenes/logos/logo.png')}}" height="20px"></a>
+          <a href="{{route('dashboard')}}" class="navbar-brand"><img src="{{asset('assets/imagenes/logos/logo.jpg')}}" height="20px"></a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
             <i class="fa fa-bars"></i>
           </button>

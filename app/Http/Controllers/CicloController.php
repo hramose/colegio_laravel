@@ -57,7 +57,13 @@ class CicloController extends BaseController {
 
 	public function mostrarElegir(){
 		$ciclos = $this->cicloRepo->getByEstado(['A'],'fecha_inicio');
-		return View::make('administracion/ciclos/elegir', compact('ciclos'));
+		$actual = 0;
+		foreach ($ciclos as $key => $ciclo) {
+			if($ciclo->actual){
+				$actual = $ciclo->id;
+			}
+		}
+		return View::make('administracion/elegir_ciclo', compact('ciclos', 'actual'));
 	}
 
 	public function elegir(){
@@ -66,6 +72,10 @@ class CicloController extends BaseController {
 		$user = \Auth::user();
 		$user->ciclo_id = $ciclo->id;
 		$user->save();
+		if($user->perfil_id == 3)
+			return Redirect::route('maestros.dashboard');
+		if($user->perfil_id == 4)
+			return Redirect::route('estudiantes.dashboard');
 		return Redirect::route('dashboard');		
 	}
 

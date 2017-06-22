@@ -7,7 +7,7 @@
 <div class="row">
 	<div class="col-lg-9">
 		@if(count($secciones) > 0)
-		<div class="col-lg-12">
+		<div class="col-lg-6">
 			<div class="box box-primary">
 				<div class="box-header with-border">
 					<h3 class="box-title">Secciones</h3>
@@ -38,7 +38,7 @@
 		</div>
 		@endif
 		@if(count($cursos) > 0)
-		<div class="col-lg-12">
+		<div class="col-lg-6">
 			<div class="box box-primary">
 				<div class="box-header with-border">
 					<h3 class="box-title">Cursos</h3>

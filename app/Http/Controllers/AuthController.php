@@ -41,11 +41,11 @@ class AuthController extends BaseController {
 			}
 
 
-			$cicloRepo = new CicloRepo();
+			/*$cicloRepo = new CicloRepo();
 			$ciclo = $cicloRepo->getActual();
 			
 			$user->ciclo_id = $ciclo->id;
-			$user->save();
+			$user->save();*/
 
 			if($user->perfil_id == 3)
 				return Redirect::route('maestros.dashboard');
