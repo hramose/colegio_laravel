@@ -81,8 +81,10 @@ class AuthController extends BaseController {
 	public function logout()
 	{
 		$user = Auth::user();
-		$user->ciclo_id = null;
-		$user->save();
+		if($user){
+			$user->ciclo_id = null;
+			$user->save();
+		}
 		Auth::logout();
 		return Redirect::route('login');
 	}
