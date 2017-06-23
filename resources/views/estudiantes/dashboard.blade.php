@@ -27,7 +27,7 @@
 						<span class="info-box-text">Compañeros</span>
 						<span class="info-box-number">{{$cantidadEstudiantes}}</span>
 						<div class="progress">
-                			<div class="progress-bar" style="width: 70%"></div>
+                			<div class="progress-bar" style="width: 100%"></div>
               			</div>
                   		<span class="progress-description">
                 			<a href="{{route('estudiantes.companeros')}}" style="color: white !important">
@@ -46,7 +46,7 @@
 						<span class="info-box-text">Cursos</span>
 						<span class="info-box-number">{{$cantidadCursos}}</span>
 						<div class="progress">
-                			<div class="progress-bar" style="width: 70%"></div>
+                			<div class="progress-bar" style="width: 100%"></div>
               			</div>
                   		<span class="progress-description">
                 			<a href="{{route('estudiantes.cursos')}}" style="color: white !important">
@@ -103,7 +103,7 @@
 						<span class="info-box-text">Notificaciones</span>
 						<span class="info-box-number">{{count(\Auth::user()->persona->unreadNotifications)}}</span>
 						<div class="progress">
-                			<div class="progress-bar" style="width: 70%"></div>
+                			<div class="progress-bar" style="width: 100%"></div>
               			</div>
                   		<span class="progress-description">
                 			<a href="{{route('notificaciones',0)}}" style="color: white !important">

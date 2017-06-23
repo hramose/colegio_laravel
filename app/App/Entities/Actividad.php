@@ -28,4 +28,9 @@ class Actividad extends \Eloquent {
     	return null;
     }
 
+    public function getDescripcionEstadoAttribute()
+    {
+    	return $this->estado;
+    }
+
 }

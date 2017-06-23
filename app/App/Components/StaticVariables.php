@@ -49,6 +49,8 @@ class StaticVariables {
 		'C' => 'Calificada',
 	];
 
+	protected $colores = ['bg-yellow','bg-red','bg-green','bg-blue'];
+
 	public function getEstadosGenerales(){ return $this->estadosGenerales; }
 	public function getEstadoGeneral($key){ return $this->estadosGenerales[$key]; }
 
@@ -69,6 +71,9 @@ class StaticVariables {
 
 	public function getEstadosActividades(){ return $this->estadosActividades; }
 	public function getEstadoActividad($key){ return $this->estadosActividades[$key]; }
+
+	public function getColores(){ return $this->colores; }
+	public function getColor($key){ return $this->colores[$key]; }
 
 	public function getCiclo()
 	{

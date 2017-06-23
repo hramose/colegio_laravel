@@ -10,6 +10,7 @@ use App\App\Repositories\CursoRepo;
 use App\App\Repositories\EstudianteSeccionRepo;
 use App\App\Repositories\ActividadRepo;
 use App\App\Repositories\ActividadEstudianteRepo;
+use App\App\Repositories\ForoRepo;
 
 use App\App\Entities\Seccion;
 use App\App\Entities\Curso;
@@ -24,8 +25,9 @@ class MaestroController extends BaseController {
 	protected $estudianteSeccionRepo;
 	protected $actividadRepo;
 	protected $actividadEstudianteRepo;
+	protected $foroRepo;
 
-	public function __construct(CicloRepo $cicloRepo, SeccionRepo $seccionRepo, CursoRepo $cursoRepo, EstudianteSeccionRepo $estudianteSeccionRepo, ActividadRepo $actividadRepo, ActividadEstudianteRepo $actividadEstudianteRepo)
+	public function __construct(CicloRepo $cicloRepo, SeccionRepo $seccionRepo, CursoRepo $cursoRepo, EstudianteSeccionRepo $estudianteSeccionRepo, ActividadRepo $actividadRepo, ActividadEstudianteRepo $actividadEstudianteRepo, ForoRepo $foroRepo)
 	{
 		$this->cicloRepo = $cicloRepo;
 		$this->seccionRepo = $seccionRepo;
@@ -33,6 +35,7 @@ class MaestroController extends BaseController {
 		$this->estudianteSeccionRepo = $estudianteSeccionRepo;
 		$this->actividadRepo = $actividadRepo;
 		$this->actividadEstudianteRepo = $actividadEstudianteRepo;
+		$this->foroRepo = $foroRepo;
 		View::composer('layouts.admin', 'App\Http\Controllers\AdminMenuController');
 	}
 
@@ -55,6 +58,25 @@ class MaestroController extends BaseController {
 	{
 		$estudiantes = $this->estudianteSeccionRepo->getBySeccion($curso->seccion_id);
 		return view('maestros/estudiantes_curso', compact('curso','estudiantes'));	
+	}
+
+	public function cursos()
+	{
+		$ciclo = \Auth::user()->ciclo;
+		$maestro = \Auth::user()->persona;
+		$cursos = $this->cursoRepo->getByCicloByMaestro($ciclo->id, $maestro->id);
+		return view('maestros/cursos', compact('cursos','maestro'));
+	}
+
+	public function verCurso(Curso $curso)
+	{
+		$unidades = $curso->unidades;
+		foreach($unidades as $unidad)
+		{
+			$unidad->actividades->load('tipo');
+		}
+		$foros = $this->foroRepo->getByCurso($curso->id);
+		return view('maestros/ver_curso', compact('curso','foros','unidades'));	
 	}
 
 	public function reporteEstudiantesSeccion(Seccion $seccion, $tipo)
