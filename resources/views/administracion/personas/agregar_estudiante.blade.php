@@ -15,7 +15,7 @@
 	    	</div>
 	    	<div class="row">
 	    		<div class="col-lg-3">
-	    			{!! Field::text('fecha_nacimiento', null, ['data-required'=> 'true','class'=>'fecha']) !!}
+	    			{!! Field::text('fecha_nacimiento', null, ['data-required'=> 'true','class'=>'fecha','placeholder'=>'aaaa-mm-dd']) !!}
 	    		</div>
 	    		<div class="col-lg-3">
 	    			{!! Field::text('cui', null, ['data-required'=> 'false']) !!}
