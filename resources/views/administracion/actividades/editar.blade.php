@@ -33,7 +33,7 @@ Editar Actividad - {{$actividad->titulo}} -
 	  	</div>
 		<div class="box-footer">
        		<input type="submit" value="Editar" class="btn btn-primary btn-flat">
-            <a href="{{ route('actividades',$actividad->unidad_curso_id) }}" class="btn btn-danger btn-flat">Cancelar</a>     
+            <a href="{{ route('maestros.ver_curso',$actividad->unidad_curso->curso_id) }}" class="btn btn-danger btn-flat">Cancelar</a>
 		</div>
 	{!! Form::close() !!}
 </div>

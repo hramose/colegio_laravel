@@ -18,9 +18,8 @@ Route::get('reporte-estudiantes-curso/{curso}/{tipo}','MaestroController@reporte
 
 /* UNIDADES CURSOS */
 Route::group(['prefix' => 'unidades-curso'], function () {
-	Route::get('listado/{curso}','UnidadCursoController@listado')->name('unidades_cursos');
-	Route::get('editar/{unidad_curso}','UnidadCursoController@mostrarEditar')->name('editar_unidad_curso');
-	Route::put('editar/{unidad_curso}','UnidadCursoController@editar')->name('editar_unidad_curso');
+	Route::get('editar/{unidad_curso}','MaestroController@mostrarEditar')->name('maestros.editar_unidad_curso');
+	Route::put('editar/{unidad_curso}','MaestroController@editar')->name('maestros.editar_unidad_curso');
 });
 
 /* FOROS */
@@ -43,7 +42,6 @@ Route::group(['prefix' => 'mensajes-foros'], function () {
 
 /* ACTIVIDADES */
 Route::group(['prefix' => 'actividades'], function () {
-	Route::get('listado/{unidad_curso}','ActividadController@listado')->name('actividades');
 	Route::get('agregar/{unidad_curso}','ActividadController@mostrarAgregar')->name('agregar_actividad');
 	Route::post('agregar/{unidad_curso}','ActividadController@agregar')->name('agregar_actividad');
 	Route::get('editar/{actividad}','ActividadController@mostrarEditar')->name('editar_actividad');

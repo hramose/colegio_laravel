@@ -34,12 +34,15 @@
 					        <div class="tab-content">
 					        	@foreach($unidades as $index => $unidad)
 					        	<div class="tab-pane @if($index == 0) active @endif" id="{{$unidad->id}}">
+					        		<a href="{{route('maestros.editar_unidad_curso',$unidad->id)}}" class="btn btn-warning btn-flat fa fa-edit" data-toggle="tooltip" data-placement="top" data-original-title="Editar Planificación"> Editar Planificación</a>&nbsp;&nbsp;&nbsp;
 									@if($unidad->archivo_planificacion)
 									<a href="{{$unidad->archivo_planificacion}}" class="btn btn-primary btn-flat fa fa-file"> Descargar Planificación</a>
+									@endif
 									<hr>
 									<h4>Actividades</h4>
 					        		<hr>
-									@endif
+									<a href="{{route('agregar_actividad',$unidad->id)}}" class="btn btn-primary btn-flat fa fa-edit" data-toggle="tooltip" data-placement="top" data-original-title="Agregar Actividad"> Agregar Actividad</a>
+									<br/><br/>
 									<div class="table-responsive">
 										<table class="table responsive">
 											<thead>

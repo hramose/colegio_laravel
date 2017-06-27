@@ -25,15 +25,6 @@ class ActividadController extends BaseController {
 		View::composer('layouts.admin', 'App\Http\Controllers\AdminMenuController');
 	}
 
-	public function listado(UnidadCurso $unidadCurso)
-	{
-		$actividades = $this->actividadRepo->getByUnidad($unidadCurso->id);
-		$totalPorcentaje = 0;
-		foreach($actividades as $actividad)
-			$totalPorcentaje += $actividad->porcentaje;
-		return view('administracion/actividades/listado', compact('actividades','unidadCurso','totalPorcentaje'));
-	}
-
 	public function mostrarAgregar(UnidadCurso $unidadCurso)
 	{
 		$tipos = $this->tipoActividadRepo->lists('descripcion','id');
@@ -48,7 +39,7 @@ class ActividadController extends BaseController {
 		$manager = new ActividadManager(new Actividad(), $data);
 		$manager->save();
 		Session::flash('success', 'Se agregó la actividad '.$data['titulo'].' con éxito.');
-		return redirect()->route('actividades',$unidadCurso->id);
+		return redirect()->route('maestros.ver_curso',$unidadCurso->curso_id);
 	}
 
 	public function mostrarEditar(Actividad $actividad)
@@ -66,7 +57,7 @@ class ActividadController extends BaseController {
 		$manager = new ActividadManager($actividad, $data);
 		$manager->save();
 		Session::flash('success', 'Se editó la actividad '.$actividad->titulo.' con éxito.');
-		return redirect()->route('actividades',$actividad->unidad_curso_id);
+		return redirect()->route('maestros.ver_curso',$actividad->unidad_curso->curso_id);
 	}
 
 }

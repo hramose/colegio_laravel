@@ -33,7 +33,7 @@ Agregar Actividad -
 	  	</div>
 		<div class="box-footer">
        		<input type="submit" value="Agregar" class="btn btn-primary btn-flat">
-            <a href="{{ route('actividades',$unidadCurso->id) }}" class="btn btn-danger btn-flat">Cancelar</a>     
+            <a href="{{ route('maestros.ver_curso',$unidadCurso->curso_id) }}" class="btn btn-danger btn-flat">Cancelar</a>
 		</div>
 	{!! Form::close() !!}
 </div>
