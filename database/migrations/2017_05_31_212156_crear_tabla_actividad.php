@@ -24,7 +24,7 @@ class CrearTablaActividad extends Migration
             $table->string('nombre_original_archivo')->nullable();
             $table->tinyInteger('aplica_fecha');
             $table->date('fecha_inicio')->nullable();
-            $table->date('fecha_fin')->nullable();
+            $table->date('fecha_entrega')->nullable();
             $table->tinyInteger('entrega_via_web');
             $table->string('estado',1);
             $table->timestamps();

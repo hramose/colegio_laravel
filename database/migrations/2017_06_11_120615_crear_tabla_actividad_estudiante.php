@@ -21,6 +21,7 @@ class CrearTablaActividadEstudiante extends Migration
             $table->string('archivo')->nullable();
             $table->longText('texto')->nullable();
             $table->datetime('fecha_entrega')->nullable();
+            $table->text('observaciones')->nullable();
             $table->string('estado',1);
             $table->timestamps();
             $table->string('created_by',45);

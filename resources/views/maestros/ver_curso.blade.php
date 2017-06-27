@@ -3,8 +3,8 @@
 {{$curso->descripcion}}
 @endsection
 @section('css')
-
-@endsection
+<link href="{{asset('assets/admin/plugins/datatables/dataTables.bootstrap.css')}}" rel="stylesheet">
+@stop
 @section('content')
 <div class="row">
 	<div class="col-lg-12">
@@ -92,7 +92,7 @@
 							</div>
 						</div>
 						<div class="table-responsive">
-							<table class="table table-bordered">
+							<table id="foros" class="table table-bordered">
 								<thead>
 									<tr>
 										<th>TEMA</th>
@@ -127,4 +127,13 @@
 
 @endsection
 @section('js')
+<script src="{{ asset('assets/admin/plugins/datatables/jquery.dataTables.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables/dataTables.bootstrap.js') }}"></script>
+<script>
+	$(document).ready(function() {
+   		$('#foros').dataTable({
+   			"bSort" : true
+   		});
+	});
+</script>
 @stop
