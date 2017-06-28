@@ -9,22 +9,29 @@ use Controller, Redirect, Input, View, Session, Variable;
 
 use App\App\Entities\Curso;
 use App\App\Repositories\CursoRepo;
+use App\App\Repositories\ActividadRepo;
 
 class UnidadCursoController extends BaseController {
 
 	protected $unidadCursoRepo;
 	protected $cursoRepo;
+	protected $actividadRepo;
 
-	public function __construct(UnidadCursoRepo $unidadCursoRepo, CursoRepo $cursoRepo)
+	public function __construct(UnidadCursoRepo $unidadCursoRepo, CursoRepo $cursoRepo, ActividadRepo $actividadRepo)
 	{
 		$this->unidadCursoRepo = $unidadCursoRepo;
 		$this->cursoRepo = $cursoRepo;
+		$this->actividadRepo = $actividadRepo;
 		View::composer('layouts.admin', 'App\Http\Controllers\AdminMenuController');
 	}
 
 	public function listado(Curso $curso)
 	{
 		$unidades = $this->unidadCursoRepo->getByCurso($curso->id);
+		foreach($unidades as $unidad){
+			$unidad->actividades = $this->actividadRepo->getByUnidad($unidad->id);
+		}
+
 		return view('administracion/unidades_cursos/listado', compact('unidades','curso'));
 	}
 
@@ -41,8 +48,8 @@ class UnidadCursoController extends BaseController {
 		$data['estado'] = $unidadCurso->estado;
 		$manager = new UnidadCursoManager($unidadCurso, $data);
 		$manager->save();
-		Session::flash('success', 'Se editó la unidad del curso con éxito.');
-		return redirect()->route('unidades_cursos',$unidadCurso->curso_id);
+		Session::flash('success', 'Se editó la planificación de unidad del curso con éxito.');
+		return redirect()->route('unidades_curso',$unidadCurso->curso_id);
 	}
 
 

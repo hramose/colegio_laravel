@@ -19,8 +19,8 @@ Agregar Planificación -
 	       	{!! Field::file('archivo_planificacion') !!}
 	  	</div>
 		<div class="box-footer">
-       		<input type="submit" value="Agregar Planificación" class="btn btn-primary btn-flat">
-            <a href="{{ route('unidades_cursos',$unidadCurso->curso_id) }}" class="btn btn-danger btn-flat">Cancelar</a>     
+       		<input type="submit" value="Editar Planificación" class="btn btn-primary btn-flat">
+            <a href="{{ route('unidades_curso',$unidadCurso->curso_id) }}" class="btn btn-danger btn-flat">Cancelar</a>     
 		</div>
 	{!! Form::close() !!}
 </div>

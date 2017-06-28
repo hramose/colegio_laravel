@@ -16,7 +16,7 @@
         			<div class="progress-bar" style="width: 100%"></div>
       			</div>
           		<span class="progress-description">
-        			<a href="{{route('estudiantes.companeros')}}" style="color: white !important">
+        			<a href="#" style="color: white !important">
       					Ver secciones <i class="fa fa-arrow-circle-right"></i>
     				</a>
           		</span>

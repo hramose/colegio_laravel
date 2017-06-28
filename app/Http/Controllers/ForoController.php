@@ -22,6 +22,12 @@ class ForoController extends BaseController {
 		View::composer('layouts.admin', 'App\Http\Controllers\AdminMenuController');
 	}
 
+	public function listado(Curso $curso)
+    {
+    	$foros = $this->foroRepo->getByCurso($curso->id);
+        return view('administracion/foros/listado', compact('foros','curso'));
+    }
+
     public function mostrarAgregar(Curso $curso)
     {
         return view('administracion/foros/agregar', compact('curso'));

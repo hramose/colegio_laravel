@@ -39,7 +39,7 @@ class ActividadController extends BaseController {
 		$manager = new ActividadManager(new Actividad(), $data);
 		$manager->save();
 		Session::flash('success', 'Se agregó la actividad '.$data['titulo'].' con éxito.');
-		return redirect()->route('maestros.ver_curso',$unidadCurso->curso_id);
+		return redirect()->route('unidades_curso',$unidadCurso->curso_id);
 	}
 
 	public function mostrarEditar(Actividad $actividad)
@@ -57,7 +57,7 @@ class ActividadController extends BaseController {
 		$manager = new ActividadManager($actividad, $data);
 		$manager->save();
 		Session::flash('success', 'Se editó la actividad '.$actividad->titulo.' con éxito.');
-		return redirect()->route('maestros.ver_curso',$actividad->unidad_curso->curso_id);
+		return redirect()->route('unidades_curso',$actividad->unidad_curso->curso_id);
 	}
 
 }

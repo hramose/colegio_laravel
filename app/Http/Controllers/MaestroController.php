@@ -74,32 +74,9 @@ class MaestroController extends BaseController {
 	public function verCurso(Curso $curso)
 	{
 		$unidades = $curso->unidades;
-		foreach($unidades as $unidad)
-		{
-			$unidad->actividades->load('tipo');
-		}
 		$foros = $this->foroRepo->getByCurso($curso->id);
 		return view('maestros/ver_curso', compact('curso','foros','unidades'));	
 	}
-
-	public function mostrarEditar(UnidadCurso $unidadCurso)
-	{
-		return view('maestros/editar_unidad_curso', compact('unidadCurso'));
-	}
-
-	public function editar(UnidadCurso $unidadCurso)
-	{
-		$data = Input::all();
-		$data['curso_id'] = $unidadCurso->curso_id;
-		$data['unidad_seccion_id'] = $unidadCurso->unidad_seccion_id;
-		$data['estado'] = $unidadCurso->estado;
-		$manager = new UnidadCursoManager($unidadCurso, $data);
-		$manager->save();
-		Session::flash('success', 'Se editó la unidad del curso con éxito.');
-		return redirect()->route('maestros.ver_curso',$unidadCurso->curso_id);
-	}
-
-	/**/
 
 	public function reporteEstudiantesSeccion(Seccion $seccion, $tipo)
 	{

@@ -10,6 +10,7 @@ Foro - {{$curso->descripcion}}
 	<div class="box-body">
 		<div class="table-responsive">
 			<a href="{{route('agregar_foro',$curso->id)}}" class="btn btn-primary btn-flat">Agregar</a>
+			<a href="{{route('maestros.ver_curso',$curso->id)}}" class="btn btn-danger btn-flat">Regresar al Curso</a>
 			<hr>
 			<table class="table table-bordered">
 				<thead>
