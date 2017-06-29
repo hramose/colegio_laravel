@@ -74,8 +74,9 @@ class MaestroController extends BaseController {
 	public function verCurso(Curso $curso)
 	{
 		$unidades = $curso->unidades;
-		$foros = $this->foroRepo->getByCurso($curso->id);
-		return view('maestros/ver_curso', compact('curso','foros','unidades'));	
+		//$foros = $this->foroRepo->getByCurso($curso->id);
+		//throw new \Exception('es');
+		return view('maestros/ver_curso', compact('curso'));	
 	}
 
 	public function reporteEstudiantesSeccion(Seccion $seccion, $tipo)

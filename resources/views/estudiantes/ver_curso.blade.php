@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 @section('title') 
-{{$curso->materia->descripcion}}  - {{$curso->seccion->grado->descripcion}} {{$curso->seccion->descripcion_seccion}}
+{{$curso->descripcion}}
 @endsection
 @section('css')
-
-@endsection
+<link href="{{asset('assets/admin/plugins/datatables/dataTables.bootstrap.css')}}" rel="stylesheet">
+@stop
 @section('content')
 <div class="row">
 	<div class="col-lg-12">
@@ -25,94 +25,48 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6">
-						<div class="nav-tabs-custom">
-					    	<ul class="nav nav-tabs">
-					    		@foreach($unidades as $index => $unidad)
-					        	<li class="@if($index == 0) active @endif"><a href="#{{$unidad->id}}" data-toggle="tab">{{$unidad->unidad_seccion->descripcion}}</a></li>
-					        	@endforeach
-					        </ul>
-					        <div class="tab-content">
-					        	@foreach($unidades as $index => $unidad)
-					        	<div class="tab-pane @if($index == 0) active @endif" id="{{$unidad->id}}">
-									@if($unidad->archivo_planificacion)
-									<a href="{{$unidad->archivo_planificacion}}" class="btn btn-primary btn-flat fa fa-file"> Descargar Planificación</a>
-									<hr>
-									<h4>Actividades</h4>
-					        		<hr>
-									@endif
-									<div class="table-responsive">
-										<table class="table responsive">
-											<thead>
-												<tr>
-													<th>DESCRIPCIÓN</th>
-													<th>TIPO</th>
-													<th>VALOR</th>
-													<th>ESTADO</th>
-													<th></th>
-												</tr>
-											</thead>
-											<tbody>
-												 @foreach($unidad->actividades as $actividad)
-												<tr>
-													<td> {{$actividad->actividad->titulo}} </td>
-													<td> {{$actividad->actividad->tipo->descripcion}} </td>
-													<td> {{$actividad->actividad->porcentaje}} pts </td>
-													<td> {{$actividad->descripcion_estado}} </td>
-													<td> 
-														<a href="{{route('estudiantes.ver_actividad',$actividad->id)}}" class="btn btn-warning btn-flat fa fa-eye"></a> 
-													</td>
-												</tr>
-												 @endforeach 
-											</tbody>
-										</table>
-									</div>
-					              
-					            </div>
-					            @endforeach
-					      	</div>
-					    </div>
-					</div>
-					<div class="col-md-6">
-						<h4>FORO</h4>
-						<div class="info-box bg-red">
-           					<span class="info-box-icon"><i class="fa fa-comments-o"></i></span>
+						<div class="info-box bg-green">
+           					<span class="info-box-icon"><i class="fa fa-dashboard"></i></span>
 							<div class="info-box-content">
-								<span class="info-box-text">Temas</span>
-								<span class="info-box-number">{{$curso->cantidadForos}}</span>
+								<span class="info-box-text">UNIDADES</span>
+								<span class="info-box-number">{{count($curso->unidades)}}</span>
 									<div class="progress">
 										<div class="progress-bar" style="width: 100%"></div>
 									</div>
 									<span class="progress-description">
-									¡Participa!
+									<a href="{{route('estudiantes.unidades',$curso->id)}}" style="color: white">Ver Unidades <i class="fa fa-chevron-right"></i></a>
 								</span>
 							</div>
 						</div>
-						<div class="table-responsive">
-							<table class="table table-bordered">
-								<thead>
-									<tr>
-										<th>TEMA</th>
-										<th>MENSAJES / VISITAS</th>
-										<th>ULTIMO MENSAJE</th>
-									</tr>
-								</thead>
-								<tbody>
-									@foreach($foros as $foro)
-									<tr>
-										<td>
-											<a href="{{route('mensajes_foro',$foro->id)}}">{{$foro->tema}}</a> <br/>
-											Iniciado por {{$foro->autor->nombre_completo}} el {{date('d/m/Y - H:i', strtotime($foro->created_at))}}
-										</td>
-										<td>Respuestas: {{$foro->respuestas}} <br/> Visitas: {{$foro->visitas}}</td>
-										<td>
-											@if($foro->ultima_respuesta)
-												De {{$foro->ultima_respuesta->autor->nombre_completo}} el {{date('d/m/Y - H:i', strtotime($foro->ultima_respuesta->created_at))}}
-											@endif
-										</td>
-									</tr>
-									@endforeach
-								</tbody>
-							</table>
+					</div>
+					<div class="col-md-6">
+						<div class="info-box bg-blue">
+           					<span class="info-box-icon"><i class="fa fa-users"></i></span>
+							<div class="info-box-content">
+								<span class="info-box-text">ESTUDIANTES</span>
+								<span class="info-box-number">{{count($curso->seccion->estudiantes)}}</span>
+									<div class="progress">
+										<div class="progress-bar" style="width: 100%"></div>
+									</div>
+									<span class="progress-description">
+									<a href="{{route('maestros.estudiantes_curso',$curso->id)}}" style="color: white">Ver Estudiantes <i class="fa fa-chevron-right"></i></a>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="info-box bg-red">
+           					<span class="info-box-icon"><i class="fa fa-comments-o"></i></span>
+							<div class="info-box-content">
+								<span class="info-box-text">FORO</span>
+								<span class="info-box-number">{{count($curso->foros)}}</span>
+									<div class="progress">
+										<div class="progress-bar" style="width: 100%"></div>
+									</div>
+									<span class="progress-description">
+									<a href="{{route('estudiantes.foros',$curso->id)}}" style="color: white">Ver Foro <i class="fa fa-chevron-right"></i></a>
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -123,4 +77,13 @@
 
 @endsection
 @section('js')
+<script src="{{ asset('assets/admin/plugins/datatables/jquery.dataTables.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables/dataTables.bootstrap.js') }}"></script>
+<script>
+	$(document).ready(function() {
+   		$('#foros').dataTable({
+   			"bSort" : false
+   		});
+	});
+</script>
 @stop

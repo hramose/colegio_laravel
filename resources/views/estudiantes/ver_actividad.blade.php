@@ -31,7 +31,7 @@
                     </li>
                 </ul>
                 @endif
-                <a href="{{route('estudiantes.ver_curso',$actividadEstudiante->actividad->unidad_curso->curso_id)}}" class="btn btn-danger btn-flat fa fa-chevron-circle-left"> Regresar</a>
+                <a href="{{route('estudiantes.unidades',$actividadEstudiante->actividad->unidad_curso->curso_id)}}" class="btn btn-danger btn-flat fa fa-chevron-circle-left"> Regresar</a>
 			</div>
             <br/>
 		</div>

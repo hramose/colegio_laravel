@@ -29,11 +29,10 @@
                         </div>
                         <div class="box-footer no-padding">
                             <ul class="nav nav-stacked">
-                                <li><a href="{{route('estudiantes.foros',$curso->id)}}">Foros <span class="pull-right badge bg-blue">{{$curso->cantidad_foros}}</span></a></li>
-                                <li><a href="#">Tareas <span class="pull-right badge bg-green">{{rand(0,10)}}</span></a></li>
-                                <!--<li><a href="#">Completed Projects <span class="pull-right badge bg-green">12</span></a></li>-->
+                                <li><a href="{{route('unidades_curso',$curso->id)}}"><i class="fa fa-book"></i> Unidades <span class="pull-right badge bg-green">{{count($curso->unidades)}}</span></a></li>
+                                <li><a href="{{route('estudiantes.foros',$curso->id)}}"><i class="fa fa-comments-o"></i> Foros <span class="pull-right badge bg-red">{{$curso->cantidad_foros}}</span></a></li>
                                 <li class="{{$colors[$columna]}}" style="font-weight: bold;">
-                                    <a href="{{route('estudiantes.ver_curso',$curso->id)}}" class="ver-curso">Ver Curso <i class="fa fa-chevron-right"></i></a>
+                                    <a href="{{route('maestros.ver_curso',$curso->id)}}" class="ver-curso">Ver Curso <i class="fa fa-chevron-right"></i></a>
                                 </li>
                             </ul>
                         </div>

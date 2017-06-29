@@ -8,6 +8,8 @@ Foro - {{$curso->descripcion}}
 @section('content')
 <div class="box box-primary">
 	<div class="box-body">
+		<a href="{{route('estudiantes.ver_curso',$curso->id)}}" class="btn btn-danger btn-flat">Regresar al Curso</a>
+		<br/><br/>
 		<div class="table-responsive">
 			<table class="table table-bordered">
 				<thead>

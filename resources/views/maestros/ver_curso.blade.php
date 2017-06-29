@@ -29,7 +29,7 @@
            					<span class="info-box-icon"><i class="fa fa-dashboard"></i></span>
 							<div class="info-box-content">
 								<span class="info-box-text">UNIDADES</span>
-								<span class="info-box-number">{{count($unidades)}}</span>
+								<span class="info-box-number">{{count($curso->unidades)}}</span>
 									<div class="progress">
 										<div class="progress-bar" style="width: 100%"></div>
 									</div>
@@ -59,7 +59,7 @@
            					<span class="info-box-icon"><i class="fa fa-comments-o"></i></span>
 							<div class="info-box-content">
 								<span class="info-box-text">FORO</span>
-								<span class="info-box-number">{{$curso->cantidadForos}}</span>
+								<span class="info-box-number">{{count($curso->foros)}}</span>
 									<div class="progress">
 										<div class="progress-bar" style="width: 100%"></div>
 									</div>

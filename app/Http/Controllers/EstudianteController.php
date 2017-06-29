@@ -10,6 +10,7 @@ use App\App\Repositories\CursoRepo;
 use App\App\Repositories\EstudianteSeccionRepo;
 use App\App\Repositories\ActividadRepo;
 use App\App\Repositories\ActividadEstudianteRepo;
+use App\App\Repositories\UnidadCursoRepo;
 use App\App\Repositories\ForoRepo;
 
 use App\App\Entities\Seccion;
@@ -28,9 +29,10 @@ class EstudianteController extends BaseController {
 	protected $estudianteSeccionRepo;
 	protected $actividadRepo;
 	protected $actividadEstudianteRepo;
+	protected $unidadCursoRepo;
 	protected $foroRepo;
 
-	public function __construct(CicloRepo $cicloRepo, SeccionRepo $seccionRepo, CursoRepo $cursoRepo, EstudianteSeccionRepo $estudianteSeccionRepo, ActividadRepo $actividadRepo, ActividadEstudianteRepo $actividadEstudianteRepo, ForoRepo $foroRepo)
+	public function __construct(CicloRepo $cicloRepo, SeccionRepo $seccionRepo, CursoRepo $cursoRepo, EstudianteSeccionRepo $estudianteSeccionRepo, ActividadRepo $actividadRepo, ActividadEstudianteRepo $actividadEstudianteRepo, UnidadCursoRepo $unidadCursoRepo, ForoRepo $foroRepo)
 	{
 		$this->cicloRepo = $cicloRepo;
 		$this->seccionRepo = $seccionRepo;
@@ -38,7 +40,8 @@ class EstudianteController extends BaseController {
 		$this->estudianteSeccionRepo = $estudianteSeccionRepo;
 		$this->actividadRepo = $actividadRepo;
 		$this->actividadEstudianteRepo = $actividadEstudianteRepo;
-		$this->foroRepo = $foroRepo;
+		$this->actividadEstudianteRepo = $actividadEstudianteRepo;
+		$this->unidadCursoRepo = $unidadCursoRepo;
 		View::composer('layouts.admin', 'App\Http\Controllers\AdminMenuController');
 	}
 
@@ -59,14 +62,7 @@ class EstudianteController extends BaseController {
 
 	public function verCurso(Curso $curso)
 	{
-		$estudiante = \Auth::user()->persona;
-		$unidades = $curso->unidades;
-		foreach($unidades as $unidad)
-		{
-			$unidad->actividades = $this->actividadEstudianteRepo->getByEstudianteByUnidad($estudiante->id, $unidad->id);
-		}
-		$foros = $this->foroRepo->getByCurso($curso->id);
-		return view('estudiantes/ver_curso', compact('curso','unidades','foros'));
+		return view('estudiantes/ver_curso', compact('curso'));
 	}
 
 	public function companeros()
@@ -93,6 +89,17 @@ class EstudianteController extends BaseController {
 		}
 		$cursos = $this->cursoRepo->getBySeccion($seccion->id)->load('foros');
 		return view('estudiantes/cursos', compact('seccion','cursos'));
+	}
+
+	public function unidades(Curso $curso)
+	{
+		$estudiante = \Auth::user()->persona;
+		$unidades = $this->unidadCursoRepo->getByCurso($curso->id);
+		foreach($unidades as $unidad){
+			$unidad->actividades = $this->actividadEstudianteRepo->getByEstudianteByUnidad($estudiante->id, $unidad->id);
+		}
+
+		return view('estudiantes/unidades', compact('unidades','curso'));
 	}
 
 	public function foros(Curso $curso)
