@@ -7,7 +7,7 @@ class Actividad extends \Eloquent {
 
 	use UserStamps;
 
-	protected $fillable = ['unidad_curso_id','tipo_actividad_id','porcentaje','titulo','descripcion','archivo','aplica_fecha','fecha_inicio','fecha_fin','entrega_via_web','estado'];
+	protected $fillable = ['unidad_curso_id','tipo_actividad_id','punteo','titulo','descripcion','archivo','aplica_fecha','fecha_inicio','fecha_entrega','entrega_via_web','estado'];
 
 	protected $table = 'actividad';
 
@@ -32,5 +32,19 @@ class Actividad extends \Eloquent {
     {
     	return $this->estado;
     }
+
+    public function getDescripcionAplicaFechaAttribute()
+	{
+		if($this->aplica_fecha)
+			return '<i class="fa fa-check square text-white bg-green"></i>';
+		return '<i class="fa fa-times square text-white bg-red"></i>';
+	}
+
+	public function getDescripcionEntregaViaWebAttribute()
+	{
+		if($this->entrega_via_web)
+			return '<i class="fa fa-check square text-white bg-green"></i>';
+		return '<i class="fa fa-times square text-white bg-red"></i>';
+	}
 
 }

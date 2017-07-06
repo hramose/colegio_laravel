@@ -38,7 +38,7 @@
                             </ul>
                         </div>
                     </div>
-                    <?php $columna++; if($columna == 4) $columna==0; ?>
+                    <?php $columna++; if($columna == 4){ $columna=0; } ?>
                 </div>
                 @endforeach
 		</div>

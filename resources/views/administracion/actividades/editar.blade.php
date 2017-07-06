@@ -15,7 +15,7 @@ Editar Actividad - {{$actividad->titulo}} -
 	       	<div class="row">
 	    		<div class="col-lg-6">{!! Field::text('titulo', null, ['data-required'=> 'true']) !!}</div>
 	    		<div class="col-lg-3">{!! Field::select('tipo_actividad_id', $tipos, null, ['data-required'=> 'true']) !!}</div>
-	    		<div class="col-lg-3">{!! Field::number('porcentaje', null, ['data-required'=> 'true']) !!}</div>
+	    		<div class="col-lg-3">{!! Field::number('punteo', null, ['data-required'=> 'true']) !!}</div>
 	    	</div>
 	    	<div class="row">
 	    		<div class="col-lg-12">
@@ -25,7 +25,8 @@ Editar Actividad - {{$actividad->titulo}} -
 	    	<div class="row">
 	    		<div class="col-lg-3">{!! Field::checkbox('aplica_fecha') !!}</div>
 	    		<div class="col-lg-3">{!! Field::text('fecha_inicio', null, ['data-required'=> 'false','class'=>'fecha']) !!}</div>
-	    		<div class="col-lg-3">{!! Field::text('fecha_fin', null, ['data-required'=> 'false','class'=>'fecha']) !!}</div>
+	    		<div class="col-lg-3">{!! Field::text('fecha_entrega', null, ['data-required'=> 'false','class'=>'fecha']) !!}</div>
+	    		<div class="col-lg-3">{!! Field::checkbox('entrega_via_web') !!}</div>
 	    	</div>
 	    	<div class="row">
 	    		<div class="col-lg-3">{!! Field::file('archivo') !!}</div>

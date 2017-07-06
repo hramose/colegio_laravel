@@ -23,7 +23,7 @@ class ActividadManager extends BaseManager
 			'titulo'  			=> 'required',
 			'unidad_curso_id'  	=> 'required',
 			'descripcion'  		=> 'required',
-			'porcentaje' 		=> 'required',
+			'punteo' 			=> 'required',
 			'archivo'			=> 'mimes:pdf'
 		];
 		

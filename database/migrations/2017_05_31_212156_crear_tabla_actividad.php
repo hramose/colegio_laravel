@@ -19,7 +19,7 @@ class CrearTablaActividad extends Migration
             $table->integer('tipo_actividad_id')->unsigned();
             $table->string('titulo');
             $table->text('descripcion');
-            $table->double('porcentaje');
+            $table->double('punteo');
             $table->string('archivo')->nullable();
             $table->string('nombre_original_archivo')->nullable();
             $table->tinyInteger('aplica_fecha');
