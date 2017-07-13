@@ -48,6 +48,11 @@ Route::group(['prefix' => 'actividades'], function () {
 	Route::post('agregar/{unidad_curso}','ActividadController@agregar')->name('agregar_actividad');
 	Route::get('editar/{actividad}','ActividadController@mostrarEditar')->name('editar_actividad');
 	Route::put('editar/{actividad}','ActividadController@editar')->name('editar_actividad');
+	Route::get('ver-notas-actividad/{actividad}','ActividadController@mostrarVerNotas')->name('ver_notas_actividad');
+	Route::get('calificar-actividad/{actividad}','ActividadController@mostrarCalificarActividad')->name('calificar_actividad');
+	Route::post('calificar-actividad/{actividad}','ActividadController@calificarActividad')->name('calificar_actividad');
+	Route::get('calificar-actividades/{actividad}','ActividadController@mostrarCalificarActividades')->name('calificar_actividades');
+	Route::post('calificar-actividades/{actividad}','ActividadController@calificarActividades')->name('calificar_actividades');
 });
 
 }); //prefix-maestros

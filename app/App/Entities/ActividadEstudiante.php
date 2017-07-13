@@ -7,7 +7,7 @@ class ActividadEstudiante extends \Eloquent {
 
 	use UserStamps;
 
-	protected $fillable = ['actividad_id','estudiante_id','nota','texto','archivo','fecha_entrega','estado'];
+	protected $fillable = ['actividad_id','estudiante_id','nota','texto','archivo','fecha_entrega','observaciones','estado'];
 
 	protected $table = 'actividad_estudiante';
 

@@ -65,7 +65,6 @@ class CursoManager extends BaseManager
 		}
 		catch(\Exception $ex)
 		{
-			dd($ex);
 			$mensaje = $ex->getMessage();
 			if(str_contains($mensaje, 'curso_seccion_id_materia_id_unique')){
 				$seccionId = $ex->getBindings()[0];

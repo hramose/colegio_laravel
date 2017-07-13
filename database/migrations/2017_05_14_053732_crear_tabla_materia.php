@@ -16,7 +16,7 @@ class CrearTablaMateria extends Migration
         Schema::create('materia', function (Blueprint $table) {
             $table->increments('id');
             $table->string('descripcion',45);
-            $table->integer('numero');
+            $table->integer('numero')->unique();
             $table->string('estado',1);
             $table->timestamps();
             $table->string('created_by',45);

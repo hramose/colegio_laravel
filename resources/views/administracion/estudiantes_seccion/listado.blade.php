@@ -21,20 +21,20 @@ Estudiantes - {{$seccion->grado->descripcion}} {{$seccion->descripcion_seccion}}
 						<th></th>
 					</tr>
 				</thead>
-				<tfoot class="search">
+				<!--<tfoot class="search">
 					<tr>
 						<th class="searchField">CODIGO</th>
 						<th class="searchField">ESTUDIANTE</th>
 						<th></th>
 					</tr>
-				</tfoot>
+				</tfoot>-->
 				<tbody>
 					@foreach($estudiantes as $estudiante)
 					<tr>
 						<td>{{$estudiante->codigo}}</td>
 						<td>{{$estudiante->estudiante->nombre_completo}}</td>
 						<td>
-							<a href="{{route('editar_estudiante_seccion',$estudiante->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar"></a>
+							<!--<a href="{{route('editar_estudiante_seccion',$estudiante->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar"></a>-->
 						</td>
 					</tr>
 					@endforeach

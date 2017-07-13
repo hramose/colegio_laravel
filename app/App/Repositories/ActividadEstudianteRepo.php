@@ -23,4 +23,11 @@ class ActividadEstudianteRepo extends BaseRepo{
 								->get();
 	}
 
+	public function getByActividad($actividadId)
+	{
+		return ActividadEstudiante::where('actividad_id',$actividadId)
+									->with('estudiante')
+									->get();
+	}
+
 }

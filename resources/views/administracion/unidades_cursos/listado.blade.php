@@ -64,6 +64,7 @@ Unidades - {{$curso->descripcion}}
 									<td> 
 										<a href="@{{route('maestros.ver_actividad',$actividad->id)}}" class="btn btn-info btn-flat btn-sm fa fa-eye" data-toggle="tooltip" data-placement="top" data-original-title="Ver"></a> 
 										<a href="{{route('editar_actividad',$actividad->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-edit" data-toggle="tooltip" data-placement="top" data-original-title="Editar"></a>
+										<a href="{{route('ver_notas_actividad',$actividad->id)}}" class="btn btn-primary btn-sm btn-flat fa fa-check" data-toggle="tooltip" data-placement="top" data-original-title="Ver Notas"></a>
 									</td>
 								</tr>
 								 @endforeach 

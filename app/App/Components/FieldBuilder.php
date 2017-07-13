@@ -106,6 +106,10 @@ class FieldBuilder {
 		$this->buildCSSClasses($type, $attributes);
 		$label = $this->buildLabel($name);
 		$control = $this->buildControl($type, $name, $value, $attributes, $options);
+		if(str_contains($name, '[')){
+			$name = str_replace('[', '.', $name);
+			$name = str_replace(']', '', $name);
+		}
 		$error = $this->buildError($name);
 		$template = $this->buildTemplate($type);
 

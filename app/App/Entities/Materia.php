@@ -7,7 +7,7 @@ class Materia extends \Eloquent {
 
 	use UserStamps;
 
-	protected $fillable = ['descripcion','estado'];
+	protected $fillable = ['descripcion','numero','estado'];
 
 	protected $table = 'materia';
 	
