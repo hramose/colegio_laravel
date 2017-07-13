@@ -41,7 +41,7 @@ class MateriaManager extends BaseManager
 		catch(\Exception $ex)
 		{
 			$mensaje = $ex->getMessage();
-			if(str_contains($mensaje, 'numero_UNIQUE')){			
+			if(str_contains($mensaje, 'materia_numero_unique')){			
 
 				$error = 'El numero de la materia ya existe. Por favor ingrese otro.';
 
