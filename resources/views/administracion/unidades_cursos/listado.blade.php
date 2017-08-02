@@ -56,10 +56,10 @@ Unidades - {{$curso->descripcion}}
 								<?php $totalPorcentaje = 0; ?>
 								@foreach($unidad->actividades as $actividad)
 								<tr>
-									<?php $totalPorcentaje+=$actividad->porcentaje; ?>
+									<?php $totalPorcentaje+=$actividad->punteo; ?>
 									<td> {{$actividad->titulo}} </td>
 									<td> {{$actividad->tipo->descripcion}} </td>
-									<td> {{$actividad->porcentaje}} pts </td>
+									<td> {{$actividad->punteo}} pts </td>
 									<td> {{$actividad->descripcion_estado}} </td>
 									<td> 
 										<a href="@{{route('maestros.ver_actividad',$actividad->id)}}" class="btn btn-info btn-flat btn-sm fa fa-eye" data-toggle="tooltip" data-placement="top" data-original-title="Ver"></a> 
