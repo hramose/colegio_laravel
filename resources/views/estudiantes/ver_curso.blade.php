@@ -49,7 +49,7 @@
 										<div class="progress-bar" style="width: 100%"></div>
 									</div>
 									<span class="progress-description">
-									<a href="{{route('maestros.estudiantes_curso',$curso->id)}}" style="color: white">Ver Estudiantes <i class="fa fa-chevron-right"></i></a>
+									<a href="{{route('estudiantes.companeros',$curso->id)}}" style="color: white">Ver Estudiantes <i class="fa fa-chevron-right"></i></a>
 								</span>
 							</div>
 						</div>

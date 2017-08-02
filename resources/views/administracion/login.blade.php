@@ -42,6 +42,11 @@
 		              		<h4>{{Session::get('login-error')}}</h4>
 		           		</div>
 		          	@endif
+		          	@if(Session::has('error'))
+		            	<div class="alert alert-danger alert-dismissable">
+		              		<h4>{{Session::get('error')}}</h4>
+		           		</div>
+		          	@endif
 	          		<div class="form-group has-feedback">
 	        			<input type="text" name="username" class="form-control" placeholder="Username"/>
 	            		<span class="glyphicon glyphicon-user form-control-feedback"></span>

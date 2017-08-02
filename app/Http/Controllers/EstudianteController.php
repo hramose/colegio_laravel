@@ -52,6 +52,8 @@ class EstudianteController extends BaseController {
 		$seccion = $this->estudianteSeccionRepo->getByCicloByEstudiante($ciclo->id, $estudiante->id);
 		if(is_null($seccion)){
 			Session::flash('error', $estudiante->nombre_completo . ', no estás asignado a ninguna sección en el ciclo ' . $ciclo->descripcion);
+			\Auth::logout();
+			return redirect()->route('login');
 		}
 		$seccion = $seccion->seccion;
 		$cursos = $this->cursoRepo->getBySeccion($seccion->id);
@@ -130,6 +132,21 @@ class EstudianteController extends BaseController {
 	public function verActividad(ActividadEstudiante $actividadEstudiante)
 	{
 		return view('estudiantes/ver_actividad', compact('actividadEstudiante'));
+	}
+
+	public function mostrarEntregarActividad(ActividadEstudiante $actividad)
+	{
+		return view('estudiantes/entregar_actividad', compact('actividadEstudiante'));	
+	}
+
+	public function entregarActividad(ActividadEstudiante $actividad)
+	{
+		$data = Input::all();
+		$data['estado'] = 'E';
+		$data['fecha_entrega'] = date('Y-m-d H:i:s');
+		$manager = new ActividadEstudianteManager($actividad, $data);
+		$manager->entregar();
+		Session::flash('success', 'Has entregado tu actividad con éxito');
 	}
 
 

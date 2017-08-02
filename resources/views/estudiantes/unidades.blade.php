@@ -36,6 +36,7 @@ Unidades - {{$curso->descripcion}}
 									<th>TIPO</th>
 									<th>VALOR</th>
 									<th>PUNTEO</th>
+									<th>FECHA ENTREGA</th>
 									<th>ESTADO</th>
 									<th></th>
 								</tr>
@@ -44,18 +45,24 @@ Unidades - {{$curso->descripcion}}
 								<?php $totalPorcentaje = 0; $totalNota = 0; ?>
 								@foreach($unidad->actividades as $actividad)
 								<tr>
-									<?php $totalPorcentaje+=$actividad->actividad->porcentaje; $totalNota+=$actividad->nota; ?>
+									<?php $totalPorcentaje+=$actividad->actividad->punteo; $totalNota+=$actividad->nota; ?>
 									<td> {{$actividad->actividad->titulo}} </td>
 									<td> {{$actividad->actividad->tipo->descripcion}} </td>
-									<td> {{$actividad->actividad->porcentaje}} pts </td>
+									<td> {{$actividad->actividad->punteo}} pts </td>
 									<td>
 										@if($actividad->nota)
 											{{$actividad->nota}} pts 
 										@endif
 									</td>
+									<td>
+										@if($actividad->fecha_entrega)
+										{{ date('d-m-Y H:i', strtotime($actividad->fecha_entrega))}} 
+										@endif
+									</td>
 									<td> {{$actividad->descripcion_estado}} </td>
 									<td> 
 										<a href="{{route('estudiantes.ver_actividad',$actividad->id)}}" class="btn btn-info btn-flat btn-sm fa fa-eye" data-toggle="tooltip" data-placement="top" data-original-title="Ver"></a>
+										<a href="{{route('estudiantes.entregar_actividad',$actividad->id)}}" class="btn btn-primary btn-flat btn-sm fa fa-check" data-toggle="tooltip" data-placement="top" data-original-title="Entregar"></a>
 									</td>
 								</tr>
 								 @endforeach 

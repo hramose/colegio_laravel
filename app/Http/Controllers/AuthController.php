@@ -33,13 +33,14 @@ class AuthController extends BaseController {
 		if(Auth::attempt($credentials))
 		{
 			$user = Auth::user();
+			$user->ciclo_id = null;
+			$user->save();
 			
 			if($user->estado == 'I')
 			{
 				Session::flash('login-error','Usuario inactivo. Contacte a su administrador.');
 				return Redirect::back();
 			}
-
 
 			/*$cicloRepo = new CicloRepo();
 			$ciclo = $cicloRepo->getActual();

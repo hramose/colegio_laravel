@@ -76,4 +76,23 @@ class ActividadEstudianteManager extends BaseManager
 		}
 	}
 
+	public function entregar()
+	{
+		try{
+			\DB::beginTransaction();
+				foreach($notas as $nota)
+				{
+					$this->entity->fill($this->prepareData($this->data));
+					$this->entity->save();
+				}
+
+			\DB::commit();
+		}
+		catch(\Exception $ex)
+		{
+			throw new SaveDataException("Error", $ex);
+			
+		}
+	}
+
 }
