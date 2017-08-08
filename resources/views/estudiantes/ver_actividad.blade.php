@@ -31,6 +31,9 @@
                     </li>
                 </ul>
                 @endif
+                @if($actividadEstudiante->estado == 'C')
+                {!! Field::text('observaciones',$actividadEstudiante->observaciones,['disabled']) !!}
+                @endif
                 <a href="{{route('estudiantes.unidades',$actividadEstudiante->actividad->unidad_curso->curso_id)}}" class="btn btn-danger btn-flat fa fa-chevron-circle-left"> Regresar</a>
 			</div>
             <br/>

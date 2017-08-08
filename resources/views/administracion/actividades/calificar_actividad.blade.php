@@ -9,8 +9,9 @@
 		<div class="box box-primary">
 			<div class="box-body">
 				<div class="col-lg-6">
+					<h3>Respuesta</h3>
 					@if($actividad->texto)
-					<div style="border: 1px solid black;">
+					<div style="border: 1px solid black; padding: 10px">
 						{!! $actividad->texto !!}
 					</div>
 					@else
@@ -24,7 +25,8 @@
 				<div class="col-lg-6">
 					<h4>Calificar</h4>
 					<hr>
-					{!! Field::number('nota',null,['data-required'=>'true']) !!}
+					{!! Field::number('punteo',$actividad->actividad->punteo,['disabled']) !!}
+					{!! Field::number('nota',null,['data-required'=>'true','step'=>'any']) !!}
 					{!! Field::text('observaciones',null,['data-required'=>'false']) !!}
 					<p>
 						<input type="submit" value="Calificar" class="btn btn-primary btn-flat">

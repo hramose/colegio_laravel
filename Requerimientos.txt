@@ -1,0 +1,3 @@
+Carga de alumnos por excel.
+Traslado de Unidades con actividades de un curso a otro.
+Actividades como plan de mejoramiento. 

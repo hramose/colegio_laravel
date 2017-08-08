@@ -55,7 +55,9 @@ tfoot.search {
 
 /* OTROS */
 .square{
-	padding: 4px !important;	
+	padding: 4px !important;
+    width: 25px;
+    text-align: center;
 }
 
 .has-error{

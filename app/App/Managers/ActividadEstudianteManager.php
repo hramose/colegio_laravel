@@ -80,11 +80,30 @@ class ActividadEstudianteManager extends BaseManager
 	{
 		try{
 			\DB::beginTransaction();
-				foreach($notas as $nota)
+
+				$this->entity->fill($this->prepareData($this->data));
+
+				if(\Input::hasFile('archivo'))
 				{
-					$this->entity->fill($this->prepareData($this->data));
+					$file = \Input::file('archivo');
+					$fileOriginalName = $file->getClientOriginalName();
+					$fileOrginalExtension = $file->getClientOriginalExtension();
+					//$this->entity->nombre_original_archivo = $fileOriginalName;
+					$fileName = $this->entity->id.'.'.$fileOrginalExtension;
+					$url = 'documentos/';
+					$url .= $this->entity->actividad->unidad_curso->curso->seccion->ciclo_id . '/';
+					$url .= $this->entity->actividad->unidad_curso->curso->seccion->grado_id . '/';
+					$url .= $this->entity->actividad->unidad_curso->curso->seccion_id . '/';
+					$url .= $this->entity->actividad->unidad_curso->curso->materia_id . '/';
+					$url .= $this->entity->actividad->unidad_curso->id . '/';
+					$url .= $this->entity->actividad->actividad_id . '/';
+
+					$this->entity->archivo = $file->storeAs($url,$fileName,'public');
 					$this->entity->save();
 				}
+
+				$this->entity->save();
+
 
 			\DB::commit();
 		}

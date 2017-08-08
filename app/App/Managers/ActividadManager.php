@@ -27,7 +27,7 @@ class ActividadManager extends BaseManager
 			'archivo'			=> 'mimes:pdf'
 		];
 		
-		if(isset($this->data['aplica_fecha'])){
+		if(isset($this->data['entrega_via_web'])){
 			$rules['fecha_inicio'] = 'required';
 			$rules['fecha_entrega'] = 'required';
 		}
@@ -36,7 +36,6 @@ class ActividadManager extends BaseManager
 
 	function prepareData($data)
 	{
-		$data['aplica_fecha'] = isset($data['aplica_fecha']) ? 1 : 0;
 		$data['entrega_via_web'] = isset($data['entrega_via_web']) ? 1 : 0;
 		return $data;
 	}

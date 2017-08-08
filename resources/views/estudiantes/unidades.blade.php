@@ -25,7 +25,18 @@ Unidades - {{$curso->descripcion}}
 					<hr>
 					<div class="row">
 						<div class="col-md-12">
-							<div class="bg-green" style="padding: 10px;"> <i class="fa fa-book"></i> Actividades</div>
+							<div class="info-box bg-red">
+	           					<span class="info-box-icon"><i class="fa fa-book"></i></span>
+								<div class="info-box-content">
+									<span class="info-box-text">ACTIVIDADES</span>
+									<span class="info-box-number">{{count($unidad->actividades)}}</span>
+										<div class="progress">
+											<div class="progress-bar" style="width: 100%"></div>
+										</div>
+										<span class="progress-description">
+									</span>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="table-responsive">
@@ -36,7 +47,10 @@ Unidades - {{$curso->descripcion}}
 									<th>TIPO</th>
 									<th>VALOR</th>
 									<th>PUNTEO</th>
-									<th>FECHA ENTREGA</th>
+									<th>FECHA INICIO</th>
+									<th>ULTIMA FECHA ENTREGA</th>
+									<th>FECHA ENTREGA POR ESTUDIANTE</th>
+									<th>ENTREGA VIA WEB</th>
 									<th>ESTADO</th>
 									<th></th>
 								</tr>
@@ -55,14 +69,27 @@ Unidades - {{$curso->descripcion}}
 										@endif
 									</td>
 									<td>
+										@if($actividad->actividad->fecha_inicio)
+										{{ date('d-m-Y H:i', strtotime($actividad->actividad->fecha_inicio))}} 
+										@endif
+									</td>
+									<td>
+										@if($actividad->actividad->fecha_entrega)
+										{{ date('d-m-Y H:i', strtotime($actividad->actividad->fecha_entrega))}} 
+										@endif
+									</td>
+									<td>
 										@if($actividad->fecha_entrega)
 										{{ date('d-m-Y H:i', strtotime($actividad->fecha_entrega))}} 
 										@endif
 									</td>
+									<td> {!! $actividad->actividad->descripcion_entrega_via_web !!} </td>
 									<td> {{$actividad->descripcion_estado}} </td>
 									<td> 
 										<a href="{{route('estudiantes.ver_actividad',$actividad->id)}}" class="btn btn-info btn-flat btn-sm fa fa-eye" data-toggle="tooltip" data-placement="top" data-original-title="Ver"></a>
+										@if(\Gate::allows('entregar_actividad', $actividad->actividad))
 										<a href="{{route('estudiantes.entregar_actividad',$actividad->id)}}" class="btn btn-primary btn-flat btn-sm fa fa-check" data-toggle="tooltip" data-placement="top" data-original-title="Entregar"></a>
+										@endif
 									</td>
 								</tr>
 								 @endforeach 

@@ -38,5 +38,22 @@ class AuthServiceProvider extends ServiceProvider
                     return true;
             return false;
         });
+
+        Gate::define('entregar_actividad', function ($user, $actividad) {
+            if($actividad->entrega_via_web){
+
+                $timeActual = time();
+                $timeFechaInicio = strtotime($actividad->fecha_inicio);
+                $timeFechaEntrega = strtotime($actividad->fecha_entrega);
+                if($timeFechaInicio < $timeActual && $timeActual <= $timeFechaEntrega)
+                    return true;
+                else
+                    return false;
+            }
+            else{
+                return false;
+            }
+
+        });
     }
 }

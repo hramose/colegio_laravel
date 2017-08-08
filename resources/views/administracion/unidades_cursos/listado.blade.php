@@ -45,10 +45,13 @@ Unidades - {{$curso->descripcion}}
 						<table class="table responsive">
 							<thead>
 								<tr>
-									<th>DESCRIPCIÓN</th>
-									<th>TIPO</th>
-									<th>VALOR</th>
-									<th>ESTADO</th>
+									<th class="text-center">DESCRIPCIÓN</th>
+									<th class="text-center">TIPO</th>
+									<th class="text-center">VALOR</th>
+									<th class="text-center">ENTREGA VIA WEB</th>
+									<th class="text-center">FECHA INICIO</th>
+									<th class="text-center">FECHA ENTREGA</th>
+									<th class="text-center">ESTADO</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -58,9 +61,20 @@ Unidades - {{$curso->descripcion}}
 								<tr>
 									<?php $totalPorcentaje+=$actividad->punteo; ?>
 									<td> {{$actividad->titulo}} </td>
-									<td> {{$actividad->tipo->descripcion}} </td>
-									<td> {{$actividad->punteo}} pts </td>
-									<td> {{$actividad->descripcion_estado}} </td>
+									<td class="text-center"> {{$actividad->tipo->descripcion}} </td>
+									<td class="text-center"> {{$actividad->punteo}} pts </td>
+									<td class="text-center"> {!! $actividad->descripcion_entrega_via_web !!} </td>
+									<td>
+										@if($actividad->fecha_inicio)
+										{{ date('d-m-Y H:i', strtotime($actividad->fecha_inicio))}} 
+										@endif
+									</td>
+									<td class="text-center">
+										@if($actividad->fecha_entrega)
+										{{ date('d-m-Y H:i', strtotime($actividad->fecha_entrega))}} 
+										@endif
+									</td>
+									<td class="text-center"> {{$actividad->descripcion_estado}} </td>
 									<td> 
 										<a href="@{{route('maestros.ver_actividad',$actividad->id)}}" class="btn btn-info btn-flat btn-sm fa fa-eye" data-toggle="tooltip" data-placement="top" data-original-title="Ver"></a> 
 										<a href="{{route('editar_actividad',$actividad->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-edit" data-toggle="tooltip" data-placement="top" data-original-title="Editar"></a>

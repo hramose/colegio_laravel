@@ -5,7 +5,7 @@ Editar Actividad - {{$actividad->titulo}} -
 {{$actividad->unidad_curso->curso->descripcion}} 
 @endsection
 @section('css')
-<link href="{{ asset('assets/admin/plugins/datepicker/datepicker3.css') }}" rel="stylesheet">
+<link href="{{ asset('assets/admin/plugins/datetimepicker/datetimepicker.css')}}" rel="stylesheet">
 <link href="{{ asset('assets/admin/plugins/summernote/summernote.css') }}" rel="stylesheet">
 @endsection
 @section('content')
@@ -23,10 +23,9 @@ Editar Actividad - {{$actividad->titulo}} -
 	    		</div>
 	    	</div>
 	    	<div class="row">
-	    		<div class="col-lg-3">{!! Field::checkbox('aplica_fecha') !!}</div>
+	    		<div class="col-lg-3">{!! Field::checkbox('entrega_via_web') !!}</div>
 	    		<div class="col-lg-3">{!! Field::text('fecha_inicio', null, ['data-required'=> 'false','class'=>'fecha']) !!}</div>
 	    		<div class="col-lg-3">{!! Field::text('fecha_entrega', null, ['data-required'=> 'false','class'=>'fecha']) !!}</div>
-	    		<div class="col-lg-3">{!! Field::checkbox('entrega_via_web') !!}</div>
 	    	</div>
 	    	<div class="row">
 	    		<div class="col-lg-3">{!! Field::file('archivo') !!}</div>
@@ -40,18 +39,17 @@ Editar Actividad - {{$actividad->titulo}} -
 </div>
 @endsection
 @section('js')
-<script src="{{ asset('assets/admin/plugins/datepicker/bootstrap-datepicker.js')}}"></script>
-<script src="{{ asset('assets/admin/plugins/datepicker/locales/bootstrap-datepicker.es.js')}}"></script>
+<script src="{{ asset('assets/admin/plugins/moment/moment.js')}}"></script>
+<script src="{{ asset('assets/admin/plugins/moment/locale/es.js')}}"></script>
+<script src="{{ asset('assets/admin/plugins/datetimepicker/datetimepicker.js')}}"></script>
 <script src="{{ asset('assets/admin/plugins/summernote/summernote.js')}}"></script>
 <script>	
 $(function()
 {
-	$('.fecha').datepicker({
-        format: 'yyyy-mm-dd',
-        autoclose: true,
-        todayHighlight: true,
-        language: 'es'
-    });
+	$('.fecha').datetimepicker({
+		locale: 'es',
+		format: 'YYYY-MM-DD HH:mm'
+	});
 
     $('#summernote').summernote({minHeight: 300,});
 

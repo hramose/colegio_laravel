@@ -95,6 +95,12 @@ class ActividadController extends BaseController {
 	public function calificarActividad(ActividadEstudiante $actividad)
 	{
 		$data = Input::all();
+
+		if($actividad->actividad->punteo <= $data['nota']){
+			Session::flash('error', 'La nota ('.$data['nota'].') es mayor al punteo maximo ('.$actividad->actividad->punteo.').');
+			return redirect()->back();
+		}
+
 		$data['actividad_id'] = $actividad->actividad_id;
 		$data['estudiante_id'] = $actividad->estudiante_id;
 		$data['estado'] = 'C';

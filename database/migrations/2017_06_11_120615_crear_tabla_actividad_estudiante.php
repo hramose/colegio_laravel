@@ -17,7 +17,7 @@ class CrearTablaActividadEstudiante extends Migration
             $table->increments('id');
             $table->integer('actividad_id')->unsigned();
             $table->integer('estudiante_id')->unsigned();
-            $table->integer('nota')->nullable();
+            $table->double('nota')->nullable();
             $table->string('archivo')->nullable();
             $table->longText('texto')->nullable();
             $table->datetime('fecha_entrega')->nullable();

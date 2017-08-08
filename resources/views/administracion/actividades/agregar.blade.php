@@ -23,10 +23,9 @@ Agregar Actividad -
 	    		</div>
 	    	</div>
 	    	<div class="row">
-	    		<div class="col-lg-3">{!! Field::checkbox('aplica_fecha') !!}</div>
-	    		<div class="col-lg-3">{!! Field::text('fecha_inicio', null, ['data-required'=> 'false','class'=>'fecha']) !!}</div>
-	    		<div class="col-lg-3">{!! Field::text('fecha_entrega', null, ['data-required'=> 'false','class'=>'fecha']) !!}</div>
 	    		<div class="col-lg-3">{!! Field::checkbox('entrega_via_web') !!}</div>
+	    		<div class="col-lg-3">{!! Field::text('fecha_inicio', null, ['data-required'=> 'false','class'=>'fecha']) !!}</div>
+	    		<div class="col-lg-3">{!! Field::text('fecha_entrega', null, ['data-required'=> 'false','class'=>'fecha']) !!}</div>	    		
 	    	</div>
 	    	<div class="row">
 	    		<div class="col-lg-3">{!! Field::file('archivo') !!}</div>

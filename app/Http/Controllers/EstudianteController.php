@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Controller, Redirect, Input, View, Session, Variable, Excel, PDF;
+use Controller, Redirect, Input, View, Session, Variable, Excel, PDF, Gate;
 
 use App\App\Repositories\CicloRepo;
 use App\App\Repositories\SeccionRepo;
@@ -19,6 +19,9 @@ use App\App\Entities\EstudianteSeccion;
 use App\App\Entities\Actividad;
 use App\App\Entities\ActividadEstudiante;
 use App\App\Entities\Foro;
+
+use App\App\Managers\ActividadEstudianteManager;
+use App\App\Managers\SaveDataException;
 
 
 class EstudianteController extends BaseController {
@@ -134,19 +137,30 @@ class EstudianteController extends BaseController {
 		return view('estudiantes/ver_actividad', compact('actividadEstudiante'));
 	}
 
-	public function mostrarEntregarActividad(ActividadEstudiante $actividad)
+	public function mostrarEntregarActividad(ActividadEstudiante $actividadEstudiante)
 	{
+		if(Gate::denies('entregar_actividad', $actividadEstudiante->actividad)){
+			Session::flash('error','La actividad ' . $actividadEstudiante->actividad->titulo .' ya no se puede entregar.');
+			return redirect()->route('estudiantes.unidades',$actividadEstudiante->actividad->unidad_curso->curso_id);
+			
+		}
 		return view('estudiantes/entregar_actividad', compact('actividadEstudiante'));	
 	}
 
-	public function entregarActividad(ActividadEstudiante $actividad)
+	public function entregarActividad(ActividadEstudiante $actividadEstudiante)
 	{
+		if(Gate::denies('entregar_actividad', $actividadEstudiante->actividad)){
+			Session::flash('La actividad ' . $actividadEstudiante->actividad->titulo .' ya no se puede entregar.');
+			return redirect()->route('estudiantes.unidades',$actividadEstudiante->actividad->unidad_curso->curso_id);
+			
+		}
 		$data = Input::all();
 		$data['estado'] = 'E';
 		$data['fecha_entrega'] = date('Y-m-d H:i:s');
-		$manager = new ActividadEstudianteManager($actividad, $data);
+		$manager = new ActividadEstudianteManager($actividadEstudiante, $data);
 		$manager->entregar();
 		Session::flash('success', 'Has entregado tu actividad con éxito');
+		return redirect()->route('estudiantes.unidades',$actividadEstudiante->actividad->unidad_curso->curso_id);
 	}
 
 
