@@ -13,16 +13,19 @@ Unidades - {{$curso->descripcion}}
 		<div class="nav-tabs-custom">
 	    	<ul class="nav nav-tabs">
 	    		@foreach($unidades as $index => $unidad)
-	        	<li class="@if($index == 0) active @endif"><a href="#{{$unidad->id}}" data-toggle="tab">{{$unidad->unidad_seccion->descripcion}}</a></li>
+	    		<?php if($index == 0) $class = "active"; else $class = ''; ?> 
+	        	<li class="{{$class}}"><a href="#{{$unidad->id}}" data-toggle="tab">{{$unidad->unidad_seccion->descripcion}}</a></li>
 	        	@endforeach
 	        </ul>
 	        <div class="tab-content">
 	        	@foreach($unidades as $index => $unidad)
-	        	<div class="tab-pane @if($index == 0) active @endif" id="{{$unidad->id}}">
+	        	<?php if($index == 0) $class = "active"; else $class = ''; ?> 
+	        	<div class="tab-pane {{$class}}" id="{{$unidad->id}}">
 	        		<a href="{{route('editar_unidad_curso',$unidad->id)}}" class="btn btn-warning btn-flat fa fa-edit" data-toggle="tooltip" data-placement="top" data-original-title="Editar Planificación"> Editar Planificación</a>&nbsp;&nbsp;&nbsp;
 					@if($unidad->archivo_planificacion)
 					<a href="{{$unidad->archivo_planificacion}}" class="btn btn-primary btn-flat fa fa-file"> Descargar Planificación</a>
 					@endif
+					<a href="{{route('notas_unidad_curso', $unidad->id)}}" class="btn btn-primary btn-flat fa fa-file"> Ver Notas</a>
 					<hr>
 					<div class="row">
 						<div class="col-md-12">

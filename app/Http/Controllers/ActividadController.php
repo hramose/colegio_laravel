@@ -14,6 +14,7 @@ use App\App\Repositories\TipoActividadRepo;
 use App\App\Repositories\ActividadEstudianteRepo;
 use App\App\Entities\ActividadEstudiante;
 use App\App\Managers\ActividadEstudianteManager;
+use App\App\Managers\SaveDataException;
 
 class ActividadController extends BaseController {
 
@@ -42,6 +43,17 @@ class ActividadController extends BaseController {
 		$data = Input::all();
 		$data['unidad_curso_id'] = $unidadCurso->id;
 		$data['estado'] = 'A';
+
+		$actividades = $unidadCurso->actividades;
+		$total = 0;
+		foreach($actividades as $actividad)
+		{
+			$total += $actividad->punteo;
+		}
+		$total += $data['punteo'];
+		if($total > 100)
+			throw new SaveDataException("Error", new \Exception("El total del punteo de las tareas en la unidad supera los 100 puntos (".$total.")."));
+
 		$manager = new ActividadManager(new Actividad(), $data);
 		$manager->save();
 		Session::flash('success', 'Se agregó la actividad '.$data['titulo'].' con éxito.');
@@ -60,6 +72,18 @@ class ActividadController extends BaseController {
 		$data['unidad_curso_id'] = $actividad->unidad_curso_id;
 		$data['estado'] = $actividad->estado;
 		$data['actividad'] = $actividad->actividad;
+
+		$actividades = $actividad->unidad_curso->actividades;
+		$total = 0;
+		foreach($actividades as $a)
+		{
+			if($a->id != $actividad->id)
+				$total += $a->punteo;
+		}
+		$total += $data['punteo'];
+		if($total > 100)
+			throw new SaveDataException("Error", new \Exception("El total del punteo de las tareas en la unidad supera los 100 puntos (".$total.")."));
+
 		$manager = new ActividadManager($actividad, $data);
 		$manager->save();
 		Session::flash('success', 'Se editó la actividad '.$actividad->titulo.' con éxito.');

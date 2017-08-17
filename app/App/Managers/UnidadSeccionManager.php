@@ -33,7 +33,7 @@ class UnidadSeccionManager extends BaseManager
 		return $data;
 	}
 
-	function agregar($cursos)
+	function agregar($cursos, $unidades)
 	{
 		$rules = $this->getRules();
 		$validation = \Validator::make($this->data, $rules);
@@ -45,6 +45,18 @@ class UnidadSeccionManager extends BaseManager
 			\DB::beginTransaction();
 
 			$this->entity->fill($this->prepareData($this->data));
+
+			$total = 0;
+			foreach($unidades as $unidad)
+			{
+				$total += $unidad->porcentaje;
+			}
+			$total += $this->entity->porcentaje;
+			if($total > 100){
+				throw new \Exception("El porcentaje total de todas las unidades supera los 100 puntos (".$total.").", 1);
+				
+			}
+
 			$this->entity->save();
 
 			foreach($cursos as $curso){
@@ -61,18 +73,21 @@ class UnidadSeccionManager extends BaseManager
 		catch(\Exception $ex)
 		{
 			$mensaje = $ex->getMessage();
-			$unidad = $ex->getBindings()[0];
-			$seccionId = $ex->getBindings()[3];
-
-			$seccionRepo = new SeccionRepo();
-
-			$seccion = $seccionRepo->find($seccionId);
-			$unidad = Variable::getUnidad($unidad);
 
 			if(str_contains($mensaje, 'unidad_seccion_seccion_id_unidad_unique')){
+
+				$unidad = $ex->getBindings()[0];
+				$seccionId = $ex->getBindings()[3];
+
+				$seccionRepo = new SeccionRepo();
+
+				$seccion = $seccionRepo->find($seccionId);
+				$unidad = Variable::getUnidad($unidad);
+
 				throw new SaveDataException("Error", new \Exception('La unidad '.$unidad.' en '.$seccion->grado->descripcion . ' ' . $seccion->descripcion_seccion . ' ya existe.'));
 			}
 			throw new SaveDataException("Error", $ex);		
 		}
 	}
+	
 }

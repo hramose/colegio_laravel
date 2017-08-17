@@ -47,7 +47,8 @@ class UnidadSeccionController extends BaseController {
 		$data['estado'] = 'A';
 		$manager = new UnidadSeccionManager(new UnidadSeccion(), $data);
 		$cursos = $this->cursoRepo->getBySeccion($seccion->id);
-		$manager->agregar($cursos);
+		$unidades = $this->unidadSeccionRepo->getBySeccion($seccion->id);
+		$manager->agregar($cursos, $unidades);
 		Session::flash('success', 'Se agregó la unidad '.Variable::getUnidad($data['unidad']).' a '.$seccion->grado->descripcion . ' ' . $seccion->descripcion_seccion .' con éxito.');
 		return redirect()->route('unidades_secciones',$seccion->id);
 	}
