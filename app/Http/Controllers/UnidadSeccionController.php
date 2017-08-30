@@ -10,18 +10,25 @@ use Controller, Redirect, Input, View, Session, Variable;
 use App\App\Entities\Seccion;
 use App\App\Repositories\SeccionRepo;
 use App\App\Repositories\CursoRepo;
+use App\App\Repositories\ActividadEstudianteRepo;
+use App\App\Repositories\EstudianteSeccionRepo;
 
 class UnidadSeccionController extends BaseController {
 
 	protected $unidadSeccionRepo;
 	protected $seccionRepo;
 	protected $cursoRepo;
+	protected $actividadEstudianteRepo;
+	protected $estudianteSeccionRepo;
 
-	public function __construct(UnidadSeccionRepo $unidadSeccionRepo, SeccionRepo $seccionRepo, CursoRepo $cursoRepo)
+	public function __construct(UnidadSeccionRepo $unidadSeccionRepo, SeccionRepo $seccionRepo, CursoRepo $cursoRepo, ActividadEstudianteRepo $actividadEstudianteRepo, EstudianteSeccionRepo $estudianteSeccionRepo)
 	{
 		$this->unidadSeccionRepo = $unidadSeccionRepo;
 		$this->seccionRepo = $seccionRepo;
 		$this->cursoRepo = $cursoRepo;
+		$this->actividadEstudianteRepo = $actividadEstudianteRepo;
+		$this->estudianteSeccionRepo = $estudianteSeccionRepo;
+
 		View::composer('layouts.admin', 'App\Http\Controllers\AdminMenuController');
 	}
 
@@ -68,6 +75,28 @@ class UnidadSeccionController extends BaseController {
 		$manager->save();
 		Session::flash('success', 'Se editó la unidad con éxito.');
 		return redirect()->route('unidades_secciones',$unidadSeccion->seccion_id);
+	}
+
+	public function mostrarNotas(UnidadSeccion $unidadSeccion)
+	{
+		$estudiantes = $this->estudianteSeccionRepo->getBySeccion($unidadSeccion->seccion_id);
+		$actividadesEstudiantes = $this->actividadEstudianteRepo->getBySeccion($unidadSeccion->id);
+		$cursos = $this->cursoRepo->getBySeccion($unidadSeccion->seccion_id);
+
+		$notas = [];
+		foreach ($estudiantes as $estudiante) {
+			$notas[$estudiante->estudiante_id]['estudiante'] = $estudiante->estudiante;
+			foreach($cursos as $curso)
+			{
+				$notas[$estudiante->estudiante_id]['cursos'][$curso->id]['curso'] = $curso;
+				$notas[$estudiante->estudiante_id]['cursos'][$curso->id]['nota'] = 0;
+			}
+		}
+		foreach($actividadesEstudiantes as $ac)
+		{
+			$notas[$ac->estudiante_id]['cursos'][$ac->actividad->unidad_curso->curso_id]['nota'] += $ac->nota;
+		}
+		return view('administracion/unidades_secciones/notas', compact('unidadSeccion','cursos','notas'));
 	}
 
 

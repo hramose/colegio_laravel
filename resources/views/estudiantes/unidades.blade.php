@@ -13,12 +13,20 @@ Unidades - {{$curso->descripcion}}
 		<div class="nav-tabs-custom">
 	    	<ul class="nav nav-tabs">
 	    		@foreach($unidades as $index => $unidad)
-	        	<li class="@if($index == 0) active @endif"><a href="#{{$unidad->id}}" data-toggle="tab">{{$unidad->unidad_seccion->descripcion}}</a></li>
+	    		<?php
+	    			$clase = '';
+	    			if($index == 0) $clase = 'active';
+	    		?>
+	        	<li class="{{$clase}}"><a href="#{{$unidad->id}}" data-toggle="tab">{{$unidad->unidad_seccion->descripcion}}</a></li>
 	        	@endforeach
 	        </ul>
 	        <div class="tab-content">
 	        	@foreach($unidades as $index => $unidad)
-	        	<div class="tab-pane @if($index == 0) active @endif" id="{{$unidad->id}}">
+	        	<?php
+	    			$clase = '';
+	    			if($index == 0) $clase = 'active';
+	    		?>
+	        	<div class="tab-pane {{$clase}}" id="{{$unidad->id}}">
 					@if($unidad->archivo_planificacion)
 					<a href="{{$unidad->archivo_planificacion}}" class="btn btn-primary btn-flat fa fa-file"> Descargar Planificación</a>
 					@endif

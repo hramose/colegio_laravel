@@ -130,6 +130,7 @@ Route::group(['prefix' => 'unidades-secciones'], function () {
 	Route::post('agregar/{seccion}','UnidadSeccionController@agregar')->name('agregar_unidad_seccion');
 	Route::get('editar/{unidad_seccion}','UnidadSeccionController@mostrarEditar')->name('editar_unidad_seccion');
 	Route::put('editar/{unidad_seccion}','UnidadSeccionController@editar')->name('editar_unidad_seccion');
+	Route::get('notas/{unidad_seccion}','UnidadSeccionController@mostrarNotas')->name('notas_unidad_seccion');
 });
 
 /* PERFILES */

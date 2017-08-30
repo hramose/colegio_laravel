@@ -22,8 +22,7 @@
                             </a>
                             <span class="mailbox-attachment-size">
                             <!--1,245 KB-->
-                            <a href="{{$actividadEstudiante->actividad->archivo}}" class="btn btn-default btn-xs pull-right"
-                                download="{{$actividadEstudiante->actividad->titulo}}">
+                            <a href="{{$actividadEstudiante->actividad->archivo}}" class="btn btn-default btn-xs pull-right" download="{{$actividadEstudiante->actividad->titulo}}">
                                 <i class="fa fa-cloud-download"></i>
                             </a>
                             </span>

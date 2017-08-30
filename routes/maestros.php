@@ -8,6 +8,8 @@ Route::group(['middleware' => 'verificarCiclo'], function(){
 Route::group(['prefix' => 'maestros'], function () {
 
 Route::get('dashboard','MaestroController@dashboard')->name('maestros.dashboard');
+Route::get('secciones','MaestroController@secciones')->name('maestros.secciones');
+Route::get('ver-seccion/{seccion}','MaestroController@verSeccion')->name('maestros.ver_seccion');
 Route::get('cursos','MaestroController@cursos')->name('maestros.cursos');
 Route::get('ver-curso/{curso}','MaestroController@verCurso')->name('maestros.ver_curso');
 Route::get('foros/{curso}','MaestroController@foros')->name('maestros.foros');

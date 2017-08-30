@@ -63,6 +63,14 @@ class MaestroController extends BaseController {
 		return view('maestros/estudiantes_curso', compact('curso','estudiantes'));	
 	}
 
+	public function secciones()
+	{
+		$ciclo = \Auth::user()->ciclo;
+		$maestro = \Auth::user()->persona;
+		$secciones = $this->seccionRepo->getByCicloByMaestro($ciclo->id, $maestro->id);
+		return view('maestros/secciones', compact('secciones','maestro'));
+	}
+
 	public function cursos()
 	{
 		$ciclo = \Auth::user()->ciclo;
