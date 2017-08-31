@@ -47,6 +47,22 @@ class ActividadEstudianteRepo extends BaseRepo{
 										$w->where('unidad_seccion_id',$unidadSeccionId);
 									});
 								})
+
+								->with('estudiante')
+								->with('actividad')
+								->with('actividad.unidad_curso')
+								->get();
+	}
+
+	public function getBySeccionByCursoByEstudiante($unidadSeccionId, $cursoId, $estudianteId)
+	{
+		return ActividadEstudiante::whereHas('actividad', function($q) use ($unidadSeccionId, $cursoId){
+									$q->whereHas('unidad_curso',function($w) use ($unidadSeccionId, $cursoId){
+										$w->where('unidad_seccion_id',$unidadSeccionId)
+											->where('curso_id',$cursoId);
+									});
+								})
+								->where('estudiante_id',$estudianteId)
 								->with('estudiante')
 								->with('actividad')
 								->with('actividad.unidad_curso')

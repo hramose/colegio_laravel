@@ -102,6 +102,7 @@ Route::group(['prefix' => 'usuarios'], function () {
 	Route::put('editar/{id}','UsuarioController@editar')->name('editar_usuario');
 	Route::get('reset-password/{id}','UsuarioController@resetPassword')->name('reset_password');
 	Route::get('inactivar/{id}','UsuarioController@inactivarUsuario')->name('inactivar_usuario');
+	Route::get('activar/{id}','UsuarioController@activarUsuario')->name('activar_usuario');
 });
 
 /* TIPOS ACTIVIDADES */
@@ -131,6 +132,7 @@ Route::group(['prefix' => 'unidades-secciones'], function () {
 	Route::get('editar/{unidad_seccion}','UnidadSeccionController@mostrarEditar')->name('editar_unidad_seccion');
 	Route::put('editar/{unidad_seccion}','UnidadSeccionController@editar')->name('editar_unidad_seccion');
 	Route::get('notas/{unidad_seccion}','UnidadSeccionController@mostrarNotas')->name('notas_unidad_seccion');
+	Route::get('detalle-notas/{unidad_seccion}/{curso}/{estudiante}','UnidadSeccionController@mostrarDetalleNotas')->name('detalle_notas_unidad_seccion');
 });
 
 /* PERFILES */

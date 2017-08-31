@@ -8,6 +8,9 @@ use App\App\Entities\UnidadSeccion;
 use Controller, Redirect, Input, View, Session, Variable;
 
 use App\App\Entities\Seccion;
+use App\App\Entities\Curso;
+use App\App\Entities\Persona;
+
 use App\App\Repositories\SeccionRepo;
 use App\App\Repositories\CursoRepo;
 use App\App\Repositories\ActividadEstudianteRepo;
@@ -97,6 +100,12 @@ class UnidadSeccionController extends BaseController {
 			$notas[$ac->estudiante_id]['cursos'][$ac->actividad->unidad_curso->curso_id]['nota'] += $ac->nota;
 		}
 		return view('administracion/unidades_secciones/notas', compact('unidadSeccion','cursos','notas'));
+	}
+
+	public function mostrarDetalleNotas(UnidadSeccion $unidadSeccion, Curso $curso, Persona $estudiante)
+	{
+		$actividades = $this->actividadEstudianteRepo->getBySeccionByCursoByEstudiante($unidadSeccion->id, $curso->id, $estudiante->id);
+		return view('administracion/unidades_secciones/detalle_notas', compact('unidadSeccion','actividades','estudiante','curso'));
 	}
 
 

@@ -69,8 +69,23 @@ class UsuarioController extends BaseController {
 		{			
 			$data = Input::all();
 			$manager = new UsuarioManager($usuario, $data);
-			$manager->inactivarUsuario();
+			$manager->inactivar();
 			Session::flash('success', 'Se inactivó el usuario '.$usuario->username.' con éxito.');
+			return redirect()->route('usuarios');
+		}
+		Session::flash('error', 'Usted no es superadmin. No tiene permisos para realizar esta acción.');
+		return redirect()->route('usuarios');
+	}
+
+	public function activarUsuario($id)
+	{
+		$usuario = $this->usuarioRepo->find($id);
+		if(\Gate::allows('is_super_admin'))
+		{			
+			$data = Input::all();
+			$manager = new UsuarioManager($usuario, $data);
+			$manager->activar();
+			Session::flash('success', 'Se activó el usuario '.$usuario->username.' con éxito.');
 			return redirect()->route('usuarios');
 		}
 		Session::flash('error', 'Usted no es superadmin. No tiene permisos para realizar esta acción.');

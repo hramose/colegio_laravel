@@ -51,12 +51,29 @@ class UsuarioManager extends BaseManager
 		}
 	}
 
-	public function inactivarUsuario()
+	public function inactivar()
 	{
 		try{
 			\DB::beginTransaction();
 
 				$this->entity->estado = 'I';
+				$this->entity->save();
+
+			\DB::commit();
+		}
+		catch(\Exception $ex)
+		{
+			throw new SaveDataException("Error!", $ex);
+			
+		}
+	}
+
+	public function activar()
+	{
+		try{
+			\DB::beginTransaction();
+
+				$this->entity->estado = 'A';
 				$this->entity->save();
 
 			\DB::commit();

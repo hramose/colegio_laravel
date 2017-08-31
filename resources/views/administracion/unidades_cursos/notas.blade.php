@@ -53,7 +53,7 @@ Notas {{$unidadCurso->curso->descripcion}} - {{$unidadCurso->unidad_seccion->des
 								@foreach($actividades as $index => $actividad)
 								<tr>
 									<td class="text-center">{{$index+1}}</td>
-									<td>{{$actividad->titulo}}</td>
+									<td>{{$actividad->titulo}} ({{$actividad->punteo}} pts)</td>
 								</tr>
 								@endforeach
 							</table>
