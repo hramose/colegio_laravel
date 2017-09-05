@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\App\Repositories\ActividadRepo;
 use App\App\Managers\ActividadManager;
 use App\App\Entities\Actividad;
-use Controller, Redirect, Input, View, Session, Variable;
+use Controller, Redirect, Input, View, Session, Variable, Excel;
 
 use App\App\Entities\UnidadCurso;
 use App\App\Repositories\UnidadCursoRepo;
@@ -134,6 +134,41 @@ class ActividadController extends BaseController {
 		$manager->save();
 		Session::flash('success', 'Se calificó la actividad de '.$actividad->actividad->titulo.' de '.$actividad->estudiante->nombre_completo.' con éxito.');
 		return redirect()->route('ver_notas_actividad',$actividad->actividad_id);
+	}
+
+	public function descargarFormatoCalificarActividad(Actividad $actividad)
+	{
+		$data = Input::all();
+		$actividadesDB = $this->actividadEstudianteRepo->getByActividad($actividad->id);
+		$actividades = [];
+		foreach($actividadesDB as $act)
+		{
+			$a['ID'] = $act->id;
+			$a['ESTUDIANTE'] = $act->estudiante->nombre_completo_apellidos;
+			$a['NOTA'] = $act->nota;
+			$a['OBSERVACIONES'] = $act->observaciones;
+			$actividades[] = $a;
+		}
+		Excel::create('Carga - ' . $actividad->titulo, function($excel) use ($actividad, $actividades) {
+		    $excel->sheet('Formato', function($sheet) use ($actividades) {
+				$sheet->fromArray($actividades);
+		    });
+		})->export('xlsx');
+
+	}
+
+	public function mostrarCargarNotas(Actividad $actividad)
+	{
+		return view('administracion/actividades/cargar_notas', compact('actividad'));
+	}
+
+	public function cargarNotas(Actividad $actividad)
+	{
+		$data = Input::all();
+		$manager = new ActividadEstudianteManager(null, $data);
+		$manager->calificarActividadesCargadas($actividad);
+		Session::flash('success', 'Se calificaron las actividades de '.$actividad->titulo.' con éxito.');
+		return redirect()->route('ver_notas_actividad',$actividad->id);
 	}
 
 }

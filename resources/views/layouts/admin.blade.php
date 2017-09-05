@@ -206,13 +206,13 @@
         @if(Session::has('success'))
         <div class="alert alert-success alert-dismissable">
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-          <i class="icon fa fa-check"></i> {{ Session::get('success') }}
+          <i class="icon fa fa-check"></i> {!! Session::get('success') !!}
         </div>
         @endif
         @if(Session::has('error'))
             <div class="alert alert-danger alert-dismissable">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-               {{ Session::get('error') }}
+               {!! Session::get('error') !!}
             </div>
         @endif
         @if(Session::has('errores'))

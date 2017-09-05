@@ -2,7 +2,7 @@
 @section('title') Editar Tipo de Actividad - {{$tipoActividad->descripcion}} @endsection
 @section('content')
 <div class="box box-primary">
-	{!! Form::model($tipoActividad, ['route' => 'editar_tipo_actividad', 'method' => 'PUT', 'id' => 'form', 'class'=>'validate-form']) !!}
+	{!! Form::model($tipoActividad, ['route' => ['editar_tipo_actividad', $tipoActividad->id], 'method' => 'PUT', 'id' => 'form', 'class'=>'validate-form']) !!}
 	    <div class="box-body">
 	       	{!! Field::text('descripcion', null, ['data-required'=> 'true']) !!}
 	       	{!! Field::checkbox('aplica_zona') !!}

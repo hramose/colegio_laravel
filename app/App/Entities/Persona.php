@@ -33,6 +33,17 @@ class Persona extends \Eloquent {
 		return $nombre;
 	}
 
+	public function getNombreCompletoApellidosAttribute()
+	{
+		$nombre = $this->primer_apellido;
+		if(!is_null($this->segundo_nombre))
+			$nombre .= ' ' . $this->segundo_apellido;
+		$nombre .= ', ' . $this->primer_nombre;
+		if(!is_null($this->segundo_nombre))
+			$nombre .= ' ' . $this->segundo_nombre;
+		return $nombre;
+	}
+
 	public function getFotografiaAttribute($fotografia)
     {
     	return \Storage::disk('public')->url($fotografia);

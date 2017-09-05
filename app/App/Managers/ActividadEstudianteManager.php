@@ -76,6 +76,72 @@ class ActividadEstudianteManager extends BaseManager
 		}
 	}
 
+	function calificarActividadesCargadas($actividad)
+	{
+		$actividadEstudianteRepo = new ActividadEstudianteRepo();
+
+		$notas = $this->data['notas'];
+
+		try{
+			\DB::beginTransaction();
+
+				$erroresPunteo = '';
+				$erroresActividad = '';
+				$existenErrores = false;
+
+				foreach($notas as $nota)
+				{
+					$actividadES = $actividadEstudianteRepo->find($nota['id']);
+
+					if(!is_null($actividadES)){
+
+						if($actividadES->actividad_id > $actividad->id){
+							$erroresActividad .= '<li>Actividad '.$nota['id'].' no coincide.</li>';
+							$existenErrores = true;
+						}
+						if($nota['nota'] > $actividad->punteo){
+							$erroresPunteo .= '<li>'.$actividadES->estudiante->nombre_completo_apellidos.'</li>';
+							$existenErrores = true;
+						}
+
+						$actividadES->nota = $nota['nota'];
+						$actividadES->observaciones = $nota['observaciones'];
+						$actividadES->estado = 'C';
+
+						$actividadES->save();
+					}
+					else{
+						$erroresActividad .= '<li>Actividad '.$nota['id'].' no existe.</li>';
+							$existenErrores = true;
+					}
+				}
+				
+				if(!$existenErrores){
+					\DB::commit();
+				}
+				else{
+					$mensaje = 'Existen errores en la carga de notas. <br/>';
+					if($erroresActividad != ''){
+						$mensaje .= 'Algunas actividades cargadas no pertenecen a la actividad seleccionada: <ul>';
+						$mensaje .= $erroresActividad;
+						$mensaje .= '</ul>';
+					}
+					if($erroresPunteo != ''){
+						$mensaje .= 'Algunas actividades cargadas tienen nota mas alta de la permitida ('.$actividad->punteo.'): <ul>';
+						$mensaje .= $erroresPunteo;
+						$mensaje .= '</ul>';
+					}
+					throw new \Exception($mensaje);					
+				}
+			
+		}
+		catch(\Exception $ex)
+		{
+			throw new SaveDataException("Error", $ex);
+			
+		}
+	}
+
 	public function entregar()
 	{
 		try{
