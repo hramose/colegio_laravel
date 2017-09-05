@@ -102,6 +102,60 @@ class UnidadSeccionController extends BaseController {
 		return view('administracion/unidades_secciones/notas', compact('unidadSeccion','cursos','notas'));
 	}
 
+	public function reporteNotas(UnidadSeccion $unidadSeccion)
+	{
+		$estudiantes = $this->estudianteSeccionRepo->getBySeccion($unidadSeccion->seccion_id);
+		$actividadesEstudiantes = $this->actividadEstudianteRepo->getBySeccion($unidadSeccion->id);
+		$cursos = $this->cursoRepo->getBySeccion($unidadSeccion->seccion_id);
+		$notas = [];
+		foreach ($estudiantes as $estudiante) {
+			$notas[$estudiante->estudiante_id]['estudiante'] = $estudiante->estudiante;
+			foreach($cursos as $curso)
+			{
+				$notas[$estudiante->estudiante_id]['cursos'][$curso->id]['curso'] = $curso;
+				$notas[$estudiante->estudiante_id]['cursos'][$curso->id]['nota'] = 0;
+			}
+		}
+		foreach($actividadesEstudiantes as $ac)
+		{
+			$notas[$ac->estudiante_id]['cursos'][$ac->actividad->unidad_curso->curso_id]['nota'] += $ac->nota;
+		}
+		Excel::create('Consolidado ' . $unidadSeccion->descripcion . ' - ' . $unidadSeccion->seccion->descripcion_con_grado, function($excel) use ($estudiantes, $actividadesEstudiantes, $cursos) {
+		    $excel->sheet('Formato', function($sheet) use ($estudiantes, $actividadesEstudiantes, $cursos) {
+
+				
+
+
+		    });
+		})->export('xlsx');
+	}
+
+	public function reporteNotasSeccion(Seccion $seccion)
+	{
+		$unidades = $this->unidadSeccionRepo->getBySeccion($seccion->id);
+		$estudiantes = $this->estudianteSeccionRepo->getBySeccion($seccion->id);
+		$cursos = $this->cursoRepo->getBySeccion($seccion->id);
+
+		$notas = [];
+		foreach($unidades as $unidad)
+		{
+			$notas[$unidad->id]['unidad'] = $unidad->descripcion;
+			$actividadesEstudiantes = $this->actividadEstudianteRepo->getBySeccion($unidad->id);
+			foreach ($estudiantes as $estudiante) {
+				$notas[$unidad->id]['estudiantes'][$estudiante->estudiante_id]['estudiante'] = $estudiante->estudiante;
+				foreach($cursos as $curso)
+				{
+					$notas[$unidad->id]['estudiantes'][$estudiante->estudiante_id]['cursos'][$curso->id]['curso'] = $curso;
+					$notas[$unidad->id]['estudiantes'][$estudiante->estudiante_id]['cursos'][$curso->id]['nota'] = 0;
+				}
+			}
+			foreach($actividadesEstudiantes as $ac)
+			{
+				$notas[$unidad->id]['estudiantes'][$ac->estudiante_id]['cursos'][$ac->actividad->unidad_curso->curso_id]['nota'] += $ac->nota;
+			}
+		}
+	}
+
 	public function mostrarDetalleNotas(UnidadSeccion $unidadSeccion, Curso $curso, Persona $estudiante)
 	{
 		$actividades = $this->actividadEstudianteRepo->getBySeccionByCursoByEstudiante($unidadSeccion->id, $curso->id, $estudiante->id);

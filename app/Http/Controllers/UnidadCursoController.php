@@ -134,7 +134,6 @@ class UnidadCursoController extends BaseController {
 				}
 		    });
 		})->export('csv');
-
 	}
 
 	private function getLetterCellByNumber($number)

@@ -32,6 +32,7 @@
                         <div class="box-footer no-padding">
                             <ul class="nav nav-stacked">
                                 <li><a href="{{route('maestros.estudiantes_seccion',$seccion->id)}}"><i class="fa fa-users"></i> Estudiantes <span class="pull-right badge bg-blue">{{count($seccion->estudiantes)}}</span></a></li>
+                                <li><a href="{{route('maestros.ver_notas_seccion',$seccion->id)}}"><i class="fa fa-users"></i> Notas <span class="pull-right badge bg-blue">{{count($seccion->estudiantes)}}</span></a></li>
                                 @foreach($seccion->unidades as $unidad)
                                 <li><a href="{{route('notas_unidad_seccion',$unidad->id)}}"><i class="fa fa-book"></i> Ver Notas {{$unidad->descripcion}} <span class="pull-right badge bg-green"><i class="fa fa-chevron-right"></i></span> </a></li>
                                 @endforeach
