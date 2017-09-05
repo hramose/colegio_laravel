@@ -106,7 +106,7 @@ class DatabaseSeeder extends Seeder
             	'updated_by' => 'admin'
             ]);
 
-            $userMaestro = User::create([
+            /*$userMaestro = User::create([
                 'username' => 'jirafales',
                 'password' => 'jirafales',
                 'perfil_id' => $perfilMaestro->id,
@@ -126,8 +126,8 @@ class DatabaseSeeder extends Seeder
                 'estado' => 'A',
                 'created_by' => 'admin',
                 'updated_by' => 'admin'
-            ]);
-
+            ]);*/
+            
             $anioActual = intval( date('Y') );
             $anio = $anioActual - 1;
 
