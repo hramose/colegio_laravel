@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\App\Repositories\UnidadCursoRepo;
 use App\App\Managers\UnidadCursoManager;
 use App\App\Entities\UnidadCurso;
-use Controller, Redirect, Input, View, Session, Variable;
+use Controller, Redirect, Input, View, Session, Variable, Excel;
 
 use App\App\Entities\Curso;
 use App\App\Repositories\CursoRepo;
@@ -56,7 +56,8 @@ class UnidadCursoController extends BaseController {
 		$manager = new UnidadCursoManager($unidadCurso, $data);
 		$manager->save();
 		Session::flash('success', 'Se editó la planificación de unidad del curso con éxito.');
-		return redirect()->route('unidades_curso',$unidadCurso->curso_id);
+		$url = route('unidades_curso',$unidadCurso->curso_id) . "#" . $unidadCurso->id;
+		return redirect()->to($url);
 	}
 
 	public function mostrarNotas(UnidadCurso $unidadCurso)
@@ -88,42 +89,73 @@ class UnidadCursoController extends BaseController {
 			$notas[$ae->estudiante_id][$ae->actividad_id] = $ae->nota;
 			$notas[$ae->estudiante_id]['total'] += $ae->nota;
 		}
-
-		
-		
-
-
-		/*foreach($actividadesEstudiantes as $ae)
-		{
-			foreach ($headers as $header) 
-			{
-				if($header == 'estudiante'){
-					$notas[$ae->estudiante_id]['estudiante'] = $ae->estudiante->nombre_completo;
-				}
-				elseif($header == 'total'){
-					if(!isset($notas[$ae->estudiante_id]['total']))
-						$notas[$ae->estudiante_id]['total'] = 0;
-					$notas[$ae->estudiante_id]['total'] += $ae->nota;
-				}
-				elseif($ae->actividad_id == $header){
-					$notas[$ae->estudiante_id][$header] = $ae->nota;
-				}
-			}
-		}*/
-
-		
-
-		/*foreach($actividades as $actividad)
-		{
-			if(!isset($notas[$actividad->estudiante_id]))
-			{
-				$notas[$actividad->estudiante_id]['estudiante_id'] = $actividad->estudiante_id;
-				$notas[$actividad->estudiante_id]['estudiante'] = $actividad->estudiante->nombre_completo;
-				$notas[$actividad->estudiante_id]['nota'] = 0;
-			}
-			$notas[$actividad->estudiante_id]['nota'] += $actividad->nota;
-		}*/
 		return view('administracion/unidades_cursos/notas', compact('unidadCurso','notas','headers','actividades'));
+	}
+
+	public function descargaFormatoNotasActividades(UnidadCurso $unidadCurso)
+	{
+		$data = Input::all();
+		$actividadesDB = $this->actividadRepo->getByUnidad($unidadCurso->id);
+		$estudiantes = $this->estudianteSeccionRepo->getBySeccion($unidadCurso->curso->seccion_id);
+		$actividadesSeleccionadas = [];
+		foreach($data['actividades'] as $actividadesEnviadas)
+		{
+			if(isset($actividadesEnviadas['check'])){
+				$id = $actividadesEnviadas['id'];
+				foreach($actividadesDB as $adb)
+				{
+					if($adb->id == $id){
+						$actividadesSeleccionadas[] = $adb;
+					}
+				}
+			}
+		}
+		Excel::create('Carga de Notas', function($excel) use ($estudiantes, $actividadesSeleccionadas, $unidadCurso) {
+		    $excel->sheet('Formato', function($sheet) use ($estudiantes, $actividadesSeleccionadas, $unidadCurso) {
+		        $sheet->row(1, array(
+				    $unidadCurso->id, 'Unidad Curso'
+				));
+				$sheet->cell('A2', function($cell) { $cell->setValue('IDS'); });
+				$sheet->cell('B2', function($cell) { $cell->setValue('Actividades'); });
+				foreach($actividadesSeleccionadas as $index => $actividad)
+				{
+					$sheet->cell($this->getLetterCellByNumber($index+3) . '2', function($cell) use ($actividad) { $cell->setValue($actividad->id); });
+				}
+				$sheet->cell('A3', function($cell) { $cell->setValue('IDS'); });
+				$sheet->cell('B3', function($cell) { $cell->setValue('Estudiante'); });
+				foreach($actividadesSeleccionadas as $index => $actividad)
+				{
+					$sheet->cell($this->getLetterCellByNumber($index+3) . '3', function($cell) use ($actividad) { $cell->setValue($actividad->titulo); });
+				}
+				foreach($estudiantes as $index => $estudiante)
+				{
+					$sheet->cell('A' . ($index+4), function($cell) use ($estudiante) { $cell->setValue($estudiante->estudiante_id); });
+					$sheet->cell('B' . ($index+4), function($cell) use ($estudiante) { $cell->setValue($estudiante->estudiante->nombre_completo); });
+				}
+		    });
+		})->export('csv');
+
+	}
+
+	private function getLetterCellByNumber($number)
+	{
+		$cells[1] = 'A';
+		$cells[2] = 'B';
+		$cells[3] = 'C';
+		$cells[4] = 'D';
+		$cells[5] = 'E';
+		$cells[6] = 'F';
+		$cells[7] = 'G';
+		$cells[8] = 'H';
+		$cells[9] = 'I';
+		$cells[10] = 'J';
+		$cells[11] = 'K';
+		$cells[12] = 'L';
+		$cells[13] = 'M';
+		$cells[14] = 'N';
+		$cells[15] = 'O';
+
+		return $cells[$number];
 	}
 
 

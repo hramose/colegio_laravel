@@ -24,6 +24,7 @@ Route::group(['prefix' => 'unidades-curso'], function () {
 	Route::get('editar/{unidad_curso}','UnidadCursoController@mostrarEditar')->name('editar_unidad_curso');
 	Route::put('editar/{unidad_curso}','UnidadCursoController@editar')->name('editar_unidad_curso');
 	Route::get('ver-notas/{unidad_curso}','UnidadCursoController@mostrarNotas')->name('notas_unidad_curso');
+	Route::post('descargar-formato-notas-actividades/{unidad_curso}','UnidadCursoController@descargaFormatoNotasActividades')->name('descargar_formato_notas_actividades');
 });
 
 /* FOROS */

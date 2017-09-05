@@ -45,9 +45,11 @@ Unidades - {{$curso->descripcion}}
 						</div>
 					</div>
 					<div class="table-responsive">
+						{!! Form::open(['route' => ['descargar_formato_notas_actividades',$unidad->id], 'method' => 'POST', 'id' => 'form', 'class'=>'validate-form']) !!}
 						<table class="table responsive">
 							<thead>
 								<tr>
+									<th></th>
 									<th class="text-center">DESCRIPCIÓN</th>
 									<th class="text-center">TIPO</th>
 									<th class="text-center">VALOR</th>
@@ -63,6 +65,10 @@ Unidades - {{$curso->descripcion}}
 								@foreach($unidad->actividades as $actividad)
 								<tr>
 									<?php $totalPorcentaje+=$actividad->punteo; ?>
+									<td>
+										<input type="checkbox" name="actividades[{{$actividad->id}}][check]">
+										<input type="hidden" name="actividades[{{$actividad->id}}][id]" value="{{$actividad->id}}">
+									</td>
 									<td> {{$actividad->titulo}} </td>
 									<td class="text-center"> {{$actividad->tipo->descripcion}} </td>
 									<td class="text-center"> {{$actividad->punteo}} pts </td>
@@ -79,22 +85,24 @@ Unidades - {{$curso->descripcion}}
 									</td>
 									<td class="text-center"> {{$actividad->descripcion_estado}} </td>
 									<td> 
-										<a href="@{{route('maestros.ver_actividad',$actividad->id)}}" class="btn btn-info btn-flat btn-sm fa fa-eye" data-toggle="tooltip" data-placement="top" data-original-title="Ver"></a> 
+										<!--<a href="@{{route('maestros.ver_actividad',$actividad->id)}}" class="btn btn-info btn-flat btn-sm fa fa-eye" data-toggle="tooltip" data-placement="top" data-original-title="Ver"></a> -->
 										<a href="{{route('editar_actividad',$actividad->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-edit" data-toggle="tooltip" data-placement="top" data-original-title="Editar"></a>
 										<a href="{{route('ver_notas_actividad',$actividad->id)}}" class="btn btn-primary btn-sm btn-flat fa fa-check" data-toggle="tooltip" data-placement="top" data-original-title="Ver Notas"></a>
 									</td>
 								</tr>
 								 @endforeach 
 								 <tr>
+								 	<td></td>
 								 	<td colspan="2">TOTAL</td>
-								 	<td>{{$totalPorcentaje}} pts</td>
+								 	<td class="text-center">{{$totalPorcentaje}} pts</td>
 								 	<td></td>
 								 	<td></td>
 								 </tr>
 							</tbody>
 						</table>
+						<input type="submit" value="Descargar Formato Para Cargas de Notas" class="btn btn-primary btn-flat">
 					</div>
-	              
+	              	{!! Form::close() !!}
 	            </div>
 	            @endforeach
 	      	</div>
@@ -107,7 +115,17 @@ Unidades - {{$curso->descripcion}}
 <script src="{{ asset('assets/admin/plugins/datatables/dataTables.bootstrap.js') }}"></script>
 <script>
 	$(document).ready(function() {
-		 //var table = $('.table').DataTable();
-	} );
+		 // Javascript to enable link to tab
+		var hash = document.location.hash;
+		var prefix = "tab_";
+		if (hash) {
+		    $('.nav-tabs a[href="'+hash.replace(prefix,"")+'"]').tab('show');
+		} 
+
+		$('a[data-toggle=tab]').on('click', function(e){
+			window.location.hash = $(this).attr('href');
+		});
+
+	});
 </script>
 @endsection

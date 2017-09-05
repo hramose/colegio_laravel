@@ -10,7 +10,7 @@ Notas {{$unidadCurso->curso->descripcion}} - {{$unidadCurso->unidad_seccion->des
 		<div class="box box-primary">
 			<div class="box-body">
 				<div class="table-responsive">
-					<a href="{{route('unidades_curso',$unidadCurso->curso_id)}}" class="btn btn-danger btn-sm btn-flat" data-toggle="tooltip" data-placement="top" title="" data-original-title="Regresar"><i class="fa fa-chevron-left-o"></i> Regresar</a>
+					<a href="{{route('unidades_curso',$unidadCurso->curso_id)}}#{{$unidadCurso->id}}" class="btn btn-danger btn-sm btn-flat" data-toggle="tooltip" data-placement="top" title="" data-original-title="Regresar"><i class="fa fa-chevron-left-o"></i> Regresar</a>
 					<hr>
 					<div class="row">
 						<div class="col-lg-8">

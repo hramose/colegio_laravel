@@ -9,7 +9,8 @@
 			<div class="box-body">
 				<div class="table-responsive">
 					<a href="{{route('calificar_actividades',$actividad->id)}}" class="btn btn-warning btn-sm btn-flat" data-toggle="tooltip" data-placement="top" title="" data-original-title="Calificar Actividades"><i class="fa fa-edit"></i> Calificar Actividades</a>
-					<a href="{{route('unidades_curso',$actividad->unidad_curso->curso_id)}}" class="btn btn-danger btn-sm btn-flat" data-toggle="tooltip" data-placement="top" title="" data-original-title="Regresar"><i class="fa fa-chevron-left-o"></i> Regresar</a>
+					&nbsp;&nbsp;&nbsp;
+					<a href="{{route('unidades_curso',$actividad->unidad_curso->curso_id)}}#{{$actividad->unidad_curso->id}}" class="btn btn-danger btn-sm btn-flat" data-toggle="tooltip" data-placement="top" title="" data-original-title="Regresar"><i class="fa fa-chevron-left"></i> Regresar</a>
 					<hr>
 					<table class="table table-responsive">
 						<thead>
