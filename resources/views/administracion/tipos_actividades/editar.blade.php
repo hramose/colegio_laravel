@@ -7,6 +7,7 @@
 	       	{!! Field::text('descripcion', null, ['data-required'=> 'true']) !!}
 	       	{!! Field::checkbox('aplica_zona') !!}
 	       	{!! Field::checkbox('es_examen') !!}
+	       	{!! Field::checkbox('puntos_extras') !!}
 			{!! Field::select('estado', $estados, null, ['data-required'=> 'true']) !!}
 	  	</div>
 		<div class="box-footer">

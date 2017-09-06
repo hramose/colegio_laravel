@@ -131,8 +131,10 @@ Route::group(['prefix' => 'unidades-secciones'], function () {
 	Route::post('agregar/{seccion}','UnidadSeccionController@agregar')->name('agregar_unidad_seccion');
 	Route::get('editar/{unidad_seccion}','UnidadSeccionController@mostrarEditar')->name('editar_unidad_seccion');
 	Route::put('editar/{unidad_seccion}','UnidadSeccionController@editar')->name('editar_unidad_seccion');
-	Route::get('notas/{unidad_seccion}','UnidadSeccionController@mostrarNotas')->name('notas_unidad_seccion');
+	Route::get('notas-unidad/{unidad_seccion}','UnidadSeccionController@mostrarNotas')->name('notas_unidad_seccion');
 	Route::get('detalle-notas/{unidad_seccion}/{curso}/{estudiante}','UnidadSeccionController@mostrarDetalleNotas')->name('detalle_notas_unidad_seccion');
+	Route::get('notas-seccion/{seccion}','UnidadSeccionController@mostrarNotasSeccion')->name('notas_seccion');
+	Route::get('reporte-notas-seccion/{seccion}','UnidadSeccionController@reporteNotasSeccion')->name('reporte_notas_seccion');
 });
 
 /* PERFILES */

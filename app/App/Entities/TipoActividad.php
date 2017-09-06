@@ -7,7 +7,7 @@ class TipoActividad extends \Eloquent {
 
 	use UserStamps;
 
-	protected $fillable = ['descripcion','aplica_zona','es_examen','estado'];
+	protected $fillable = ['descripcion','aplica_zona','es_examen','puntos_extras','estado'];
 
 	protected $table = 'tipo_actividad';
 	
@@ -26,6 +26,13 @@ class TipoActividad extends \Eloquent {
 	public function getDescripcionEsExamenAttribute()
 	{
 		if($this->es_examen)
+			return '<i class="fa fa-check square text-white bg-green"></i>';
+		return '<i class="fa fa-times square text-white bg-red"></i>';
+	}
+
+	public function getDescripcionPuntosExtrasAttribute()
+	{
+		if($this->puntos_extras)
 			return '<i class="fa fa-check square text-white bg-green"></i>';
 		return '<i class="fa fa-times square text-white bg-red"></i>';
 	}

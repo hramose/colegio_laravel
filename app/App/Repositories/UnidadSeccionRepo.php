@@ -17,4 +17,6 @@ class UnidadSeccionRepo extends BaseRepo{
 		return UnidadSeccion::where('seccion_id',$seccionId)->get();
 	}
 
+	
+
 }

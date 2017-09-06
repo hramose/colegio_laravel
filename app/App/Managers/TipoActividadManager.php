@@ -27,6 +27,7 @@ class TipoActividadManager extends BaseManager
 	{
 		$data['aplica_zona'] = isset($data['aplica_zona']) ? 1 : 0;
 		$data['es_examen'] = isset($data['es_examen']) ? 1 : 0;
+		$data['puntos_extras'] = isset($data['puntos_extras']) ? 1 : 0;
 		return $data;
 	}
 

@@ -61,10 +61,13 @@ Unidades - {{$curso->descripcion}}
 								</tr>
 							</thead>
 							<tbody>
-								<?php $totalPorcentaje = 0; ?>
+								@php $totalPorcentaje = 0; $extras = 0; @endphp
 								@foreach($unidad->actividades as $actividad)
 								<tr>
-									<?php $totalPorcentaje+=$actividad->punteo; ?>
+									@php 
+										if($actividad->tipo->puntos_extras == 1) $extras += $actividad->punteo;
+										else  $totalPorcentaje+=$actividad->punteo;
+									@endphp
 									<td>
 										<input type="checkbox" name="actividades[{{$actividad->id}}][check]">
 										<input type="hidden" name="actividades[{{$actividad->id}}][id]" value="{{$actividad->id}}">
@@ -94,7 +97,7 @@ Unidades - {{$curso->descripcion}}
 								 <tr>
 								 	<td></td>
 								 	<td colspan="2">TOTAL</td>
-								 	<td class="text-center">{{$totalPorcentaje}} pts</td>
+								 	<td class="text-center">{{$totalPorcentaje}} pts <br/> (Extras {{$extras}} pts)</td>
 								 	<td></td>
 								 	<td></td>
 								 </tr>

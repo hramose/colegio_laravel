@@ -106,32 +106,77 @@ class StaticVariables {
 	}
 
 	function time_elapsed_string($datetime, $full = false) {
-    $now = new DateTime;
-    $ago = new DateTime($datetime);
-    $diff = $now->diff($ago);
+	    $now = new DateTime;
+	    $ago = new DateTime($datetime);
+	    $diff = $now->diff($ago);
 
-    $diff->w = floor($diff->d / 7);
-    $diff->d -= $diff->w * 7;
+	    $diff->w = floor($diff->d / 7);
+	    $diff->d -= $diff->w * 7;
 
-    $string = array(
-        'y' => 'año',
-        'm' => 'mes',
-        'w' => 'semana',
-        'd' => 'día',
-        'h' => 'hora',
-        'i' => 'minuto',
-        's' => 'segundo',
-    );
-    foreach ($string as $k => &$v) {
-        if ($diff->$k) {
-            $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
-        } else {
-            unset($string[$k]);
-        }
-    }
+	    $string = array(
+	        'y' => 'año',
+	        'm' => 'mes',
+	        'w' => 'semana',
+	        'd' => 'día',
+	        'h' => 'hora',
+	        'i' => 'minuto',
+	        's' => 'segundo',
+	    );
+	    foreach ($string as $k => &$v) {
+	        if ($diff->$k) {
+	            $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+	        } else {
+	            unset($string[$k]);
+	        }
+	    }
 
-    if (!$full) $string = array_slice($string, 0, 1);
-    return $string ? 'hace ' . implode(', ', $string) . '' : 'ahora';
-}
+	    if (!$full) $string = array_slice($string, 0, 1);
+	    return $string ? 'hace ' . implode(', ', $string) . '' : 'ahora';
+	}
+
+	public function getCellByNumber($number)
+	{
+		$cells[1] = 'A';
+		$cells[2] = 'B';
+		$cells[3] = 'C';
+		$cells[4] = 'D';
+		$cells[5] = 'E';
+		$cells[6] = 'F';
+		$cells[7] = 'G';
+		$cells[8] = 'H';
+		$cells[9] = 'I';
+		$cells[10] = 'J';
+		$cells[11] = 'K';
+		$cells[12] = 'L';
+		$cells[13] = 'M';
+		$cells[14] = 'N';
+		$cells[15] = 'O';
+		$cells[16] = 'P';
+		$cells[17] = 'Q';
+		$cells[18] = 'R';
+		$cells[19] = 'S';
+		$cells[20] = 'T';
+		$cells[21] = 'U';
+		$cells[22] = 'V';
+		$cells[23] = 'W';
+		$cells[24] = 'X';
+		$cells[25] = 'Y';
+		$cells[26] = 'Z';
+		$cells[27] = 'AA';
+		$cells[28] = 'AB';
+		$cells[29] = 'AC';
+		$cells[30] = 'AD';
+		$cells[31] = 'AE';
+		$cells[32] = 'AF';
+		$cells[33] = 'AG';
+		$cells[34] = 'AH';
+		$cells[35] = 'AI';
+		$cells[36] = 'AJ';
+		$cells[37] = 'AK';
+		$cells[38] = 'AL';
+		$cells[39] = 'AM';
+		$cells[40] = 'AN';
+		return $cells[$number];
+	}
 
 }

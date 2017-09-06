@@ -45,14 +45,19 @@ class ActividadController extends BaseController {
 		$data['estado'] = 'A';
 
 		$actividades = $unidadCurso->actividades;
-		$total = 0;
-		foreach($actividades as $actividad)
-		{
-			$total += $actividad->punteo;
+
+		$tipoActividad = $this->tipoActividadRepo->find($data['tipo_actividad_id']);
+		if($tipoActividad->puntos_extras == 0){
+			$total = 0;
+			foreach($actividades as $actividad)
+			{
+				if($actividad->tipo->puntos_extras == 0)
+					$total += $actividad->punteo;
+			}
+			$total += $data['punteo'];
+			if($total > 100)
+				throw new SaveDataException("Error", new \Exception("El total del punteo de las tareas en la unidad supera los 100 puntos (".$total.")."));
 		}
-		$total += $data['punteo'];
-		if($total > 100)
-			throw new SaveDataException("Error", new \Exception("El total del punteo de las tareas en la unidad supera los 100 puntos (".$total.")."));
 
 		$manager = new ActividadManager(new Actividad(), $data);
 		$manager->save();
@@ -78,7 +83,7 @@ class ActividadController extends BaseController {
 		$total = 0;
 		foreach($actividades as $a)
 		{
-			if($a->id != $actividad->id)
+			if($a->id != $actividad->id && $a->tipo->puntos_extras == 0)
 				$total += $a->punteo;
 		}
 		$total += $data['punteo'];
@@ -126,7 +131,6 @@ class ActividadController extends BaseController {
 			Session::flash('error', 'La nota ('.$data['nota'].') es mayor al punteo maximo ('.$actividad->actividad->punteo.').');
 			return redirect()->back();
 		}
-
 		$data['actividad_id'] = $actividad->actividad_id;
 		$data['estudiante_id'] = $actividad->estudiante_id;
 		$data['estado'] = 'C';
