@@ -25,7 +25,7 @@
 							@foreach($actividades as $a)
 							<tr>
 								<td>
-									{{$a->estudiante->nombre_completo}}
+									{{$a->estudiante->nombre_completo_apellidos}}
 									<input type="hidden" class="form-control" name="notas[{{$a->estudiante->id}}][id]" value="{{$a->id}}">
 								</td>
 								<td>

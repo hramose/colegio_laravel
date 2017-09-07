@@ -108,8 +108,9 @@ return array(
         'materia_id' => 'materia',
         'curso_id' => 'curso',
         'seccion_id' => 'seccion',
-        'tipo_tarea_id' => 'Tipo de tarea',
-        'tarea_id' => 'tarea',
-        'unidad_id' => 'unidad'
+        'tipo_actividad_id' => 'Tipo de actividad',
+        'actividad_id' => 'actividad',
+        'unidad_id' => 'unidad',
+
     ),
 );

@@ -9,21 +9,34 @@
 	<div class="col-lg-12">
 		<div class="box box-primary">
 			<div class="box-body">
-				<a href="{{route('reporte_notas_seccion',$seccion->id)}}" class="btn btn-primary btn-flat">Exportar Excel</a>
+				<a href="{{route('reporte_notas_seccion',$seccion->id)}}" class="btn btn-primary btn-flat">Exportar Excel Notas</a>
 				<hr>
 				<div class="nav-tabs-custom">
 	    			<ul class="nav nav-tabs">
-	    				@php $index = 0; @endphp
+	    				<li class="active"><a href="#estudiantes" data-toggle="tab">Estudiantes</a></li>
 	    				@foreach($notas as $unidad)
-	    				@php if($index == 0) $class = "active"; else $class = ''; $index++; @endphp 
-	        			<li class="{{$class}}"><a href="#{{$unidad['unidad']->id}}" data-toggle="tab">{{$unidad['unidad']->descripcion}}</a></li>
+	        			<li><a href="#{{$unidad['unidad']->id}}" data-toggle="tab">{{$unidad['unidad']->descripcion}}</a></li>
 	        			@endforeach
 	        		</ul>
 					<div class="tab-content">
-						@php $index = 0; @endphp
+						<div class="tab-pane active" id="estudiantes">
+							<div class="table-responsive">
+								<div class="row">
+									<ul class="users-list clearfix">
+										@foreach($estudiantes as $estudiante)
+							            <li>
+							          		<img src="{{$estudiante->estudiante->fotografia}}" alt="" style="width: 80px !important; height: 80px !important">
+							              	<a class="users-list-name" href="#">{{$estudiante->estudiante->nombre_completo_apellidos}}</a>
+							              	<span class="users-list-date">{{$estudiante->estudiante->edad}}</span>
+							              	<span class="users-list-date">Codigo: {{$estudiante->codigo}}</span>
+							            </li>
+							            @endforeach
+							      	</ul>
+								</div>
+							</div>
+						</div>
 			        	@foreach($notas as $unidad)
-			        	@php if($index == 0) $class = "active"; else $class = ''; $index++; @endphp 
-			        	<div class="tab-pane {{$class}}" id="{{$unidad['unidad']->id}}">
+			        	<div class="tab-pane" id="{{$unidad['unidad']->id}}">
 							<div class="table-responsive">
 								<div class="row">
 									<div class="col-lg-8">
@@ -39,7 +52,7 @@
 											<tbody>
 												@foreach($unidad['estudiantes'] as $nota)
 													<tr>
-														<td> {{$nota['estudiante']->nombre_completo}} </td>
+														<td> {{$nota['estudiante']->nombre_completo_apellidos}} </td>
 														@foreach($nota['cursos'] as $curso)
 															<?php 
 																$clase = ''; 

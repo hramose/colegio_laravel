@@ -35,9 +35,12 @@ class ActividadEstudianteRepo extends BaseRepo{
 
 	public function getByActividad($actividadId)
 	{
-		return ActividadEstudiante::where('actividad_id',$actividadId)
+		$actividadesDB = ActividadEstudiante::where('actividad_id',$actividadId)
 									->with('estudiante')
 									->get();
+		return $actividadesDB->sort(function ($a, $b){
+  			return strcasecmp($a->estudiante->nombre_completo_apellidos, $b->estudiante->nombre_completo_apellidos);
+		});
 	}
 
 	public function getBySeccion($unidadSeccionId)

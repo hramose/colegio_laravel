@@ -32,7 +32,7 @@ Estudiantes - {{$seccion->grado->descripcion}} {{$seccion->descripcion_seccion}}
 					@foreach($estudiantes as $estudiante)
 					<tr>
 						<td>{{$estudiante->codigo}}</td>
-						<td>{{$estudiante->estudiante->nombre_completo}}</td>
+						<td>{{$estudiante->estudiante->nombre_completo_apellidos}}</td>
 						<td>
 							<!--<a href="{{route('editar_estudiante_seccion',$estudiante->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar"></a>-->
 						</td>

@@ -29,7 +29,7 @@
 						<tbody>
 							@foreach($actividades as $a)
 							<tr>
-								<td> {{$a->estudiante->nombre_completo}} </td>
+								<td> {{$a->estudiante->nombre_completo_apellidos}} </td>
 								<td> {{$a->nota}} </td>
 								<td> {{$a->observaciones}} </td>
 								<td> {{$a->descripcion_estado}} </td>

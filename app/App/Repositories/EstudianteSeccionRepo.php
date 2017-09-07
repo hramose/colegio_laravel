@@ -17,7 +17,7 @@ class EstudianteSeccionRepo extends BaseRepo{
 									->with('estudiante')
 									->get();
 		$estudiantes = $estudiantes->sort(function ($a, $b){
-  			return strcasecmp($a->estudiante->nombre_completo, $b->estudiante->nombre_completo);
+  			return strcasecmp($a->estudiante->nombre_completo_apellidos, $b->estudiante->nombre_completo_apellidos);
 		});
 		return $estudiantes;
 	}
