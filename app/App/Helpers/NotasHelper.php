@@ -282,7 +282,7 @@ class NotasHelper {
 		    	foreach($actividades as $actividad)
 		    	{
 		    		$cell = Variable::getCellByNumber($cellN) . $row;
-		    		$sheet->cell($cell, function($cell) use ($actividad) { $cell->setValue(100); });
+		    		$sheet->cell($cell, function($cell) use ($actividad) { $cell->setValue($actividad->punteo); });
 		    		$cellN++;
 		    	}
 		    	$cell = Variable::getCellByNumber($cellN) . $row;
