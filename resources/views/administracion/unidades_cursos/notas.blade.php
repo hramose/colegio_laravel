@@ -9,14 +9,20 @@ Notas {{$unidadCurso->curso->descripcion}} - {{$unidadCurso->unidad_seccion->des
 	<div class="col-lg-12">
 		<div class="box box-primary">
 			<div class="box-body">
-				<div class="table-responsive">
+				<div class="table-responsive">		
+					<a href="{{route('descargar_notas_unidad_curso',$unidadCurso->id)}}">
+						<img src="{{asset('assets/imagenes/excel.png')}}" height="50px" data-toggle="tooltip" data-placement="top" title="" data-original-title="Exportar Notas">
+					</a>
+					&nbsp;&nbsp;&nbsp;
 					<a href="{{route('unidades_curso',$unidadCurso->curso_id)}}#{{$unidadCurso->id}}" class="btn btn-danger btn-sm btn-flat" data-toggle="tooltip" data-placement="top" title="" data-original-title="Regresar"><i class="fa fa-chevron-left-o"></i> Regresar</a>
+
 					<hr>
 					<div class="row">
 						<div class="col-lg-8">
 							<table class="table table-responsive" >
 								<thead>
 									<tr>
+										<th class="text-center">CODIGO</th>
 										<th class="text-center">ESTUDIANTE</th>
 										@foreach($actividades as $index => $actividad)
 											<th class="text-center">{{$index+1}}</th>
@@ -32,7 +38,8 @@ Notas {{$unidadCurso->curso->descripcion}} - {{$unidadCurso->unidad_seccion->des
 												$clase = 'bg-red'; 
 										?>
 										<tr class="{{$clase}}">
-											<td> {{$nota['estudiante']}} </td>
+											<td class="text-center"> {{$nota['codigo']}} </td>
+											<td> {{$nota['estudiante']->nombre_completo_apellidos}} </td>
 											@foreach($actividades as $actividad)
 												<td class="text-center">{{$nota[$actividad->id]}}</td>
 											@endforeach

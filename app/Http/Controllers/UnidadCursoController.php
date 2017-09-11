@@ -8,6 +8,9 @@ use App\App\Entities\UnidadCurso;
 use Controller, Redirect, Input, View, Session, Variable, Excel;
 
 use App\App\Entities\Curso;
+
+use App\App\Helpers\NotasHelper;
+
 use App\App\Repositories\CursoRepo;
 use App\App\Repositories\ActividadRepo;
 use App\App\Repositories\ActividadEstudianteRepo;
@@ -65,31 +68,19 @@ class UnidadCursoController extends BaseController {
 		$actividades = $this->actividadRepo->getByUnidad($unidadCurso->id);
 		$estudiantes = $this->estudianteSeccionRepo->getBySeccion($unidadCurso->curso->seccion_id);
 		$actividadesEstudiantes = $this->actividadEstudianteRepo->getByUnidad($unidadCurso->id);
-		$notas = [];
-	
-		$headers[] = 'ESTUDIANTE';	
-		foreach($actividades as $actividad)
-		{
-			$headers[] = $actividad->id;
-		}
-		$headers[] = 'TOTAL';
+		$notasHelper = new NotasHelper();
+		$notas = $notasHelper->getNotasByCurso($unidadCurso, $estudiantes, $actividades, $actividadesEstudiantes);
+		return view('administracion/unidades_cursos/notas', compact('unidadCurso','notas','actividades'));
+	}
 
-		foreach($estudiantes as $estudiante)
-		{
-			$notas[$estudiante->estudiante_id]['estudiante'] = $estudiante->estudiante->nombre_completo;
-			foreach($actividades as $actividad)
-			{
-				$notas[$estudiante->estudiante_id][$actividad->id] = $actividad->id;
-			}
-			$notas[$estudiante->estudiante_id]['total'] = 0;
-		}
-
-		foreach($actividadesEstudiantes as $ae)
-		{
-			$notas[$ae->estudiante_id][$ae->actividad_id] = $ae->nota;
-			$notas[$ae->estudiante_id]['total'] += $ae->nota;
-		}
-		return view('administracion/unidades_cursos/notas', compact('unidadCurso','notas','headers','actividades'));
+	public function descargarNotasActividades(UnidadCurso $unidadCurso)
+	{
+		$actividades = $this->actividadRepo->getByUnidad($unidadCurso->id);
+		$estudiantes = $this->estudianteSeccionRepo->getBySeccion($unidadCurso->curso->seccion_id);
+		$actividadesEstudiantes = $this->actividadEstudianteRepo->getByUnidad($unidadCurso->id);
+		$notasHelper = new NotasHelper();
+		$excel = $notasHelper->getExcelForNotasByCurso($unidadCurso, $estudiantes, $actividades, $actividadesEstudiantes);
+		$excel->export('xlsx');
 	}
 
 	public function descargaFormatoNotasActividades(UnidadCurso $unidadCurso)

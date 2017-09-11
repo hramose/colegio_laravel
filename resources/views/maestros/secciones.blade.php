@@ -2,13 +2,14 @@
 @section('title') Secciones - {{$maestro->nombre_completo}} @endsection
 @section('css')
 <style>
-    .ver-curso {
+    .ver-seccion {
         padding-top: 2px !important; 
         padding-bottom: 2px !important; 
-        color: white !important;
+        color: black !important;
     }
-    .ver-curso:hover{
+    .ver-seccion:hover{
         background-color:#57beef !important;
+        color: white !important;;
     }
 </style>
 @endsection
@@ -31,12 +32,9 @@
                     </div>
                     <div class="box-footer no-padding">
                         <ul class="nav nav-stacked">
-                            <li><a href="{{route('maestros.estudiantes_seccion',$seccion->id)}}"><i class="fa fa-users"></i> Estudiantes <span class="pull-right badge bg-blue">{{count($seccion->estudiantes)}}</span></a></li>
-                            <li><a href="{{route('notas_seccion',$seccion->id)}}"><i class="fa fa-users"></i> Notas <span class="pull-right badge bg-blue">{{count($seccion->estudiantes)}}</span></a></li>
-                            @foreach($seccion->unidades as $unidad)
-                            <li><a href="{{route('notas_unidad_seccion',$unidad->id)}}"><i class="fa fa-book"></i> Ver Notas {{$unidad->descripcion}} <span class="pull-right badge bg-green"><i class="fa fa-chevron-right"></i></span> </a></li>
-                            @endforeach
-                            
+                            <li>
+                                <a href="{{route('maestros.ver_seccion',$seccion->id)}}" class="ver-seccion">Ver Seccion <i class="fa fa-chevron-right"></i></a>
+                            </li>
                         </ul>
                     </div>
                 </div>

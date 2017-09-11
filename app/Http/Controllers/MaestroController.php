@@ -11,6 +11,7 @@ use App\App\Repositories\EstudianteSeccionRepo;
 use App\App\Repositories\ActividadRepo;
 use App\App\Repositories\ActividadEstudianteRepo;
 use App\App\Repositories\ForoRepo;
+use App\App\Repositories\UnidadSeccionRepo;
 
 use App\App\Managers\UnidadCursoManager;
 
@@ -19,6 +20,8 @@ use App\App\Entities\Curso;
 use App\App\Entities\EstudianteSeccion;
 use App\App\Entities\Actividad;
 use App\App\Entities\UnidadCurso;
+
+use App\App\Helpers\NotasHelper;
 
 class MaestroController extends BaseController {
 
@@ -29,8 +32,9 @@ class MaestroController extends BaseController {
 	protected $actividadRepo;
 	protected $actividadEstudianteRepo;
 	protected $foroRepo;
+	protected $unidadSeccionRepo;
 
-	public function __construct(CicloRepo $cicloRepo, SeccionRepo $seccionRepo, CursoRepo $cursoRepo, EstudianteSeccionRepo $estudianteSeccionRepo, ActividadRepo $actividadRepo, ActividadEstudianteRepo $actividadEstudianteRepo, ForoRepo $foroRepo)
+	public function __construct(CicloRepo $cicloRepo, SeccionRepo $seccionRepo, CursoRepo $cursoRepo, EstudianteSeccionRepo $estudianteSeccionRepo, ActividadRepo $actividadRepo, ActividadEstudianteRepo $actividadEstudianteRepo, ForoRepo $foroRepo, UnidadSeccionRepo $unidadSeccionRepo)
 	{
 		$this->cicloRepo = $cicloRepo;
 		$this->seccionRepo = $seccionRepo;
@@ -39,6 +43,7 @@ class MaestroController extends BaseController {
 		$this->actividadRepo = $actividadRepo;
 		$this->actividadEstudianteRepo = $actividadEstudianteRepo;
 		$this->foroRepo = $foroRepo;
+		$this->unidadSeccionRepo = $unidadSeccionRepo;
 		View::composer('layouts.admin', 'App\Http\Controllers\AdminMenuController');
 	}
 
@@ -69,6 +74,17 @@ class MaestroController extends BaseController {
 		$maestro = \Auth::user()->persona;
 		$secciones = $this->seccionRepo->getByCicloByMaestro($ciclo->id, $maestro->id);
 		return view('maestros/secciones', compact('secciones','maestro'));
+	}
+
+	public function verSeccion(Seccion $seccion)
+	{
+		$unidades = $this->unidadSeccionRepo->getBySeccion($seccion->id);
+		$estudiantes = $this->estudianteSeccionRepo->getBySeccion($seccion->id);
+		$cursos = $this->cursoRepo->getBySeccion($seccion->id);
+
+		$notasHelper = new NotasHelper();
+		$notas = $notasHelper->getNotasBySeccion($unidades, $estudiantes, $cursos, $seccion);
+		return view('maestros.ver_seccion', compact('seccion','cursos','notas','estudiantes'));
 	}
 
 	public function cursos()
