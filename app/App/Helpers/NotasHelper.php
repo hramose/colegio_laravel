@@ -60,7 +60,7 @@ class NotasHelper {
 	public function getExcelForNotasBySeccion($unidades, $estudiantes, $cursos, $seccion)
 	{
 		$notas = $this->getNotasBySeccion($unidades, $estudiantes, $cursos, $seccion);
-		return Excel::create('Consolidado ' . $seccion->descripcion_con_grado, function($excel) use ($notas, $cursos, $seccion) {
+		return Excel::create('Consolidado ' . $seccion->descripcion_con_grado, function($excel) use ($notas, $cursos, $seccion, $unidades) {
 			foreach($notas as $unidad){
 			    $excel->sheet($unidad['unidad']->descripcion, function($sheet) use ($cursos, $seccion, $unidad) {
 			    	$cantidadCursos = count($cursos);
