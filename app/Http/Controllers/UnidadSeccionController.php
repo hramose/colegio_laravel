@@ -181,10 +181,30 @@ class UnidadSeccionController extends BaseController {
 		if($tipo == 'PDF')
 		{
 			$notas = $notasHelper->getNotasBySeccionByEstudiante($unidades, $estudiante->estudiante, $cursos, $seccion);
-
-			//return view('reportes.notas_estudiante_seccion', compact('seccion','cursos','notas','estudiante','unidades'));
 			$pdf = PDF::loadView('reportes.notas_estudiante_seccion', compact('seccion','cursos','notas','estudiante','unidades'));
 			return $pdf->download('Notas '.$estudiante->estudiante->nombre_completo_apellidos.'.pdf');
+		}
+	}
+
+	public function reporteNotasEstudiantes(Seccion $seccion, $tipo)
+	{
+		$estudiantesDB = $this->estudianteSeccionRepo->getBySeccion($seccion->id);
+		$unidades = $this->unidadSeccionRepo->getBySeccion($seccion->id);
+		$cursos = $this->cursoRepo->getBySeccion($seccion->id);
+		$notasHelper = new NotasHelper();
+		if($tipo == 'PDF')
+		{
+			$estudiantes = [];
+			foreach($estudiantesDB as $edb)
+			{
+				$notas = $notasHelper->getNotasBySeccionByEstudiante($unidades, $edb->estudiante, $cursos, $seccion);
+				$estudiante['estudiante'] = $edb;
+				$estudiante['notas'] = $notas;
+				$estudiantes[] = $estudiante;
+			}
+			
+			$pdf = PDF::loadView('reportes.notas_estudiantes_seccion', compact('seccion','cursos','notas','estudiantes','unidades'));
+			return $pdf->download('Notas '.$seccion->descripcion_con_grado.'.pdf');
 		}
 	}
 

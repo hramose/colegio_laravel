@@ -355,30 +355,7 @@ class NotasHelper {
 				$promedio['unidades'][$unidad->id] += $total;
 			}
 		}
-
-		/*foreach($cursos as $curso)
-		{
-			$notas['cursos'][$curso->id]['curso'] = $curso;
-			$notas['cursos'][$curso->id]['nota_anual'] = 0;
-			$notas['cursos'][$curso->id]['promedio_anual'] = 0;
-
-			foreach($unidades as $unidad)
-			{
-				$actividades = $this->actividadEstudianteRepo->getBySeccionByCursoByEstudiante($unidad->id, $curso->id, $estudiante->id);
-				$total = 0;
-				foreach($actividades as $actividad)
-				{
-					$total += $actividad->nota;
-				}
-				$notas['cursos'][$curso->id]['unidades'][$unidad->id]['unidad'] = $unidad;
-				$notas['cursos'][$curso->id]['unidades'][$unidad->id]['nota'] = $total;
-				$notas['cursos'][$curso->id]['nota_anual'] += $unidad->porcentaje/100*$total;
-
-				if(!isset($promedio['unidades'][$unidad->id]))
-					$promedio['unidades'][$unidad->id] = 0;
-				$promedio['unidades'][$unidad->id] += $total;
-			}
-		}*/
+		
 		/*Calcular Promedio*/
 		$cantidadCursos = count($cursos);
 		$promedioUnidades = 0;

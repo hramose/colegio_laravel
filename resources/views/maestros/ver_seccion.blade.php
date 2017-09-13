@@ -12,6 +12,9 @@
 				<a href="{{route('reporte_notas_seccion',$seccion->id)}}">
 					<img src="{{asset('assets/imagenes/excel.png')}}" height="50px" data-toggle="tooltip" data-placement="top" title="" data-original-title="Exportar Notas">
 				</a>
+				<a href="{{route('reporte_notas_estudiantes_seccion',[$seccion->id,'PDF'])}}">
+					<img src="{{asset('assets/imagenes/pdf.png')}}" height="50px" data-toggle="tooltip" data-placement="top" title="" data-original-title="Exportar Notas">
+				</a>
 				<hr>
 				<div class="nav-tabs-custom">
 	    			<ul class="nav nav-tabs">
