@@ -324,6 +324,7 @@ class NotasHelper {
 
 		foreach($unidades as $unidad)
 		{
+			$actividades = $this->actividadEstudianteRepo->getBySeccionByEstudiante($unidad->id,$estudiante->id);
 			foreach($cursos as $curso)
 			{
 				if(!isset($notas['cursos'][$curso->id])){
@@ -331,8 +332,6 @@ class NotasHelper {
 					$notas['cursos'][$curso->id]['nota_anual'] = 0;
 					$notas['cursos'][$curso->id]['promedio_anual'] = 0;
 				}
-
-				$actividades = $this->actividadEstudianteRepo->getBySeccionByEstudiante($unidad->id,$estudiante->id);
 				$total = 0;
 				foreach($actividades as $actividad)
 				{
@@ -377,8 +376,8 @@ class NotasHelper {
 		$promedioUnidades = 0;
 		foreach($unidades as $unidad)
 		{
-			$promedio['unidades'][$unidad->id] /= $cantidadCursos;
-			$promedioUnidades += round($promedio['unidades'][$unidad->id],2);
+			$promedio['unidades'][$unidad->id] = round($promedio['unidades'][$unidad->id] / $cantidadCursos,2);
+			$promedioUnidades += $promedio['unidades'][$unidad->id];
 		}
 		$promedio['promedio_unidades'] = round($promedioUnidades/count($unidades),2);
 		$notas['promedios'] = $promedio;
