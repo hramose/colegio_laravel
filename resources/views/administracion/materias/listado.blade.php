@@ -13,7 +13,7 @@
 				<thead>
 					<tr>
 						<th>DESCRIPCION</th>
-						<th>NUMERO</th>
+						<th>ORDEN</th>
 						<th>ESTADO</th>
 						<th></th>
 					</tr>
@@ -22,7 +22,7 @@
 					@foreach($materias as $materia)
 					<tr>
 						<td>{{$materia->descripcion}}</td>
-						<td>{{$materia->numero}}</td>
+						<td>{{$materia->orden}}</td>
 						<td>{{$materia->descripcion_estado}}</td>
 						<td>
 							<a href="{{route('editar_materia',$materia->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar"></a>

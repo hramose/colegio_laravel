@@ -11,6 +11,8 @@ use App\App\Repositories\SeccionRepo;
 use App\App\Repositories\PersonaRepo;
 use App\App\Repositories\MateriaRepo;
 
+use App\App\Entities\Seccion;
+
 class CursoController extends BaseController {
 
 	protected $cursoRepo;
@@ -93,6 +95,33 @@ class CursoController extends BaseController {
 		$manager->agregarCursos($seccionId);
 		$seccion = $this->seccionRepo->find($seccionId);
 		Session::flash('success', 'Se agregaron los cursos a '.$seccion->grado->descripcion .' '.$seccion->descripcion_seccion.' con éxito.');
+		return redirect()->route('cursos',$seccion->id);
+	}
+
+	public function mostrarOrdenar(Seccion $seccion)
+	{
+		$cursos = $this->cursoRepo->getBySeccion($seccion->id);
+		return view('administracion/cursos/ordenar', compact('cursos','seccion'));
+	}
+
+	public function ordenar(Seccion $seccion)
+	{
+		$data = Input::all();
+		$manager = new CursoManager(null, $data);
+		$manager->ordenar();
+		Session::flash('success', 'Se ordenaron los cursos de '.$seccion->grado->descripcion .' '.$seccion->descripcion_seccion.' con éxito.');
+		return redirect()->route('cursos',$seccion->id);
+	}
+
+	public function ordenarPorNombre(Seccion $seccion)
+	{
+		$cursosDB = $this->cursoRepo->getBySeccion($seccion->id);
+		$cursos = $cursosDB->sortBy(function($curso){
+			return $curso->materia->descripcion;
+		});
+		$manager = new CursoManager(null, null);
+		$manager->ordenarPorNombre($cursos);
+		Session::flash('success', 'Se ordenaron los cursos por nombre de '.$seccion->grado->descripcion .' '.$seccion->descripcion_seccion.' con éxito.');
 		return redirect()->route('cursos',$seccion->id);
 	}
 

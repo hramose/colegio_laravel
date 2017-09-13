@@ -5,6 +5,7 @@ use App\App\Entities\Curso;
 use App\App\Entities\UnidadCurso;
 use App\App\Repositories\SeccionRepo;
 use App\App\Repositories\MateriaRepo;
+use App\App\Repositories\CursoRepo;
 use Exception;
 
 class CursoManager extends BaseManager
@@ -25,6 +26,7 @@ class CursoManager extends BaseManager
 		$rules = [
 			'materia_id'  => 'required',
 			'maestro_id'  => 'required',
+			'orden'  => 'required',
 			'estado' => 'required'
 		];
 
@@ -47,6 +49,7 @@ class CursoManager extends BaseManager
 					$curso->seccion_id = $seccionId;
 					$curso->materia_id = $c['materia'];
 					$curso->maestro_id = $c['maestro'];
+					$curso->orden = $c['orden'];
 					$curso->estado = 'A';
 					$curso->save();
 
@@ -81,6 +84,47 @@ class CursoManager extends BaseManager
 
 				throw new SaveDataException("Error", new \Exception($error));
 			}
+			throw new SaveDataException("Error", $ex);
+		}
+	}
+
+	public function ordenar()
+	{
+		$cursoRepo = new CursoRepo();
+		try{
+			\DB::beginTransaction();
+				$cursos = $this->data['cursos'];
+				foreach($cursos as $curso)
+				{
+					$c = $cursoRepo->find($curso['id']);
+					$c->orden = $curso['orden'];
+					$c->save();
+				}
+
+			\DB::commit();
+		}
+		catch(\Exception $ex)
+		{
+			throw new SaveDataException("Error", $ex);
+		}
+	}
+
+	public function ordenarPorNombre($cursos)
+	{
+		try{
+			\DB::beginTransaction();
+				$index = 1;
+				foreach($cursos as $curso)
+				{
+					$curso->orden = $index;
+					$curso->save();
+					$index++;
+				}
+
+			\DB::commit();
+		}
+		catch(\Exception $ex)
+		{
 			throw new SaveDataException("Error", $ex);
 		}
 	}

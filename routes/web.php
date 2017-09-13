@@ -82,6 +82,9 @@ Route::group(['prefix' => 'cursos'], function () {
 	Route::put('editar/{id}','CursoController@editar')->name('editar_curso');
 	Route::get('trasladar/{seccionId}/{seccion2Id}','CursoController@mostrarTrasladar')->name('trasladar_cursos');
 	Route::post('trasladar/{seccionId}/{seccion2Id}','CursoController@trasladar')->name('trasladar_cursos');
+	Route::get('ordenar/{seccion}','CursoController@mostrarOrdenar')->name('ordenar_cursos');
+	Route::post('ordenar/{seccion}','CursoController@ordenar')->name('ordenar_cursos');
+	Route::get('ordenar-por-nombre/{seccion}','CursoController@ordenarPorNombre')->name('ordenar_cursos_por_nombre');
 });
 
 /* PERFILES */

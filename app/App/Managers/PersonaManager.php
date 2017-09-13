@@ -121,7 +121,7 @@ class PersonaManager extends BaseManager
 			$this->entity->fill($this->prepareDataEstudiantes($this->data));
 			if(is_null($this->entity->id))
 			{
-				$this->entity->fotografia = $this->entity->genero=='M'?'personas/male.png':'personas/female.png';
+				$this->entity->fotografia = $this->entity->genero=='M'?'personas/boy.png':'personas/girl.png';
 			}
 			$this->entity->save();
 			if(\Input::hasFile('fotografia'))

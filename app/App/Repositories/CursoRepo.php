@@ -15,6 +15,7 @@ class CursoRepo extends BaseRepo{
 	{
 		return Curso::where('seccion_id',$seccionId)
 					->with('seccion')->with('maestro')->with('materia')
+					->orderBy('orden')
 					->get();
 	}
 
@@ -24,6 +25,7 @@ class CursoRepo extends BaseRepo{
 							->pluck('materia_id')->toArray();
 		return Curso::where('seccion_id',$seccion2Id)
 					->whereNotIn('materia_id',$materiasIds)
+					->orderBy('orden')
 					->get();
 	}
 
@@ -37,6 +39,7 @@ class CursoRepo extends BaseRepo{
 						->with('seccion.grado')
 						->with('materia')
 						->orderBy('seccion_id')
+						->orderBy('orden')
 						->get();
 	}
 
@@ -52,6 +55,7 @@ class CursoRepo extends BaseRepo{
 						->with('seccion.grado')
 						->with('materia')
 						->orderBy('seccion_id')
+						->orderBy('orden')
 						->get();
 	}
 

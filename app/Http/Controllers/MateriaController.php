@@ -19,7 +19,7 @@ class MateriaController extends BaseController {
 
 	public function listado()
 	{
-		$materias = $this->materiaRepo->all('descripcion');
+		$materias = $this->materiaRepo->all('orden');
 		return view('administracion/materias/listado', compact('materias'));
 	}
 

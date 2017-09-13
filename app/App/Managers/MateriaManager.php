@@ -19,6 +19,7 @@ class MateriaManager extends BaseManager
 
 		$rules = [
 			'descripcion'  => 'required',
+			'orden'  => 'required',
 			'estado' => 'required'
 		];
 

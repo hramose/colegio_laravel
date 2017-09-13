@@ -17,6 +17,11 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-3">
+					{!! Field::number('orden', null, ['data-required'=> 'true']) !!}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-3">
 					{!! Field::select('estado', $estados, null, ['data-required'=> 'true']) !!}
 				</div>
 			</div>
