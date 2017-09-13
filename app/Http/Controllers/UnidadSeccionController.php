@@ -181,6 +181,7 @@ class UnidadSeccionController extends BaseController {
 		if($tipo == 'PDF')
 		{
 			$notas = $notasHelper->getNotasBySeccionByEstudiante($unidades, $estudiante->estudiante, $cursos, $seccion);
+
 			//return view('reportes.notas_estudiante_seccion', compact('seccion','cursos','notas','estudiante','unidades'));
 			$pdf = PDF::loadView('reportes.notas_estudiante_seccion', compact('seccion','cursos','notas','estudiante','unidades'));
 			return $pdf->download('Notas '.$estudiante->estudiante->nombre_completo_apellidos.'.pdf');

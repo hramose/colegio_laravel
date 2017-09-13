@@ -320,10 +320,12 @@ class NotasHelper {
 	{
 		$notas = [];
 
+		$promedio = [];
 		foreach($cursos as $curso)
 		{
-			$notas[$curso->id]['curso'] = $curso;
-			$notas[$curso->id]['nota_anual'] = 0;
+			$notas['cursos'][$curso->id]['curso'] = $curso;
+			$notas['cursos'][$curso->id]['nota_anual'] = 0;
+			$notas['cursos'][$curso->id]['promedio_anual'] = 0;
 
 			foreach($unidades as $unidad)
 			{
@@ -333,11 +335,27 @@ class NotasHelper {
 				{
 					$total += $actividad->nota;
 				}
-				$notas[$curso->id]['unidades'][$unidad->id]['unidad'] = $unidad;
-				$notas[$curso->id]['unidades'][$unidad->id]['nota'] = $total;
-				$notas[$curso->id]['nota_anual'] += $unidad->porcentaje/100*$total;
+				$notas['cursos'][$curso->id]['unidades'][$unidad->id]['unidad'] = $unidad;
+				$notas['cursos'][$curso->id]['unidades'][$unidad->id]['nota'] = $total;
+				$notas['cursos'][$curso->id]['nota_anual'] += $unidad->porcentaje/100*$total;
+
+				if(!isset($promedio['unidades'][$unidad->id]))
+					$promedio['unidades'][$unidad->id] = 0;
+				$promedio['unidades'][$unidad->id] += $total;
+				//if($unidad->id == 1 and $curso->id == 2)
+				//	dd($promedio);
 			}
 		}
+		/*Calcular Promedio*/
+		$cantidadCursos = count($cursos);
+		$promedioUnidades = 0;
+		foreach($unidades as $unidad)
+		{
+			$promedio['unidades'][$unidad->id] /= $cantidadCursos;
+			$promedioUnidades += $promedio['unidades'][$unidad->id];
+		}
+		$promedio['promedio_unidades'] = round($promedioUnidades/count($unidades),2);
+		$notas['promedios'] = $promedio;
 		return $notas;
 	}
 

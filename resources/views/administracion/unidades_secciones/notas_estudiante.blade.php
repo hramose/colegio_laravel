@@ -27,7 +27,7 @@ Notas {{$estudiante->estudiante->nombre_completo_apellidos}} - {{$seccion->descr
 									</tr>
 								</thead>
 								<tbody>
-									@foreach($notas as $nota)
+									@foreach($notas['cursos'] as $nota)
 										<tr>
 											<td>{{$nota['curso']->materia->descripcion}}</td>
 											@foreach($nota['unidades'] as $unidad)
@@ -46,6 +46,13 @@ Notas {{$estudiante->estudiante->nombre_completo_apellidos}} - {{$seccion->descr
 											<td class="text-center">{{$nota['nota_anual']}}</td>
 										</tr>
 									@endforeach
+									<tr>
+										<td>PROMEDIO</td>
+										@foreach($notas['promedios']['unidades'] as $p)
+										<td class="text-center">{{$p}}</td>
+										@endforeach
+										<td class="text-center">{{$notas['promedios']['promedio_unidades']}}</td>
+									</tr>
 								</tbody>
 							</table>
 						</div>

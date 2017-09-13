@@ -105,7 +105,7 @@
 					</thead>
 					<tbody>
 						@php $index=0; @endphp
-						@foreach($notas as $nota)
+						@foreach($notas['cursos'] as $nota)
 							@php $index++; @endphp
 							<tr>
 								<td class="text-center">{{$index}}</td>
@@ -121,11 +121,18 @@
 										{{$unidad['nota']}}
 									</td>
 
-								@endforeach
-							
+								@endforeach							
 								<td class="text-center nota">{{$nota['nota_anual']}}</td>
 							</tr>
 						@endforeach
+						<tr>
+							<td></td>
+							<td>PROMEDIO</td>
+							@foreach($notas['promedios']['unidades'] as $p)
+							<td class="text-center">{{$p}}</td>
+							@endforeach
+							<td class="text-center">{{$notas['promedios']['promedio_unidades']}}</td>
+						</tr>
 					</tbody>
 				</table>      
 			</div>
