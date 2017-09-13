@@ -16,9 +16,10 @@
 				<div class="nav-tabs-custom">
 	    			<ul class="nav nav-tabs">
 	    				<li class="active"><a href="#estudiantes" data-toggle="tab">Estudiantes</a></li>
-	    				@foreach($notas as $unidad)
+	    				@foreach($notas['unidades'] as $unidad)
 	        			<li><a href="#{{$unidad['unidad']->id}}" data-toggle="tab">{{$unidad['unidad']->descripcion}}</a></li>
 	        			@endforeach
+	        			<li><a href="#promedios" data-toggle="tab">Promedio</a></li>
 	        		</ul>
 					<div class="tab-content">
 						<div class="tab-pane active" id="estudiantes">
@@ -37,7 +38,7 @@
 								</div>
 							</div>
 						</div>
-			        	@foreach($notas as $unidad)
+			        	@foreach($notas['unidades'] as $unidad)
 			        	<div class="tab-pane" id="{{$unidad['unidad']->id}}">
 							<div class="table-responsive">
 								<div class="row">
@@ -76,6 +77,38 @@
 							</div>
 						</div>
 						@endforeach
+						<div class="tab-pane" id="promedios">
+							<div class="table-responsive">
+								<div class="row">
+									<div class="col-lg-8">
+										<table class="table table-responsive" >
+											<thead>
+												<tr>
+													<th class="text-center">CODIGO</th>
+													<th class="text-center">ESTUDIANTE</th>
+													@foreach($cursos as $index => $curso)
+														<th class="text-center">{{$curso->materia->descripcion}}</th>
+													@endforeach
+												</tr>
+											</thead>
+											<tbody>
+												@foreach($notas['promedios'] as $nota)
+													<tr>
+														<td> {{$nota['codigo']}} </td>
+														<td> {{$nota['estudiante']->nombre_completo_apellidos}} </td>
+														@foreach($nota['cursos'] as $curso)
+															<td class="text-center">
+																{{$curso['promedio']}}
+															</td>
+														@endforeach
+													</tr>
+												@endforeach
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
