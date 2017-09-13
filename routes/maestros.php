@@ -18,6 +18,7 @@ Route::get('reporte-estudiantes-seccion/{seccion}/{tipo}','MaestroController@rep
 Route::get('estudiantes-curso/{curso}','MaestroController@estudiantesCurso')->name('maestros.estudiantes_curso');
 Route::get('reporte-estudiantes-curso/{curso}/{tipo}','MaestroController@reporteEstudiantesCurso')->name('maestros.reporte_estudiantes_curso');
 
+
 /* UNIDADES CURSOS */
 Route::group(['prefix' => 'unidades-curso'], function () {
 	Route::get('listado/{curso}','UnidadCursoController@listado')->name('unidades_curso');

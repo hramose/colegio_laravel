@@ -28,7 +28,7 @@
 										@foreach($estudiantes as $estudiante)
 							            <li>
 							          		<img src="{{$estudiante->estudiante->fotografia}}" alt="" style="width: 80px !important; height: 80px !important">
-							              	<a class="users-list-name" href="#">{{$estudiante->estudiante->nombre_completo_apellidos}}</a>
+							              	<a class="users-list-name" href="{{route('notas_estudiante_seccion',[$seccion->id, $estudiante->id])}}">{{$estudiante->estudiante->nombre_completo_apellidos}}</a>
 							              	<span class="users-list-date">{{$estudiante->estudiante->edad}}</span>
 							              	<span class="users-list-date">Codigo: {{$estudiante->codigo}}</span>
 							            </li>

@@ -135,6 +135,8 @@ Route::group(['prefix' => 'unidades-secciones'], function () {
 	Route::get('detalle-notas/{unidad_seccion}/{curso}/{estudiante}','UnidadSeccionController@mostrarDetalleNotas')->name('detalle_notas_unidad_seccion');
 	Route::get('notas-seccion/{seccion}','UnidadSeccionController@mostrarNotasSeccion')->name('notas_seccion');
 	Route::get('reporte-notas-seccion/{seccion}','UnidadSeccionController@reporteNotasSeccion')->name('reporte_notas_seccion');
+	Route::get('notas-estudiante/{seccion}/{estudiante}','UnidadSeccionController@mostrarNotasEstudiante')->name('notas_estudiante_seccion');
+	Route::get('reporte-notas-estudiante/{seccion}/{estudiante}/{tipo}','UnidadSeccionController@reporteNotasEstudiante')->name('reporte_notas_estudiante_seccion');
 });
 
 /* PERFILES */

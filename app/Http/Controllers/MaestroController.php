@@ -73,6 +73,10 @@ class MaestroController extends BaseController {
 		$ciclo = \Auth::user()->ciclo;
 		$maestro = \Auth::user()->persona;
 		$secciones = $this->seccionRepo->getByCicloByMaestro($ciclo->id, $maestro->id);
+		if(count($secciones) == 1)
+		{
+			return redirect()->route('maestros.ver_seccion',$secciones[0]->id);
+		}
 		return view('maestros/secciones', compact('secciones','maestro'));
 	}
 

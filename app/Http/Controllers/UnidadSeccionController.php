@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\App\Repositories\UnidadSeccionRepo;
 use App\App\Managers\UnidadSeccionManager;
 use App\App\Entities\UnidadSeccion;
-use Controller, Redirect, Input, View, Session, Variable, Excel;
+use Controller, Redirect, Input, View, Session, Variable, Excel,PDF;
 
 use App\App\Entities\Seccion;
 use App\App\Entities\Curso;
 use App\App\Entities\Persona;
+use App\App\Entities\EstudianteSeccion;
 
 use App\App\Repositories\SeccionRepo;
 use App\App\Repositories\CursoRepo;
@@ -157,6 +158,33 @@ class UnidadSeccionController extends BaseController {
 	{
 		$actividades = $this->actividadEstudianteRepo->getBySeccionByCursoByEstudiante($unidadSeccion->id, $curso->id, $estudiante->id);
 		return view('administracion/unidades_secciones/detalle_notas', compact('unidadSeccion','actividades','estudiante','curso'));
+	}
+
+	public function mostrarNotasEstudiante(Seccion $seccion, EstudianteSeccion $estudiante)
+	{
+		$unidades = $this->unidadSeccionRepo->getBySeccion($seccion->id);
+		$cursos = $this->cursoRepo->getBySeccion($seccion->id);
+		$notasHelper = new NotasHelper();
+		$notas = $notasHelper->getNotasBySeccionByEstudiante($unidades, $estudiante->estudiante, $cursos, $seccion);
+		return view('administracion.unidades_secciones.notas_estudiante', compact('seccion','cursos','notas','estudiante','unidades'));
+	}
+
+	public function reporteNotasEstudiante(Seccion $seccion, EstudianteSeccion $estudiante, $tipo)
+	{
+		$unidades = $this->unidadSeccionRepo->getBySeccion($seccion->id);
+		$cursos = $this->cursoRepo->getBySeccion($seccion->id);
+		$notasHelper = new NotasHelper();
+		if($tipo == 'EXCEL'){
+			$excel = $notasHelper->getExcelForNotasBySeccionByEstudiante($unidades, $estudiante->estudiante, $cursos, $seccion);
+			$excel->export('xlsx');
+		}
+		if($tipo == 'PDF')
+		{
+			$notas = $notasHelper->getNotasBySeccionByEstudiante($unidades, $estudiante->estudiante, $cursos, $seccion);
+			//return view('reportes.notas_estudiante_seccion', compact('seccion','cursos','notas','estudiante','unidades'));
+			$pdf = PDF::loadView('reportes.notas_estudiante_seccion', compact('seccion','cursos','notas','estudiante','unidades'));
+			return $pdf->download('Notas '.$estudiante->estudiante->nombre_completo_apellidos.'.pdf');
+		}
 	}
 
 	

@@ -316,4 +316,29 @@ class NotasHelper {
 		});
 	}
 
+	public function getNotasBySeccionByEstudiante($unidades, $estudiante, $cursos, $seccion)
+	{
+		$notas = [];
+
+		foreach($cursos as $curso)
+		{
+			$notas[$curso->id]['curso'] = $curso;
+			$notas[$curso->id]['nota_anual'] = 0;
+
+			foreach($unidades as $unidad)
+			{
+				$actividades = $this->actividadEstudianteRepo->getBySeccionByCursoByEstudiante($unidad->id, $curso->id, $estudiante->id);
+				$total = 0;
+				foreach($actividades as $actividad)
+				{
+					$total += $actividad->nota;
+				}
+				$notas[$curso->id]['unidades'][$unidad->id]['unidad'] = $unidad;
+				$notas[$curso->id]['unidades'][$unidad->id]['nota'] = $total;
+				$notas[$curso->id]['nota_anual'] += $unidad->porcentaje/100*$total;
+			}
+		}
+		return $notas;
+	}
+
 }
