@@ -321,7 +321,35 @@ class NotasHelper {
 		$notas = [];
 
 		$promedio = [];
-		foreach($cursos as $curso)
+
+		foreach($unidades as $unidad)
+		{
+			foreach($cursos as $curso)
+			{
+				if(!isset($notas['cursos'][$curso->id])){
+					$notas['cursos'][$curso->id]['curso'] = $curso;
+					$notas['cursos'][$curso->id]['nota_anual'] = 0;
+					$notas['cursos'][$curso->id]['promedio_anual'] = 0;
+				}
+
+				$actividades = $this->actividadEstudianteRepo->getBySeccionByEstudiante($unidad->id,$estudiante->id);
+				$total = 0;
+				foreach($actividades as $actividad)
+				{
+					if($actividad->actividad->unidad_curso->curso_id == $curso->id)
+						$total += $actividad->nota;
+				}
+				$notas['cursos'][$curso->id]['unidades'][$unidad->id]['unidad'] = $unidad;
+				$notas['cursos'][$curso->id]['unidades'][$unidad->id]['nota'] = $total;
+				$notas['cursos'][$curso->id]['nota_anual'] += $unidad->porcentaje/100*$total;
+
+				if(!isset($promedio['unidades'][$unidad->id]))
+					$promedio['unidades'][$unidad->id] = 0;
+				$promedio['unidades'][$unidad->id] += $total;
+			}
+		}
+
+		/*foreach($cursos as $curso)
 		{
 			$notas['cursos'][$curso->id]['curso'] = $curso;
 			$notas['cursos'][$curso->id]['nota_anual'] = 0;
@@ -342,17 +370,15 @@ class NotasHelper {
 				if(!isset($promedio['unidades'][$unidad->id]))
 					$promedio['unidades'][$unidad->id] = 0;
 				$promedio['unidades'][$unidad->id] += $total;
-				//if($unidad->id == 1 and $curso->id == 2)
-				//	dd($promedio);
 			}
-		}
+		}*/
 		/*Calcular Promedio*/
 		$cantidadCursos = count($cursos);
 		$promedioUnidades = 0;
 		foreach($unidades as $unidad)
 		{
 			$promedio['unidades'][$unidad->id] /= $cantidadCursos;
-			$promedioUnidades += $promedio['unidades'][$unidad->id];
+			$promedioUnidades += round($promedio['unidades'][$unidad->id],2);
 		}
 		$promedio['promedio_unidades'] = round($promedioUnidades/count($unidades),2);
 		$notas['promedios'] = $promedio;
