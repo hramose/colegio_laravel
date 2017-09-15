@@ -104,6 +104,7 @@ Unidades - {{$curso->descripcion}}
 							</tbody>
 						</table>
 						<input type="submit" value="Descargar Formato Para Cargas de Notas" class="btn btn-primary btn-flat">
+						<a href="{{route('cargar_notas_unidad_curso',$unidad->id)}}" class="btn btn-primary btn-flat">Cargar Notas</a>
 					</div>
 	              	{!! Form::close() !!}
 	            </div>

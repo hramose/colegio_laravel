@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => ['auth','verifyRoutePermission']], function(){
 Route::group(['middleware' => 'verificarCiclo'], function(){
 
 

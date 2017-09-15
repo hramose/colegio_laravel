@@ -14,15 +14,11 @@ class PermisoRepo extends BaseRepo {
 
 	public function tienePermiso($perfilId, $ruta)
 	{
-		$sql = '
-			SELECT *
-			FROM permiso p, vista v 
-			WHERE p.vista_id = v.id
-				AND p.perfil_id = '. $perfilId .'
-				AND v.ruta = \''. $ruta .'\'
-		';
-		$result = \DB::select(\DB::raw($sql));
-		return count($result)  != 0 ? true : false ;
+		$permisos = Permiso::where('perfil_id',$perfilId)
+							->whereHas('vista',function($q) use ($ruta){
+								$q->where('ruta',$ruta);
+							})->get();
+		return count($permisos)  > 0 ? true : false ;
 	}
 
 	public function getMenu($perfilId, $isAdmin)

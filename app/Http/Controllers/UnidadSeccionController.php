@@ -83,6 +83,32 @@ class UnidadSeccionController extends BaseController {
 		return redirect()->route('unidades_secciones',$unidadSeccion->seccion_id);
 	}
 
+	public function activar(UnidadSeccion $unidadSeccion)
+	{
+		$data['porcentaje'] = $unidadSeccion->porcentaje;
+		$data['nota_ganar'] = $unidadSeccion->nota_ganar;
+		$data['seccion_id'] = $unidadSeccion->seccion_id;
+		$data['unidad'] = $unidadSeccion->unidad;
+		$data['estado'] = 'A';
+		$manager = new UnidadSeccionManager($unidadSeccion, $data);
+		$manager->save();
+		Session::flash('success', 'Se editó la unidad con éxito.');
+		return redirect()->route('maestros.ver_seccion',$unidadSeccion->seccion_id);
+	}
+
+	public function cerrar(UnidadSeccion $unidadSeccion)
+	{
+		$data['porcentaje'] = $unidadSeccion->porcentaje;
+		$data['nota_ganar'] = $unidadSeccion->nota_ganar;
+		$data['seccion_id'] = $unidadSeccion->seccion_id;
+		$data['unidad'] = $unidadSeccion->unidad;
+		$data['estado'] = 'C';
+		$manager = new UnidadSeccionManager($unidadSeccion, $data);
+		$manager->save();
+		Session::flash('success', 'Se editó la unidad con éxito.');
+		return redirect()->route('maestros.ver_seccion',$unidadSeccion->seccion_id);
+	}
+
 	public function mostrarNotas(UnidadSeccion $unidadSeccion)
 	{
 		$estudiantes = $this->estudianteSeccionRepo->getBySeccion($unidadSeccion->seccion_id);

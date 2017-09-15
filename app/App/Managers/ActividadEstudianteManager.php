@@ -47,7 +47,6 @@ class ActividadEstudianteManager extends BaseManager
 		$validation = \Validator::make($this->data, $rules);
 		if ($validation->fails())
         {
-        	//dd($validation->messages());
             throw new ValidationException('Validation failed', $validation->messages());
         }
 

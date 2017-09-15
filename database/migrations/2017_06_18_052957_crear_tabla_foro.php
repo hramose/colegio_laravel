@@ -23,6 +23,9 @@ class CrearTablaForo extends Migration
             $table->timestamps();
             $table->string('created_by',45);
             $table->string('updated_by',45);
+
+            $table->foreign('curso_id')->references('id')->on('curso');
+            $table->foreign('autor_id')->references('id')->on('persona');
         });
     }
 

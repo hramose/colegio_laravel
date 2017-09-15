@@ -1,3 +1,5 @@
-Carga de alumnos por excel.
+Carga de alumnos por excel y crear usuario
+Modificar creacion de estudiante agregando usuario
+odificar creacion de maestro agregando usuario
 Traslado de Unidades con actividades de un curso a otro.
-Actividades como plan de mejoramiento. 
+

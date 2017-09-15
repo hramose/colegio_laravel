@@ -13,7 +13,12 @@ class UsuarioRepo extends BaseRepo{
 
 	public function all($orderBy)
 	{
-		return User::with('perfil')->orderBy($orderBy)->get();
+		return User::with('perfil')->with('persona')->orderBy($orderBy)->get();
+	}
+
+	public function getUsuariosByAnio($anio)
+	{
+		return User::where('username', 'like', $anio.'%')->get();
 	}
 
 }

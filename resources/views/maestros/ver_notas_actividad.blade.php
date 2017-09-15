@@ -34,7 +34,7 @@
 								<td> {{$a->observaciones}} </td>
 								<td> {{$a->descripcion_estado}} </td>
 								<td>
-									<a href="{{route('calificar_actividad',$a->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar"></a>
+									<a href="{{route('calificar_actividad',$a->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="Calificar"></a>
 								</td>
 							</tr>
 							@endforeach

@@ -13,6 +13,7 @@
 				<thead>
 					<tr>
 						<th>USERNAME</th>
+						<th>PERSONA</th>
 						<th>PERFIL</th>
 						<th>ESTADO</th>
 						<th></th>
@@ -22,6 +23,7 @@
 					@foreach($usuarios as $usuario)
 					<tr>
 						<td>{{$usuario->username}}</td>
+						<td>{{$usuario->persona->nombre_completo}}</td>
 						<td>{{$usuario->perfil->descripcion}}</td>
 						<td>{{$usuario->descripcion_estado}}</td>
 						<td>

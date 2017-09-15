@@ -1,7 +1,7 @@
 <?php
 
-Route::group(['middleware' => 'auth'], function(){
-Route::group(['middleware' => 'verificarCiclo'], function(){
+Route::group(['middleware' => ['auth','verifyRoutePermission']], function(){
+Route::group(['middleware' => 'verificarCiclo','verifyRoutePermission'], function(){
 
 
 
@@ -27,6 +27,7 @@ Route::group(['prefix' => 'unidades-curso'], function () {
 	Route::get('ver-notas/{unidad_curso}','UnidadCursoController@mostrarNotas')->name('notas_unidad_curso');
 	Route::get('ver-notas-actividades/{unidad_curso}','UnidadCursoController@descargarNotasActividades')->name('descargar_notas_unidad_curso');
 	Route::post('descargar-formato-notas-actividades/{unidad_curso}','UnidadCursoController@descargaFormatoNotasActividades')->name('descargar_formato_notas_actividades');
+	Route::get('cargar-notas-actividades/{unidad_curso}','UnidadCursoController@mostrarCargarNotasActividades')->name('cargar_notas_unidad_curso');
 });
 
 /* FOROS */

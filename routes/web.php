@@ -11,7 +11,7 @@ Route::get('logout','AuthController@logout')->name('logout');
 include('maestros.php');
 include('estudiantes.php');
 
-Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => ['auth','verifyRoutePermission']], function(){
 
 Route::get('dashboard','AuthController@mostrarDashboard')->name('dashboard');
 
@@ -51,6 +51,8 @@ Route::group(['prefix' => 'estudiantes'], function () {
 	Route::post('agregar','PersonaController@agregarEstudiante')->name('agregar_estudiante');
 	Route::get('editar/{id}','PersonaController@mostrarEditarEstudiante')->name('editar_estudiante');
 	Route::put('editar/{id}','PersonaController@editarEstudiante')->name('editar_estudiante');
+	Route::get('cargar','PersonaController@mostrarCargarEstudiantes')->name('cargar_estudiantes');
+	Route::post('cargar','PersonaController@cargarEstudiantes')->name('cargar_estudiantes');
 });
 
 /* MATERIAS */
@@ -134,6 +136,8 @@ Route::group(['prefix' => 'unidades-secciones'], function () {
 	Route::post('agregar/{seccion}','UnidadSeccionController@agregar')->name('agregar_unidad_seccion');
 	Route::get('editar/{unidad_seccion}','UnidadSeccionController@mostrarEditar')->name('editar_unidad_seccion');
 	Route::put('editar/{unidad_seccion}','UnidadSeccionController@editar')->name('editar_unidad_seccion');
+	Route::get('cerrar/{unidad_seccion}','UnidadSeccionController@cerrar')->name('cerrar_unidad_seccion');
+	Route::get('activar/{unidad_seccion}','UnidadSeccionController@activar')->name('activar_unidad_seccion');
 	Route::get('notas-unidad/{unidad_seccion}','UnidadSeccionController@mostrarNotas')->name('notas_unidad_seccion');
 	Route::get('detalle-notas/{unidad_seccion}/{curso}/{estudiante}','UnidadSeccionController@mostrarDetalleNotas')->name('detalle_notas_unidad_seccion');
 	Route::get('notas-seccion/{seccion}','UnidadSeccionController@mostrarNotasSeccion')->name('notas_seccion');

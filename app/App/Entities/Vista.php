@@ -6,13 +6,13 @@ class Vista extends \Eloquent {
 
 	use UserStamps;
 
-	protected $fillable = ['nombre','ruta','icono','menu','modulo_id'];
+	protected $fillable = ['descripcion','ruta','modulo_id','estado'];
 
 	protected $table = 'vista';
 
 	public function modulo()
 	{
-		return $this->belongsTo('App\App\Entities\Modulo');
+		return $this->belongsTo(Modulo::class);
 	}
 
 }

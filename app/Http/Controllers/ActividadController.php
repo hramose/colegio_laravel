@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\App\Repositories\ActividadRepo;
 use App\App\Managers\ActividadManager;
 use App\App\Entities\Actividad;
-use Controller, Redirect, Input, View, Session, Variable, Excel;
+use Controller, Redirect, Input, View, Session, Variable, Excel, Gate;
 
 use App\App\Entities\UnidadCurso;
 use App\App\Repositories\UnidadCursoRepo;
@@ -105,12 +105,22 @@ class ActividadController extends BaseController {
 
 	public function mostrarCalificarActividades(Actividad $actividad)
 	{
+		if(Gate::denies('calificar_actividad',$actividad))
+		{
+			Session::flash('error', 'La actividad ya no se puede calificar debido a que la unidad ya fue cerrada.');
+			return redirect()->back();
+		}
 		$actividades = $this->actividadEstudianteRepo->getByActividad($actividad->id);	
 		return view('administracion/actividades/calificar_actividades', compact('actividad','actividades'));
 	}
 
 	public function calificarActividades(Actividad $actividad)
 	{
+		if(Gate::denies('calificar_actividad',$actividad))
+		{
+			Session::flash('error', 'La actividad ya no se puede calificar debido a que la unidad ya fue cerrada.');
+			return redirect()->back();
+		}
 		$data = Input::all();
 		$manager = new ActividadEstudianteManager(null, $data);
 		$manager->calificarActividades($actividad);
@@ -120,11 +130,21 @@ class ActividadController extends BaseController {
 
 	public function mostrarCalificarActividad(ActividadEstudiante $actividad)
 	{
+		if(Gate::denies('calificar_actividad',$actividad->actividad))
+		{
+			Session::flash('error', 'La actividad ya no se puede calificar debido a que la unidad ya fue cerrada.');
+			return redirect()->back();
+		}
 		return view('administracion/actividades/calificar_actividad', compact('actividad'));
 	}
 
 	public function calificarActividad(ActividadEstudiante $actividad)
 	{
+		if(Gate::denies('calificar_actividad',$actividad->actividad))
+		{
+			Session::flash('error', 'La actividad ya no se puede calificar debido a que la unidad ya fue cerrada.');
+			return redirect()->back();
+		}
 		$data = Input::all();
 
 		if($actividad->actividad->punteo <= $data['nota']){
@@ -163,6 +183,11 @@ class ActividadController extends BaseController {
 
 	public function mostrarCargarNotas(Actividad $actividad)
 	{
+		if(Gate::denies('calificar_actividad',$actividad))
+		{
+			Session::flash('error', 'La actividad ya no se puede calificar debido a que la unidad ya fue cerrada.');
+			return redirect()->back();
+		}
 		return view('administracion/actividades/cargar_notas', compact('actividad'));
 	}
 

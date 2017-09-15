@@ -81,6 +81,22 @@ class PersonaController extends BaseController {
 		return redirect(route('estudiantes'));
 	}
 
+	public function mostrarCargarEstudiantes()
+	{
+		$generos = Variable::getGeneros();
+		$estados = Variable::getEstadosGenerales();
+		return view('administracion/personas/cargar_estudiantes',compact('generos','estados'));
+	}
+
+	public function cargarEstudiantes()
+	{
+		$data = Input::all();
+		$manager = new PersonaManager(null, $data);
+		$estudiante = $manager->cargarEstudiantes();
+		Session::flash('success', 'Se cargaron los estudiantes con éxito.');
+		return redirect(route('estudiantes'));
+	}
+
 	public function mostrarEditarEstudiante($id)
 	{
 		$generos = Variable::getGeneros();

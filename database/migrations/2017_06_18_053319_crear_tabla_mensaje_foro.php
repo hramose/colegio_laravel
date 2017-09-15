@@ -22,6 +22,9 @@ class CrearTablaMensajeForo extends Migration
             $table->timestamps();
             $table->string('created_by',45);
             $table->string('updated_by',45);
+
+            $table->foreign('foro_id')->references('id')->on('foro');
+            $table->foreign('autor_id')->references('id')->on('persona');
         });
     }
 

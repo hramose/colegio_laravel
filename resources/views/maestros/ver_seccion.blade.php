@@ -13,7 +13,7 @@
 					<img src="{{asset('assets/imagenes/excel.png')}}" height="50px" data-toggle="tooltip" data-placement="top" title="" data-original-title="Exportar Notas">
 				</a>
 				<a href="{{route('reporte_notas_estudiantes_seccion',[$seccion->id,'PDF'])}}">
-					<img src="{{asset('assets/imagenes/pdf.png')}}" height="50px" data-toggle="tooltip" data-placement="top" title="" data-original-title="Exportar Notas">
+					<img src="{{asset('assets/imagenes/pdf.png')}}" height="50px" data-toggle="tooltip" data-placement="top" title="" data-original-title="Exportar Boletas">
 				</a>
 				<hr>
 				<div class="nav-tabs-custom">
@@ -43,6 +43,13 @@
 						</div>
 			        	@foreach($notas['unidades'] as $unidad)
 			        	<div class="tab-pane" id="{{$unidad['unidad']->id}}">
+			        		@if($unidad['unidad']->estado == 'A')
+			        			<a onclick="cerrarUnidad('{{route('cerrar_unidad_seccion',$unidad['unidad']->id)}}', '{{$unidad['unidad']->descripcion}}'); return false;" class="btn btn-primary btn-flat">Cerrar Unidad</a>
+			        		@endif
+			        		@if($unidad['unidad']->estado != 'A')
+								<a onclick="activarUnidad('{{route('activar_unidad_seccion',$unidad['unidad']->id)}}', '{{$unidad['unidad']->descripcion}}'); return false;" class="btn btn-primary btn-flat">Activar Unidad</a>
+							@endif
+			        		<hr>
 							<div class="table-responsive">
 								<div class="row">
 									<div class="col-lg-8">
@@ -118,4 +125,58 @@
 		</div>       
 	</div>
 </div>
+<div class="modal modal-flex fade" id="modalCerrarUnidad" tabindex="-1" role="dialog" aria-labelledby="flexModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="modal-title">Cerrar Unidad</h4>
+            </div>
+            <div class="modal-body">
+            	<span id="txtCerrarUnidad"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                <a href="#" id="cerrarUnidadLink" class="btn btn-primary">Cerrar Unidad</a>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal modal-flex fade" id="modalActivarUnidad" tabindex="-1" role="dialog" aria-labelledby="flexModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="modal-title">Activar Unidad</h4>
+            </div>
+            <div class="modal-body">
+            	<span id="txtActivarUnidad"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                <a href="#" id="activarUnidadLink" class="btn btn-primary">Activar Unidad</a>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+@endsection
+@section('js')
+<script>
+	function cerrarUnidad(ruta,unidad)
+	{
+		$('#cerrarUnidadLink').attr('href',ruta);
+		$('#txtCerrarUnidad').text('¿Esta seguro de cerrar la ' + unidad + '?');
+		$('#modalCerrarUnidad').modal('show');
+	}
+	function activarUnidad(ruta,unidad)
+	{
+		$('#activarUnidadLink').attr('href',ruta);
+		$('#txtActivarUnidad').text('¿Esta seguro de activar la ' + unidad + '?');
+		$('#modalActivarUnidad').modal('show');
+	}
+</script>
 @endsection

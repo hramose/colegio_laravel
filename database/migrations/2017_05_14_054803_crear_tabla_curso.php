@@ -18,6 +18,7 @@ class CrearTablaCurso extends Migration
             $table->integer('seccion_id')->unsigned();
             $table->integer('materia_id')->unsigned();
             $table->integer('maestro_id')->unsigned();
+            $table->integer('orden');
             $table->string('estado',1);
             $table->timestamps();
             $table->string('created_by',45);

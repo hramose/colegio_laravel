@@ -18,6 +18,7 @@ class CrearTablaVista extends Migration
             $table->string('descripcion',100);
             $table->string('ruta',100);
             $table->integer('modulo_id')->unsigned();
+            $table->string('estado',1);
             $table->timestamps();
             $table->string('created_by',45);
             $table->string('updated_by',45);

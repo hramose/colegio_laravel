@@ -49,6 +49,16 @@ class StaticVariables {
 		'C' => 'Calificada',
 	];
 
+	protected $parentescos = [
+		'M' => 'Madre',
+		'P' => 'Padre',
+		'TM' => 'Tio',
+		'TF' => 'Tia',
+		'AM' => 'Abuelo',
+		'AF' => 'Abuela',
+		'E' => 'Encargado'
+	];
+
 	protected $colores = ['bg-yellow','bg-red','bg-green','bg-blue'];
 
 	public function getEstadosGenerales(){ return $this->estadosGenerales; }
@@ -71,6 +81,9 @@ class StaticVariables {
 
 	public function getEstadosActividades(){ return $this->estadosActividades; }
 	public function getEstadoActividad($key){ return $this->estadosActividades[$key]; }
+
+	public function getParentescos(){ return $this->parentescos; }
+	public function getParentesco($key){ return $this->parentescos[$key]; }
 
 	public function getColores(){ return $this->colores; }
 	public function getColor($key){ return $this->colores[$key]; }

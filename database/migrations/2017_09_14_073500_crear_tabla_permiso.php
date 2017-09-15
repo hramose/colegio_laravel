@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CrearTablaMateria extends Migration
+class CrearTablaPermiso extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,17 @@ class CrearTablaMateria extends Migration
      */
     public function up()
     {
-        Schema::create('materia', function (Blueprint $table) {
+        Schema::create('permiso', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('descripcion',45);
-            $table->integer('orden')->unique();
+            $table->integer('vista_id')->unsigned();
+            $table->integer('perfil_id')->unsigned();
             $table->string('estado',1);
             $table->timestamps();
             $table->string('created_by',45);
             $table->string('updated_by',45);
+
+            $table->foreign('vista_id')->references('id')->on('vista');
+            $table->foreign('perfil_id')->references('id')->on('perfil');
         });
     }
 
@@ -31,6 +34,6 @@ class CrearTablaMateria extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('materia');
+        Schema::dropIfExists('permiso');
     }
 }

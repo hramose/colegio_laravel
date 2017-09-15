@@ -10,4 +10,9 @@ class Permiso extends \Eloquent {
 
 	protected $table = 'permiso';
 
+	public function vista()
+	{
+		return $this->belongsTo(Vista::class);
+	}
+
 }

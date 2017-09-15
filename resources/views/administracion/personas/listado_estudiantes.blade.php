@@ -8,6 +8,7 @@
 	<div class="box-body">
 		<div class="table-responsive">
 			<a href="{{route('agregar_estudiante')}}" class="btn btn-primary btn-flat">Agregar</a>
+			<a href="{{route('cargar_estudiantes')}}" class="btn btn-primary btn-flat">Cargar</a>
 			<hr>
 			<table class="table table-bordered">
 				<thead>

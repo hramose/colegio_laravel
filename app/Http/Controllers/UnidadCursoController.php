@@ -101,7 +101,8 @@ class UnidadCursoController extends BaseController {
 				}
 			}
 		}
-		Excel::create('Carga de Notas', function($excel) use ($estudiantes, $actividadesSeleccionadas, $unidadCurso) {
+		
+		/*Excel::create('Carga de Notas', function($excel) use ($estudiantes, $actividadesSeleccionadas, $unidadCurso) {
 		    $excel->sheet('Formato', function($sheet) use ($estudiantes, $actividadesSeleccionadas, $unidadCurso) {
 		        $sheet->row(1, array(
 				    $unidadCurso->id, 'Unidad Curso'
@@ -124,7 +125,30 @@ class UnidadCursoController extends BaseController {
 					$sheet->cell('B' . ($index+4), function($cell) use ($estudiante) { $cell->setValue($estudiante->estudiante->nombre_completo); });
 				}
 		    });
-		})->export('csv');
+		})->export('xlsx');*/
+		$estudiantesArray = [];
+		foreach($estudiantes as $e)
+		{
+			$estudiante['ID'] = $e->estudiante_id;
+			$estudiante['ESTUDIANTE'] = $e->estudiante->nombre_completo_apellidos;
+			$estudiante['NOTA'] = "0";
+			$estudiantesArray[] = $estudiante;
+		}
+		Excel::create('Carga de Notas', function($excel) use ($estudiantesArray, $actividadesSeleccionadas, $unidadCurso) {
+			foreach($actividadesSeleccionadas as $index => $actividad){
+			    $excel->sheet("".$actividad->id, function($sheet) use ($estudiantesArray,$actividad,$unidadCurso) 
+			    {
+			    	$sheet->row(1,array('ACTIVIDAD: ' . $actividad->titulo));
+			    	$sheet->mergeCells('A1:C1');
+			    	$sheet->fromArray($estudiantesArray, null, 'A2', true);
+			    });
+			}
+		})->export('xlsx');
+	}
+
+	public function mostrarCargarNotasActividades(UnidadCurso $unidadCurso)
+	{
+		return view('administracion/unidades_cursos/cargar_notas', compact('actividad'));
 	}
 
 	private function getLetterCellByNumber($number)
