@@ -332,7 +332,9 @@ class DatabaseSeeder extends Seeder
                 [95,"Unidades","estudiantes.unidades",3],
                 [96,"Mensajes Foro","estudiantes.mensajes_foro",3],
                 [97,"Cerrar Unidad Seccion ","cerrar_unidad_seccion",2],
-                [98,"Activar Unidad Seccion","activar_unidad_seccion",2]
+                [98,"Activar Unidad Seccion","activar_unidad_seccion",2],
+                [99,"Cargar Notas Unidad Curso","cargar_notas_unidad_curso",2],
+                [100,"Cargar Estudiantes","cargar_estudiantes",1],
             );
 
             Modulo::create([
