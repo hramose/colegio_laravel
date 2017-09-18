@@ -4,8 +4,6 @@ $factory->define(\App\App\Entities\Persona::class, function (Faker\Generator $fa
 	$faker = Faker\Factory::create('es_ES');
 	
 	return [
-	    'primer_nombre' => $faker->firstName($gender),
-	    'segundo_nombre' => $faker->firstName($gender),
 	    'primer_apellido' => $faker->lastName,
 	    'segundo_apellido' => $faker->lastName,
 	    'fecha_nacimiento' => $faker->dateTimeBetween($startDate = '-40 years', $endDate = '-25 years', $timezone = date_default_timezone_get()),
@@ -24,6 +22,8 @@ $factory->define(\App\App\Entities\Persona::class, function (Faker\Generator $fa
 $factory->state(\App\App\Entities\Persona::class, 'maestro', function (\Faker\Generator $faker) {
 	$gender = $faker->randomElement(['male', 'female']);
 	return [
+		'primer_nombre' => $faker->firstName($gender),
+	    'segundo_nombre' => $faker->firstName($gender),
     	'rol' => 'M',
     	'fotografia' => 'personas/'.$gender.'.png',
     	'genero' => strtoupper(substr($gender, 0, 1)),
@@ -34,6 +34,8 @@ $factory->state(\App\App\Entities\Persona::class, 'estudiante', function (\Faker
 	$gender = $faker->randomElement(['male', 'female']);
 	if($gender == 'male') $fotografia = 'boy'; else $fotografia = 'girl';
 	return [
+		'primer_nombre' => $faker->firstName($gender),
+	    'segundo_nombre' => $faker->firstName($gender),
     	'rol' => 'E',
     	'fotografia' => 'personas/'.$fotografia.'.png',
     	'genero' => strtoupper(substr($gender, 0, 1)),
