@@ -20,6 +20,7 @@ $factory->define(\App\App\Entities\Persona::class, function (Faker\Generator $fa
 });
 
 $factory->state(\App\App\Entities\Persona::class, 'maestro', function (\Faker\Generator $faker) {
+	$faker = Faker\Factory::create('es_ES');
 	$gender = $faker->randomElement(['male', 'female']);
 	return [
 		'primer_nombre' => $faker->firstName($gender),
@@ -31,6 +32,7 @@ $factory->state(\App\App\Entities\Persona::class, 'maestro', function (\Faker\Ge
 });
 
 $factory->state(\App\App\Entities\Persona::class, 'estudiante', function (\Faker\Generator $faker) {
+	$faker = Faker\Factory::create('es_ES');
 	$gender = $faker->randomElement(['male', 'female']);
 	if($gender == 'male') $fotografia = 'boy'; else $fotografia = 'girl';
 	return [
