@@ -10,6 +10,11 @@ use Controller, Redirect, Input, View, Session, Variable;
 use App\App\Repositories\GradoRepo;
 use App\App\Repositories\CicloRepo;
 use App\App\Repositories\PersonaRepo;
+use App\App\Repositories\UnidadSeccionRepo;
+use App\App\Repositories\EstudianteSeccionRepo;
+use App\App\Repositories\CursoRepo;
+
+use App\App\Helpers\NotasHelper;
 
 class SeccionController extends BaseController {
 
@@ -17,13 +22,19 @@ class SeccionController extends BaseController {
 	protected $gradoRepo;
 	protected $cicloRepo;
 	protected $personaRepo;
+	protected $unidadSeccionRepo;
+	protected $estudianteSeccionRepo;
+	protected $cursoRepo;
 
-	public function __construct(SeccionRepo $seccionRepo, GradoRepo $gradoRepo, CicloRepo $cicloRepo, PersonaRepo $personaRepo)
+	public function __construct(SeccionRepo $seccionRepo, GradoRepo $gradoRepo, CicloRepo $cicloRepo, PersonaRepo $personaRepo, UnidadSeccionRepo $unidadSeccionRepo, EstudianteSeccionRepo $estudianteSeccionRepo, CursoRepo $cursoRepo)
 	{
 		$this->seccionRepo = $seccionRepo;
 		$this->gradoRepo = $gradoRepo;
 		$this->cicloRepo = $cicloRepo;
 		$this->personaRepo = $personaRepo;
+		$this->unidadSeccionRepo = $unidadSeccionRepo;
+		$this->estudianteSeccionRepo = $estudianteSeccionRepo;
+		$this->cursoRepo = $cursoRepo;
 		View::composer('layouts.admin', 'App\Http\Controllers\AdminMenuController');
 	}
 
@@ -74,6 +85,17 @@ class SeccionController extends BaseController {
 		$manager->save();
 		Session::flash('success', 'Se editó el grado ' . $seccion->grado->descripcion . ' sección' . $seccion->descripcion_seccion . ' con éxito.');
 		return redirect(route('secciones'));
+	}
+
+	public function ver(Seccion $seccion)
+	{
+		$unidades = $this->unidadSeccionRepo->getBySeccion($seccion->id);
+		$estudiantes = $this->estudianteSeccionRepo->getBySeccion($seccion->id);
+		$cursos = $this->cursoRepo->getBySeccion($seccion->id);
+
+		$notasHelper = new NotasHelper();
+		$notas = $notasHelper->getNotasBySeccion($unidades, $estudiantes, $cursos, $seccion);
+		return view('administracion.secciones.ver_seccion', compact('seccion','unidades','cursos','notas','estudiantes'));
 	}
 
 

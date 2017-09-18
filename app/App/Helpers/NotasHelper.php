@@ -36,16 +36,20 @@ class NotasHelper {
 	public function getNotasBySeccion($unidades, $estudiantes, $cursos, $seccion)
 	{
 		$notas = [];
+		$notas['unidades'] = [];
 		$promedios = [];
 		foreach($unidades as $unidad)
 		{
 			$notas['unidades'][$unidad->id]['unidad'] = $unidad;
+			$notas['unidades'][$unidad->id]['estudiantes'] = [];
 			$actividadesEstudiantes = $this->actividadEstudianteRepo->getBySeccion($unidad->id);
 			foreach ($estudiantes as $estudiante) {
 				$notas['unidades'][$unidad->id]['estudiantes'][$estudiante->estudiante_id]['codigo'] = $estudiante->codigo;
 				$notas['unidades'][$unidad->id]['estudiantes'][$estudiante->estudiante_id]['estudiante'] = $estudiante->estudiante;
+				$notas['unidades'][$unidad->id]['estudiantes'][$estudiante->estudiante_id]['cursos'] = [];
 				$promedios[$estudiante->estudiante_id]['codigo'] = $estudiante->codigo;
 				$promedios[$estudiante->estudiante_id]['estudiante'] = $estudiante->estudiante;
+				$promedios[$estudiante->estudiante_id]['cursos'] = [];
 				foreach($cursos as $curso)
 				{
 					$notas['unidades'][$unidad->id]['estudiantes'][$estudiante->estudiante_id]['cursos'][$curso->id]['curso'] = $curso;

@@ -37,6 +37,7 @@
 						<td>{{$seccion->descripcion_estado}}</td>
 						<td>
 							<a href="{{route('editar_seccion',$seccion->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar"></a>
+							<a href="{{route('ver_seccion',$seccion->id)}}" class="btn btn-warning btn-sm btn-flat fa fa-eye" data-toggle="tooltip" data-placement="top" title="" data-original-title="Ver"></a>
 							<a href="{{route('unidades_secciones',$seccion->id)}}" class="btn btn-info btn-sm btn-flat fa fa-th-large" data-toggle="tooltip" data-placement="top" title="" data-original-title="Unidades"></a>
 							<a href="{{route('estudiantes_seccion',$seccion->id)}}" class="btn btn-info btn-sm btn-flat fa fa-users" data-toggle="tooltip" data-placement="top" title="" data-original-title="Estudiantes"></a>
 							<a href="{{route('cursos',$seccion->id)}}" class="btn btn-primary btn-sm btn-flat fa fa-list" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cursos"></a>

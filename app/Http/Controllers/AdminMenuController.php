@@ -17,7 +17,7 @@ class AdminMenuController extends BaseController{
 
         $menu = new Collection();
         $user = Auth::user();
-        if($user->perfil_id == 1){
+        if($user->perfil_id == 1 || $user->perfil_id == 2){
 			$menu->push((object)['title' => 'Dashboard', 'url' => route('dashboard'), 'class' => '' ,'icon' => 'fa fa-dashboard']);
 			$subMenu = new Collection();
 			$subMenu->push((object)['title' => 'Perfiles', 'url' => URL::route('perfiles')]);

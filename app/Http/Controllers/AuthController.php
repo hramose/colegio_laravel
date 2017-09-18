@@ -47,7 +47,10 @@ class AuthController extends BaseController {
 			
 			$user->ciclo_id = $ciclo->id;
 			$user->save();*/
-
+			if($user->perfil_id == 1)
+				return Redirect::route('dashboard');
+			if($user->perfil_id == 2)
+				return Redirect::route('dashboard');
 			if($user->perfil_id == 3)
 				return Redirect::route('maestros.dashboard');
 			if($user->perfil_id == 4)
@@ -66,8 +69,10 @@ class AuthController extends BaseController {
 		View::composer('layouts.admin', 'App\Http\Controllers\AdminMenuController');
 
 		$maestros = $this->personaRepo->getByRolByEstado(['M'],['A']);
+		$estudiantes = $this->personaRepo->getByRolByEstado(['E'],['A']);
 		$maestrosActivos = count($maestros);
-		return view('administracion/dashboard',compact('maestrosActivos'));
+		$estudiantesActivos = count($estudiantes);
+		return view('administracion/dashboard',compact('maestrosActivos','estudiantesActivos'));
 	}
 
 	public function mostrarMaestros()

@@ -13,6 +13,11 @@ include('estudiantes.php');
 
 Route::group(['middleware' => ['auth','verifyRoutePermission']], function(){
 
+Route::get('elegir-ciclo','CicloController@mostrarElegir')->name('elegir_ciclo');
+Route::post('elegir-ciclo','CicloController@elegir')->name('elegir_ciclo');
+
+Route::group(['middleware' => 'verificarCiclo'], function(){
+
 Route::get('dashboard','AuthController@mostrarDashboard')->name('dashboard');
 
 /* CICLOS */
@@ -22,8 +27,6 @@ Route::group(['prefix' => 'ciclos'], function () {
 	Route::post('agregar','CicloController@agregar')->name('agregar_ciclo');
 	Route::get('editar/{id}','CicloController@mostrarEditar')->name('editar_ciclo');
 	Route::put('editar/{id}','CicloController@editar')->name('editar_ciclo');
-	Route::get('elegir','CicloController@mostrarElegir')->name('elegir_ciclo');
-	Route::post('elegir','CicloController@elegir')->name('elegir_ciclo');
 });
 	
 /* GRADOS */
@@ -64,8 +67,6 @@ Route::group(['prefix' => 'materias'], function () {
 	Route::put('editar/{id}','MateriaController@editar')->name('editar_materia');
 });
 
-Route::group(['middleware' => 'verificarCiclo'], function(){
-
 /* SECCIONES */
 Route::group(['prefix' => 'secciones'], function () {
 	Route::get('listado','SeccionController@listado')->name('secciones');
@@ -73,6 +74,7 @@ Route::group(['prefix' => 'secciones'], function () {
 	Route::post('agregar','SeccionController@agregar')->name('agregar_seccion');
 	Route::get('editar/{id}','SeccionController@mostrarEditar')->name('editar_seccion');
 	Route::put('editar/{id}','SeccionController@editar')->name('editar_seccion');
+	Route::get('ver/{seccion}','SeccionController@ver')->name('ver_seccion');
 });
 
 /* CURSOS */
