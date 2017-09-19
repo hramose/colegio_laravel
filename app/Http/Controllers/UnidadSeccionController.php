@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\App\Repositories\UnidadSeccionRepo;
 use App\App\Managers\UnidadSeccionManager;
 use App\App\Entities\UnidadSeccion;
-use Controller, Redirect, Input, View, Session, Variable, Excel,PDF;
+use Controller, Redirect, Input, View, Session, Variable, Excel,PDF, Gate;
 
 use App\App\Entities\Seccion;
 use App\App\Entities\Curso;
@@ -98,6 +98,10 @@ class UnidadSeccionController extends BaseController {
 
 	public function cerrar(UnidadSeccion $unidadSeccion)
 	{
+		if(Gate::denies('permiso_seccion', $unidadSeccion->seccion)){
+			Session::flash('error','No tiene permiso para ver la seccion.');
+			return redirect()->back();
+		}
 		$data['porcentaje'] = $unidadSeccion->porcentaje;
 		$data['nota_ganar'] = $unidadSeccion->nota_ganar;
 		$data['seccion_id'] = $unidadSeccion->seccion_id;
@@ -111,6 +115,10 @@ class UnidadSeccionController extends BaseController {
 
 	public function mostrarNotas(UnidadSeccion $unidadSeccion)
 	{
+		if(Gate::denies('permiso_seccion', $unidadSeccion->seccion)){
+			Session::flash('error','No tiene permiso para ver la seccion.');
+			return redirect()->back();
+		}
 		$estudiantes = $this->estudianteSeccionRepo->getBySeccion($unidadSeccion->seccion_id);
 		$actividadesEstudiantes = $this->actividadEstudianteRepo->getBySeccion($unidadSeccion->id);
 		$cursos = $this->cursoRepo->getBySeccion($unidadSeccion->seccion_id);
@@ -133,6 +141,10 @@ class UnidadSeccionController extends BaseController {
 
 	public function reporteNotas(UnidadSeccion $unidadSeccion)
 	{
+		if(Gate::denies('permiso_seccion', $unidadSeccion->seccion)){
+			Session::flash('error','No tiene permiso para ver la seccion.');
+			return redirect()->back();
+		}
 		$estudiantes = $this->estudianteSeccionRepo->getBySeccion($unidadSeccion->seccion_id);
 		$actividadesEstudiantes = $this->actividadEstudianteRepo->getBySeccion($unidadSeccion->id);
 		$cursos = $this->cursoRepo->getBySeccion($unidadSeccion->seccion_id);
@@ -152,15 +164,16 @@ class UnidadSeccionController extends BaseController {
 		Excel::create('Consolidado ' . $unidadSeccion->descripcion . ' - ' . $unidadSeccion->seccion->descripcion_con_grado, function($excel) use ($estudiantes, $actividadesEstudiantes, $cursos) {
 		    $excel->sheet('Formato', function($sheet) use ($estudiantes, $actividadesEstudiantes, $cursos) {
 
-				
-
-
 		    });
 		})->export('xlsx');
 	}
 
 	public function mostrarNotasSeccion(Seccion $seccion)
 	{
+		if(Gate::denies('permiso_seccion', $seccion)){
+			Session::flash('error','No tiene permiso para ver la seccion.');
+			return redirect()->back();
+		}
 		$unidades = $this->unidadSeccionRepo->getBySeccion($seccion->id);
 		$estudiantes = $this->estudianteSeccionRepo->getBySeccion($seccion->id);
 		$cursos = $this->cursoRepo->getBySeccion($seccion->id);
@@ -172,6 +185,10 @@ class UnidadSeccionController extends BaseController {
 
 	public function reporteNotasSeccion(Seccion $seccion)
 	{
+		if(Gate::denies('permiso_seccion', $seccion)){
+			Session::flash('error','No tiene permiso para ver la seccion.');
+			return redirect()->back();
+		}
 		$unidades = $this->unidadSeccionRepo->getBySeccion($seccion->id);
 		$estudiantes = $this->estudianteSeccionRepo->getBySeccion($seccion->id);
 		$cursos = $this->cursoRepo->getBySeccion($seccion->id);
@@ -182,12 +199,20 @@ class UnidadSeccionController extends BaseController {
 
 	public function mostrarDetalleNotas(UnidadSeccion $unidadSeccion, Curso $curso, Persona $estudiante)
 	{
+		if(Gate::denies('permiso_seccion', $unidadSeccion->seccion)){
+			Session::flash('error','No tiene permiso para ver la seccion.');
+			return redirect()->back();
+		}
 		$actividades = $this->actividadEstudianteRepo->getBySeccionByCursoByEstudiante($unidadSeccion->id, $curso->id, $estudiante->id);
 		return view('administracion/unidades_secciones/detalle_notas', compact('unidadSeccion','actividades','estudiante','curso'));
 	}
 
 	public function mostrarNotasEstudiante(Seccion $seccion, EstudianteSeccion $estudiante)
 	{
+		if(Gate::denies('permiso_seccion', $seccion)){
+			Session::flash('error','No tiene permiso para ver la seccion.');
+			return redirect()->back();
+		}
 		$unidades = $this->unidadSeccionRepo->getBySeccion($seccion->id);
 		$cursos = $this->cursoRepo->getBySeccion($seccion->id);
 		$notasHelper = new NotasHelper();
@@ -197,6 +222,10 @@ class UnidadSeccionController extends BaseController {
 
 	public function reporteNotasEstudiante(Seccion $seccion, EstudianteSeccion $estudiante, $tipo)
 	{
+		if(Gate::denies('permiso_seccion', $seccion)){
+			Session::flash('error','No tiene permiso para ver la seccion.');
+			return redirect()->back();
+		}
 		$unidades = $this->unidadSeccionRepo->getBySeccion($seccion->id);
 		$cursos = $this->cursoRepo->getBySeccion($seccion->id);
 		$notasHelper = new NotasHelper();
@@ -214,6 +243,10 @@ class UnidadSeccionController extends BaseController {
 
 	public function reporteNotasEstudiantes(Seccion $seccion, $tipo)
 	{
+		if(Gate::denies('permiso_seccion', $seccion)){
+			Session::flash('error','No tiene permiso para ver la seccion.');
+			return redirect()->back();
+		}
 		$estudiantesDB = $this->estudianteSeccionRepo->getBySeccion($seccion->id);
 		$unidades = $this->unidadSeccionRepo->getBySeccion($seccion->id);
 		$cursos = $this->cursoRepo->getBySeccion($seccion->id);

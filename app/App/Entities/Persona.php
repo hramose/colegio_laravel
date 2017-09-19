@@ -44,6 +44,18 @@ class Persona extends \Eloquent {
 		return $nombre;
 	}
 
+	public function getNombreCompletoConRolAttribute()
+	{
+		$nombre = $this->primer_nombre;
+		if(!is_null($this->segundo_nombre))
+			$nombre .= ' ' . $this->segundo_nombre;
+		$nombre .= ' ' . $this->primer_apellido;
+		if(!is_null($this->segundo_nombre))
+			$nombre .= ' ' . $this->segundo_apellido;
+		$nombre .= ' - ' . Variable::getRol($this->rol);
+		return $nombre;
+	}
+
 	public function getFotografiaAttribute($fotografia)
     {
     	return \Storage::disk('public')->url($fotografia);

@@ -65,6 +65,10 @@ class UnidadCursoController extends BaseController {
 
 	public function mostrarNotas(UnidadCurso $unidadCurso)
 	{
+		if(Gate::denies('permiso_curso', $unidadCurso->curso)){
+			Session::flash('error','No tiene permiso para ver el curso.');
+			return redirect()->back();
+		}
 		$actividades = $this->actividadRepo->getByUnidad($unidadCurso->id);
 		$estudiantes = $this->estudianteSeccionRepo->getBySeccion($unidadCurso->curso->seccion_id);
 		$actividadesEstudiantes = $this->actividadEstudianteRepo->getByUnidad($unidadCurso->id);

@@ -34,7 +34,7 @@ class UsuarioController extends BaseController {
 	public function mostrarAgregar()
 	{
 		$perfiles = $this->perfilRepo->lists('descripcion','id');
-		$personas = $this->personaRepo->getWithNoUser()->pluck('nombre_completo','id')->toArray();
+		$personas = $this->personaRepo->getWithNoUser()->pluck('nombre_completo_con_rol','id')->toArray();
 		return view('administracion/usuarios/agregar',compact('perfiles','personas'));
 	}
 

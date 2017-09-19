@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Controller, Redirect, Input, View, Session, Variable, Excel, PDF;
+use Controller, Redirect, Input, View, Session, Variable, Excel, PDF, Gate;
 
 use App\App\Repositories\CicloRepo;
 use App\App\Repositories\SeccionRepo;
@@ -82,6 +82,10 @@ class MaestroController extends BaseController {
 
 	public function verSeccion(Seccion $seccion)
 	{
+		if(Gate::denies('permiso_seccion', $seccion)){
+			Session::flash('error','No tiene permiso para ver la seccion.');
+			return redirect()->back();
+		}
 		$unidades = $this->unidadSeccionRepo->getBySeccion($seccion->id);
 		$estudiantes = $this->estudianteSeccionRepo->getBySeccion($seccion->id);
 		$cursos = $this->cursoRepo->getBySeccion($seccion->id);
@@ -101,6 +105,10 @@ class MaestroController extends BaseController {
 
 	public function verCurso(Curso $curso)
 	{
+		if(Gate::denies('permiso_curso', $curso)){
+			Session::flash('error','No tiene permiso para ver el curso.');
+			return redirect()->back();
+		}
 		$unidades = $curso->unidades;
 		//$foros = $this->foroRepo->getByCurso($curso->id);
 		//throw new \Exception('es');
@@ -109,6 +117,10 @@ class MaestroController extends BaseController {
 
 	public function reporteEstudiantesSeccion(Seccion $seccion, $tipo)
 	{
+		if(Gate::denies('permiso_seccion', $seccion)){
+			Session::flash('error','No tiene permiso para ver la seccion.');
+			return redirect()->back();
+		}
 		$estudiantesDB = $this->estudianteSeccionRepo->getBySeccion($seccion->id);
 		$estudiantes = [];
 		foreach($estudiantesDB as $estudiante)
@@ -128,6 +140,10 @@ class MaestroController extends BaseController {
 
 	public function reporteEstudiantesCurso(Curso $curso, $tipo)
 	{
+		if(Gate::denies('permiso_curso', $curso)){
+			Session::flash('error','No tiene permiso para ver el curso.');
+			return redirect()->back();
+		}
 		$estudiantesDB = $this->estudianteSeccionRepo->getBySeccion($curso->seccion_id);
 		$estudiantes = [];
 		foreach($estudiantesDB as $estudiante)

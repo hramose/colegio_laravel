@@ -34,12 +34,20 @@ class ActividadController extends BaseController {
 
 	public function mostrarAgregar(UnidadCurso $unidadCurso)
 	{
+		if(Gate::denies('permiso_curso', $unidadCurso->curso)){
+			Session::flash('error','No tiene permiso para ver el curso.');
+			return redirect()->back();
+		}
 		$tipos = $this->tipoActividadRepo->lists('descripcion','id');
 		return view('administracion/actividades/agregar',compact('tipos','unidadCurso'));
 	}
 
 	public function agregar(UnidadCurso $unidadCurso)
 	{
+		if(Gate::denies('permiso_curso', $unidadCurso->curso)){
+			Session::flash('error','No tiene permiso para ver el curso.');
+			return redirect()->back();
+		}
 		$data = Input::all();
 		$data['unidad_curso_id'] = $unidadCurso->id;
 		$data['estado'] = 'A';
@@ -68,12 +76,20 @@ class ActividadController extends BaseController {
 
 	public function mostrarEditar(Actividad $actividad)
 	{
+		if(Gate::denies('permiso_curso', $actividad->unidad_curso->curso)){
+			Session::flash('error','No tiene permiso para ver el curso.');
+			return redirect()->back();
+		}
 		$tipos = $this->tipoActividadRepo->lists('descripcion','id');
 		return view('administracion/actividades/editar', compact('actividad','tipos'));
 	}
 
 	public function editar(Actividad $actividad)
 	{
+		if(Gate::denies('permiso_curso', $actividad->unidad_curso->curso)){
+			Session::flash('error','No tiene permiso para ver el curso.');
+			return redirect()->back();
+		}
 		$data = Input::all();
 		$data['unidad_curso_id'] = $actividad->unidad_curso_id;
 		$data['estado'] = $actividad->estado;
@@ -99,12 +115,20 @@ class ActividadController extends BaseController {
 
 	public function mostrarVerNotas(Actividad $actividad)
 	{
+		if(Gate::denies('permiso_curso', $actividad->unidad_curso->curso)){
+			Session::flash('error','No tiene permiso para ver el curso.');
+			return redirect()->back();
+		}
 		$actividades = $this->actividadEstudianteRepo->getByActividad($actividad->id);	
 		return view('maestros/ver_notas_actividad', compact('actividad','actividades'));
 	}
 
 	public function mostrarCalificarActividades(Actividad $actividad)
 	{
+		if(Gate::denies('permiso_curso', $actividad->unidad_curso->curso)){
+			Session::flash('error','No tiene permiso para ver el curso.');
+			return redirect()->back();
+		}
 		if(Gate::denies('calificar_actividad',$actividad))
 		{
 			Session::flash('error', 'La actividad ya no se puede calificar debido a que la unidad ya fue cerrada.');
@@ -116,6 +140,10 @@ class ActividadController extends BaseController {
 
 	public function calificarActividades(Actividad $actividad)
 	{
+		if(Gate::denies('permiso_curso', $actividad->unidad_curso->curso)){
+			Session::flash('error','No tiene permiso para ver el curso.');
+			return redirect()->back();
+		}
 		if(Gate::denies('calificar_actividad',$actividad))
 		{
 			Session::flash('error', 'La actividad ya no se puede calificar debido a que la unidad ya fue cerrada.');
@@ -130,6 +158,10 @@ class ActividadController extends BaseController {
 
 	public function mostrarCalificarActividad(ActividadEstudiante $actividad)
 	{
+		if(Gate::denies('permiso_curso', $actividad->actividad->unidad_curso->curso)){
+			Session::flash('error','No tiene permiso para ver el curso.');
+			return redirect()->back();
+		}
 		if(Gate::denies('calificar_actividad',$actividad->actividad))
 		{
 			Session::flash('error', 'La actividad ya no se puede calificar debido a que la unidad ya fue cerrada.');
@@ -140,6 +172,10 @@ class ActividadController extends BaseController {
 
 	public function calificarActividad(ActividadEstudiante $actividad)
 	{
+		if(Gate::denies('permiso_curso', $actividad->actividad->unidad_curso->curso)){
+			Session::flash('error','No tiene permiso para ver el curso.');
+			return redirect()->back();
+		}
 		if(Gate::denies('calificar_actividad',$actividad->actividad))
 		{
 			Session::flash('error', 'La actividad ya no se puede calificar debido a que la unidad ya fue cerrada.');
@@ -162,6 +198,10 @@ class ActividadController extends BaseController {
 
 	public function descargarFormatoCalificarActividad(Actividad $actividad)
 	{
+		if(Gate::denies('permiso_curso', $actividad->unidad_curso->curso)){
+			Session::flash('error','No tiene permiso para ver el curso.');
+			return redirect()->back();
+		}
 		$data = Input::all();
 		$actividadesDB = $this->actividadEstudianteRepo->getByActividad($actividad->id);
 		$actividades = [];
@@ -183,6 +223,10 @@ class ActividadController extends BaseController {
 
 	public function mostrarCargarNotas(Actividad $actividad)
 	{
+		if(Gate::denies('permiso_curso', $actividad->unidad_curso->curso)){
+			Session::flash('error','No tiene permiso para ver el curso.');
+			return redirect()->back();
+		}
 		if(Gate::denies('calificar_actividad',$actividad))
 		{
 			Session::flash('error', 'La actividad ya no se puede calificar debido a que la unidad ya fue cerrada.');
@@ -193,6 +237,10 @@ class ActividadController extends BaseController {
 
 	public function cargarNotas(Actividad $actividad)
 	{
+		if(Gate::denies('permiso_curso', $actividad->unidad_curso->curso)){
+			Session::flash('error','No tiene permiso para ver el curso.');
+			return redirect()->back();
+		}
 		$data = Input::all();
 		$manager = new ActividadEstudianteManager(null, $data);
 		$manager->calificarActividadesCargadas($actividad);
