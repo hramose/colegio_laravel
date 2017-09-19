@@ -87,7 +87,6 @@ class UnidadCursoController extends BaseController {
 	{
 		$data = Input::all();
 		$actividadesDB = $this->actividadRepo->getByUnidad($unidadCurso->id);
-		$estudiantes = $this->estudianteSeccionRepo->getBySeccion($unidadCurso->curso->seccion_id);
 		$actividadesSeleccionadas = [];
 		foreach($data['actividades'] as $actividadesEnviadas)
 		{
@@ -96,51 +95,31 @@ class UnidadCursoController extends BaseController {
 				foreach($actividadesDB as $adb)
 				{
 					if($adb->id == $id){
-						$actividadesSeleccionadas[] = $adb;
+						$actividadesSeleccionadas[$id]['actividad'] = $adb;
+						$actividadesEstudiantes = $this->actividadEstudianteRepo->getByActividad($adb->id);
+						$actividadesSeleccionadas[$id]['actividades_estudiantes'] = $actividadesEstudiantes;
 					}
 				}
 			}
 		}
-		
-		/*Excel::create('Carga de Notas', function($excel) use ($estudiantes, $actividadesSeleccionadas, $unidadCurso) {
-		    $excel->sheet('Formato', function($sheet) use ($estudiantes, $actividadesSeleccionadas, $unidadCurso) {
-		        $sheet->row(1, array(
-				    $unidadCurso->id, 'Unidad Curso'
-				));
-				$sheet->cell('A2', function($cell) { $cell->setValue('IDS'); });
-				$sheet->cell('B2', function($cell) { $cell->setValue('Actividades'); });
-				foreach($actividadesSeleccionadas as $index => $actividad)
+		Excel::create('Carga de Notas', function($excel) use ($actividadesSeleccionadas, $unidadCurso) {
+			foreach($actividadesSeleccionadas as $actividad){
+				$estudiantesArray = [];
+
+				foreach($actividad['actividades_estudiantes'] as $ae)
 				{
-					$sheet->cell($this->getLetterCellByNumber($index+3) . '2', function($cell) use ($actividad) { $cell->setValue($actividad->id); });
+					$estudiante['TAREA_ID'] = $ae->id;
+					$estudiante['TAREA'] = $actividad['actividad']->titulo;
+					$estudiante['ESTUDIANTE_ID'] = $ae->estudiante->id;
+					$estudiante['ESTUDIANTE'] = $ae->estudiante->nombre_completo_apellidos;
+					$estudiante['NOTA'] = $ae->nota;
+					$estudiante['OBSERVACIONES'] = $ae->observaciones;
+					$estudiantesArray[] = $estudiante;
 				}
-				$sheet->cell('A3', function($cell) { $cell->setValue('IDS'); });
-				$sheet->cell('B3', function($cell) { $cell->setValue('Estudiante'); });
-				foreach($actividadesSeleccionadas as $index => $actividad)
-				{
-					$sheet->cell($this->getLetterCellByNumber($index+3) . '3', function($cell) use ($actividad) { $cell->setValue($actividad->titulo); });
-				}
-				foreach($estudiantes as $index => $estudiante)
-				{
-					$sheet->cell('A' . ($index+4), function($cell) use ($estudiante) { $cell->setValue($estudiante->estudiante_id); });
-					$sheet->cell('B' . ($index+4), function($cell) use ($estudiante) { $cell->setValue($estudiante->estudiante->nombre_completo); });
-				}
-		    });
-		})->export('xlsx');*/
-		$estudiantesArray = [];
-		foreach($estudiantes as $e)
-		{
-			$estudiante['ID'] = $e->estudiante_id;
-			$estudiante['ESTUDIANTE'] = $e->estudiante->nombre_completo_apellidos;
-			$estudiante['NOTA'] = "0";
-			$estudiantesArray[] = $estudiante;
-		}
-		Excel::create('Carga de Notas', function($excel) use ($estudiantesArray, $actividadesSeleccionadas, $unidadCurso) {
-			foreach($actividadesSeleccionadas as $index => $actividad){
-			    $excel->sheet("".$actividad->id, function($sheet) use ($estudiantesArray,$actividad,$unidadCurso) 
+
+			    $excel->sheet($actividad['actividad']->id."", function($sheet) use ($estudiantesArray,$actividad,$unidadCurso) 
 			    {
-			    	$sheet->row(1,array('ACTIVIDAD: ' . $actividad->titulo));
-			    	$sheet->mergeCells('A1:C1');
-			    	$sheet->fromArray($estudiantesArray, null, 'A2', true);
+			    	$sheet->fromArray($estudiantesArray);
 			    });
 			}
 		})->export('xlsx');
@@ -148,7 +127,73 @@ class UnidadCursoController extends BaseController {
 
 	public function mostrarCargarNotasActividades(UnidadCurso $unidadCurso)
 	{
-		return view('administracion/unidades_cursos/cargar_notas', compact('actividad'));
+		return view('administracion/unidades_cursos/cargar_notas', compact('unidadCurso','actividad'));
+	}
+
+	public function cargarNotasActividades(UnidadCurso $unidadCurso)
+	{
+		$data = Input::all();
+		$errores = [];
+		/*validar actividades*/
+		$actividadesEstudiantesDB = [];
+		foreach($data['notas'] as $a)
+		{
+			$actividad = $this->actividadRepo->find($a['actividad']);
+			if(is_null($actividad)){
+				Session::flash('error','Actividad ' . $a['actividad'] . ' no existe. Favor verifique el nombre de las pestañas del archivo.');
+				return redirect()->back();
+			}
+			if($actividad->unidad_curso_id != $unidadCurso->id)
+			{
+				$errores[] = 'La actividad no pertenece al curso en el cual esta subiendo las notas. Verfique la pestaña ' . $a['actividad'];
+			}
+			$actividadesEstudiantes = $this->actividadEstudianteRepo->getByActividad($actividad->id);
+			foreach($a['actividades_estudiantes'] as $ae)
+			{
+				$existe = false;
+				foreach($actividadesEstudiantes as $aedb)
+				{
+					if($ae['id'] == $aedb->id)
+					{
+						$existe = true;
+						if($aedb->actividad->unidad_curso_id != $unidadCurso->id)
+						{
+							$errores[] = 'La actividad del estudiante no pertenece al curso en el cual esta subiendo las notas. Verfique la pestaña ' . $a['actividad'];
+						}
+						if($aedb->estudiante_id != $ae['estudiante_id']){
+							$errores[] = 'ID de estudiante no corresponde. Verifique la pestaña ' . $actividad->id . '. ESTUDIANTE_ID Cargado: ' . $ae['estudiante_id'] . ' - ESTUDIANTE_ID Base de Datos: ' . $aedb->estudiante_id;
+						}
+						if($ae['nota'] < 0 || $ae['nota'] > $actividad->punteo)
+						{
+							$errores[] = 'La nota del estudiante ' . $ae['estudiante_id'] . ' es menor a 0 o mayor a '.$actividad->punteo.'. Verifique la pestaña ' . $actividad->id . '. Nota cargada: ' . $ae['nota'] . '.';
+						}
+						$aedb->nota = $ae['nota'];
+						$aedb->observaciones = $ae['observaciones'];
+						$actividadesEstudiantesDB[] = $aedb;
+					}
+				}
+				if(!$existe)
+				{
+					$errores[] = 'Actividad no asignada a estudiante. Verifique la pestaña ' . $actividad->id . '. TAREA_ID Cargado: ' . $ae['id'] . '.';
+				}
+			}
+		}
+		if(count($errores) > 0 )
+		{
+			$html = '<ul>';
+			foreach($errores as $error)
+			{
+				$html .= '<li>' . $error . '</li>';
+			}
+			$html .= '</ul>';	
+			Session::flash('error',$html);
+			return redirect()->back();		
+		}
+		/*NO EXISTE ERRORES*/
+		$manager = new UnidadCursoManager($unidadCurso, $data);
+		$manager->cargarNotas($actividadesEstudiantesDB);
+		Session::flash('success','Se cargaron las notas de las actividades con exito.');
+		return redirect()->route('unidades_curso',$unidadCurso->curso_id);
 	}
 
 	private function getLetterCellByNumber($number)

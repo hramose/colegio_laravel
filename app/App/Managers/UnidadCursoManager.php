@@ -69,4 +69,24 @@ class UnidadCursoManager extends BaseManager
 		}
 	}
 
+	function cargarNotas($actividadesEstudiantes)
+	{
+		try{
+			\DB::beginTransaction();
+
+				foreach($actividadesEstudiantes as $ae)	
+				{
+					$ae->estado = 'C';
+					$ae->save();
+				}
+
+			\DB::commit();
+			return true;
+		}
+		catch(\Exception $ex)
+		{
+			throw new SaveDataException("Error!", $ex);			
+		}
+	}
+
 }
