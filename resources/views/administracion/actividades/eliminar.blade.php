@@ -13,7 +13,6 @@ Eliminar Actividad - {{$actividad->titulo}} -
 	{!! Form::model($actividad, ['route' => ['eliminar_actividad',$actividad->id], 'method' => 'DELETE', 'id' => 'form', 'class'=>'validate-form','files'=>'true']) !!}
 	    <div class="box-body">
 	    	<div class="alert alert-danger alert-dismissable">
-		    	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 		      	@if(!is_null($mensaje))
 				{{$mensaje}}
 		      	@endif
@@ -58,6 +57,7 @@ $(function()
 	});
 
     $('#summernote').summernote({minHeight: 300,});
+    $('#summernote').summernote('disable');
 
 	$('input[name="aplica_fecha"]').on('change',function()
 	{
