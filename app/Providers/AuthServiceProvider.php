@@ -37,6 +37,11 @@ class AuthServiceProvider extends ServiceProvider
             return $unidadSeccion->estado == 'A';
         });
 
+        Gate::define('eliminar_actividad', function(User $user, $actividad){
+            $unidadSeccion = $actividad->unidad_curso->unidad_seccion;
+            return $unidadSeccion->estado == 'A';
+        });
+
         Gate::define('permiso_seccion', function(User $user, $seccion)
         {
             return $user->persona_id == $seccion->maestro_id;

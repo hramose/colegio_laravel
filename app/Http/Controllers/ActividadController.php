@@ -248,4 +248,46 @@ class ActividadController extends BaseController {
 		return redirect()->route('ver_notas_actividad',$actividad->id);
 	}
 
+	public function mostrarEliminar(Actividad $actividad)
+	{
+		if(Gate::denies('permiso_curso', $actividad->unidad_curso->curso)){
+			Session::flash('error','No tiene permiso para ver el curso.');
+			return redirect()->back();
+		}
+		if(Gate::denies('eliminar_actividad',$actividad))
+		{
+			Session::flash('error', 'La actividad ya no se puede eliminar debido a que la unidad ya fue cerrada.');
+			return redirect()->back();
+		}
+		$actividadesEstudiantes = $this->actividadEstudianteRepo->getByActividad($actividad->id);
+		$mensaje = null;
+		foreach($actividadesEstudiantes as $ac)
+		{
+			if($ac->estado == 'C')
+				$mensaje = 'Existen actividades ya calificadas.';
+		}
+		return view('administracion/actividades/eliminar', compact('actividad','mensaje'));
+	}
+
+	public function eliminar(Actividad $actividad)
+	{
+		if(Gate::denies('permiso_curso', $actividad->unidad_curso->curso)){
+			Session::flash('error','No tiene permiso para ver el curso.');
+			return redirect()->back();
+		}
+		if(Gate::denies('eliminar_actividad',$actividad))
+		{
+			Session::flash('error', 'La actividad ya no se puede eliminar debido a que la unidad ya fue cerrada.');
+			return redirect()->back();
+		}
+		
+		$actividadesEstudiantes = $this->actividadEstudianteRepo->getByActividad($actividad->id);
+
+		$manager = new ActividadManager($actividad, null);
+		$manager->eliminar($actividadesEstudiantes);
+		Session::flash('success', 'Se eliminó la actividad '.$actividad->titulo.' con éxito.');
+		$url = route('unidades_curso',$actividad->unidad_curso->curso_id) . "#" . $actividad->unidad_curso_id;
+		return redirect()->to($url);
+	}
+
 }

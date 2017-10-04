@@ -64,6 +64,8 @@ Route::group(['prefix' => 'actividades'], function () {
 	Route::get('formato-carga-notas/{actividad}','ActividadController@descargarFormatoCalificarActividad')->name('descargar_formato_calificar_actividad');
 	Route::get('cargar-notas/{actividad}','ActividadController@mostrarCargarNotas')->name('cargar_notas_actividad');
 	Route::post('cargar-notas/{actividad}','ActividadController@cargarNotas')->name('cargar_notas_actividad');
+	Route::get('eliminar/{actividad}','ActividadController@mostrarEliminar')->name('eliminar_actividad');
+	Route::delete('eliminar/{actividad}','ActividadController@eliminar')->name('eliminar_actividad');
 
 });
 

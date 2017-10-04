@@ -95,7 +95,23 @@ class ActividadManager extends BaseManager
 		}
 		catch(\Exception $ex)
 		{
-			dd($ex);
+			throw new SaveDataException("Error!", $ex);			
+		}
+	}
+
+	public function eliminar($actividadesEstudiantes)
+	{
+		try{
+			\DB::beginTransaction();
+				foreach($actividadesEstudiantes as $ae)
+				{
+					$ae->delete();
+				}
+				$this->entity->delete();
+			\DB::commit();
+		}
+		catch(\Exception $ex)
+		{
 			throw new SaveDataException("Error!", $ex);			
 		}
 	}
