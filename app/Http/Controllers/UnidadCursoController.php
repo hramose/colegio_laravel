@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\App\Repositories\UnidadCursoRepo;
 use App\App\Managers\UnidadCursoManager;
 use App\App\Entities\UnidadCurso;
-use Controller, Redirect, Input, View, Session, Variable, Excel;
+use Controller, Redirect, Input, View, Session, Variable, Excel, Gate;
 
 use App\App\Entities\Curso;
 
