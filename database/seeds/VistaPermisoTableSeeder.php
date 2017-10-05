@@ -116,6 +116,8 @@ class VistaPermisoTableSeeder extends Seeder
             [100,"Cargar Estudiantes","cargar_estudiantes",1,[1,2]],
             [101,"Ver Seccion","ver_seccion",1,[1,2]],
             [102,"Eliminar Actividad","eliminar_actividad",2,[3]],
+            [103,"Agregar Mensaje a Foro","estudiantes.agregar_mensaje_foro",3,[4]],
+            
         );            
 
         foreach($vistas as $vista)
