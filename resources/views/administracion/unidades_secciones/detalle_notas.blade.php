@@ -23,6 +23,7 @@ Notas {{$unidadSeccion->descripcion}} - {{$curso->descripcion}}
 										<th class="text-center">ACTIVIDAD</th>
 										<th class="text-center">VALOR</th>
 										<th class="text-center">NOTA</th>
+										<th class="text-center">OBSERVACIONES</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -33,6 +34,7 @@ Notas {{$unidadSeccion->descripcion}} - {{$curso->descripcion}}
 											<td> {{$ae->actividad->titulo}} </td>
 											<td class="text-center"> {{$ae->actividad->punteo}} </td>
 											<td class="text-center"> {{$ae->nota}} </td>
+											<td class="text-center"> {{$ae->observaciones}} </td>
 										</tr>
 									@endforeach
 										<tr>
