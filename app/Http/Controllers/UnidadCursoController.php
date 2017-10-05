@@ -90,11 +90,15 @@ class UnidadCursoController extends BaseController {
 	public function descargaFormatoNotasActividades(UnidadCurso $unidadCurso)
 	{
 		$data = Input::all();
+		
+		$cantidadActividadesEnviadas = 0;
+
 		$actividadesDB = $this->actividadRepo->getByUnidad($unidadCurso->id);
 		$actividadesSeleccionadas = [];
 		foreach($data['actividades'] as $actividadesEnviadas)
 		{
 			if(isset($actividadesEnviadas['check'])){
+				$cantidadActividadesEnviadas++;
 				$id = $actividadesEnviadas['id'];
 				foreach($actividadesDB as $adb)
 				{
@@ -106,7 +110,14 @@ class UnidadCursoController extends BaseController {
 				}
 			}
 		}
-		Excel::create('Carga de Notas', function($excel) use ($actividadesSeleccionadas, $unidadCurso) {
+
+		if($cantidadActividadesEnviadas == 0){
+			Session::flash('error','Seleccione al menos una actividad.');
+			return redirect()->back();
+		}
+
+		$nombre = 'Formato Carga de Notas - ' . $unidadCurso->curso->descripcion;
+		Excel::create($nombre, function($excel) use ($actividadesSeleccionadas, $unidadCurso) {
 			foreach($actividadesSeleccionadas as $actividad){
 				$estudiantesArray = [];
 

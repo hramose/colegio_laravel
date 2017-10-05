@@ -29,7 +29,7 @@ Unidades - {{$curso->descripcion}}
 					<hr>
 					<div class="row">
 						<div class="col-md-12">
-							<div class="info-box bg-red">
+							<div class="info-box bg-blue">
 	           					<span class="info-box-icon"><i class="fa fa-book"></i></span>
 								<div class="info-box-content">
 									<span class="info-box-text">ACTIVIDADES</span>

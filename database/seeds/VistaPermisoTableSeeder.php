@@ -63,7 +63,7 @@ class VistaPermisoTableSeeder extends Seeder
             [47,"Agregar Unidad Seccion","agregar_unidad_seccion",1,[1,2]],
             [48,"Editar Unidad Seccion","editar_unidad_seccion",1,[1,2]],
             [49,"Notas Unidad Seccion","notas_unidad_seccion",2,[3]],
-            [50,"Detalle Notas Unidad Seccion","detalle_notas_unidad_seccion",2,[3]],
+            [50,"Detalle Notas Unidad Seccion","detalle_notas_unidad_seccion",2,[1,2,3]],
             [51,"Notas Seccion","notas_seccion",2,[3]],
             [52,"Reporte Notas Seccion","reporte_notas_seccion",2,[3]],
             [53,"Notas Estudiante Seccion","notas_estudiante_seccion",2,[3]],
