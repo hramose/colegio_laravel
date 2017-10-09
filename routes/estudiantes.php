@@ -18,7 +18,7 @@ Route::post('entregar-actividad/{actividad_estudiante}','EstudianteController@en
 Route::get('foros/{curso}','EstudianteController@foros')->name('estudiantes.foros');
 Route::get('unidades/{curso}','EstudianteController@unidades')->name('estudiantes.unidades');
 Route::get('mensajes-foro/{foro}','EstudianteController@mensajesForo')->name('estudiantes.mensajes_foro');
-
+Route::post('agregar-mensaje-foro/{foro}','EstudianteController@agregarMensajeForo')->name('estudiantes.agregar_mensaje_foro');
 
 });
 

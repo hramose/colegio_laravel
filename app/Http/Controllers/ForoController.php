@@ -42,12 +42,12 @@ class ForoController extends BaseController {
         $manager = new ForoManager(new Foro(), $data);
         $manager->agregar();
         Session::flash('success', 'Se agregó el foro ' . $data['tema'] . ' con éxito.');
-        return redirect()->route('maestros.ver_curso',$curso->id);
+        return redirect()->route('foros',$curso->id);
     }
 
-	public function mostrarEditar(Foro $Foro)
+	public function mostrarEditar(Foro $foro)
 	{
-		return view('administracion/foros/editar', compact('Foro'));
+		return view('administracion/foros/editar', compact('foro'));
 	}
 
 	public function editar(Foro $foro)
@@ -59,7 +59,7 @@ class ForoController extends BaseController {
 		$manager = new ForoManager($foro, $data);
 		$manager->save();
 		Session::flash('success', 'Se editó el foro '.$foro->tema.' con éxito.');
-		return redirect()->route('maestros.ver_curso',$foro->curso_id);
+		return redirect()->route('foros',$foro->curso_id);
 	}
 
 

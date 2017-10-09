@@ -67,7 +67,6 @@ class ForoManager extends BaseManager
 		}
 		catch(\Exception $ex)
 		{
-			dd($ex);
 			throw new SaveDataException("Error", $ex);
 		}
 	}

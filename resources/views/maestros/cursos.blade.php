@@ -31,7 +31,7 @@
                             <ul class="nav nav-stacked">
                                 <li><a href="{{route('unidades_curso',$curso->id)}}"><i class="fa fa-book"></i> Unidades <span class="pull-right badge bg-green">{{count($curso->unidades)}}</span></a></li>
                                 <li><a href="{{route('maestros.estudiantes_curso',$curso->id)}}"><i class="fa fa-users"></i> Estudiantes <span class="pull-right badge bg-blue">{{count($curso->seccion->estudiantes)}}</span></a></li>
-                                <li><a href="{{route('maestros.foros',$curso->id)}}"><i class="fa fa-comments-o"></i> Foros <span class="pull-right badge bg-red">{{$curso->cantidad_foros}}</span></a></li>
+                                <li><a href="{{route('foros',$curso->id)}}"><i class="fa fa-comments-o"></i> Foros <span class="pull-right badge bg-red">{{$curso->cantidad_foros}}</span></a></li>
                                 <li class="{{$colors[$columna]}}" style="font-weight: bold;">
                                     <a href="{{route('maestros.ver_curso',$curso->id)}}" class="ver-curso">Ver Curso <i class="fa fa-chevron-right"></i></a>
                                 </li>

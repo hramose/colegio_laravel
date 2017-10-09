@@ -19,8 +19,10 @@ use App\App\Entities\EstudianteSeccion;
 use App\App\Entities\Actividad;
 use App\App\Entities\ActividadEstudiante;
 use App\App\Entities\Foro;
+use App\App\Entities\MensajeForo;
 
 use App\App\Managers\ActividadEstudianteManager;
+use App\App\Managers\MensajeForoManager;
 use App\App\Managers\SaveDataException;
 
 
@@ -45,6 +47,7 @@ class EstudianteController extends BaseController {
 		$this->actividadEstudianteRepo = $actividadEstudianteRepo;
 		$this->actividadEstudianteRepo = $actividadEstudianteRepo;
 		$this->unidadCursoRepo = $unidadCursoRepo;
+		$this->foroRepo = $foroRepo;
 		View::composer('layouts.admin', 'App\Http\Controllers\AdminMenuController');
 	}
 
@@ -117,6 +120,18 @@ class EstudianteController extends BaseController {
 	{
 		$mensajes = $foro->mensajes;
 		return view('estudiantes/mensajes_foro', compact('foro','mensajes'));
+	}
+
+	public function agregarMensajeForo(Foro $foro)
+	{
+		$data = Input::all();
+        $data['foro_id'] = $foro->id;
+        $data['autor_id'] = \Auth::user()->persona_id;
+        $data['estado'] = 'A';
+        $manager = new MensajeForoManager(new MensajeForo(), $data);
+        $manager->save();
+        Session::flash('success', 'Se agregó el mensaje al foro ' . $foro->tema . ' con éxito.');
+        return redirect()->route('estudiantes.mensajes_foro',$foro->id);
 	}
 
 	public function maestros()

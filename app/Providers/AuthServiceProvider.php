@@ -44,7 +44,7 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('permiso_seccion', function(User $user, $seccion)
         {
-            return $user->persona_id == $seccion->maestro_id;
+            return $user->persona_id == $seccion->maestro_id || $user->perfil_id == 2;
         });
 
         Gate::define('permiso_curso', function(User $user, $curso)

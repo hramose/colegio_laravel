@@ -31,7 +31,7 @@
             </div>
             <!-- /.box-footer -->
             <div class="box-footer">
-              {!! Form::open(['route' => ['agregar_mensaje_foro',$foro->id], 'method' => 'POST', 'id' => 'form', 'class'=>'validate-form']) !!}
+              {!! Form::open(['route' => ['estudiantes.agregar_mensaje_foro',$foro->id], 'method' => 'POST', 'id' => 'form', 'class'=>'validate-form']) !!}
                 <img class="img-responsive img-circle img-sm" src="{{Auth::user()->persona->fotografia}}" alt="Alt Text">
                 <!-- .img-push is used to add margin to elements next to floating images -->
                 <div class="img-push">

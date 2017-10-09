@@ -38,6 +38,8 @@
                   <br/>
                   <textarea name="mensaje" id="mensaje" cols="30" rows="10" class="form-control"></textarea>
                   <input type="submit" class="btn btn-primary btn-flat" value="Enviar" style="float:left">
+                  &nbsp;&nbsp;&nbsp;
+                  <a href="{{route('foros',$foro->curso_id)}}" class="btn btn-danger btn-flat">Regresar</a>
                 </div>
                 
               {!! Form::close() !!}

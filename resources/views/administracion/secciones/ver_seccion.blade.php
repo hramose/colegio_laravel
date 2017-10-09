@@ -103,7 +103,7 @@
 														<td> {{$nota['estudiante']->nombre_completo_apellidos}} </td>
 														@foreach($nota['cursos'] as $curso)
 															<td class="text-center">
-																{{$curso['promedio']}}
+																{{number_format($curso['promedio'],2)}}
 															</td>
 														@endforeach
 													</tr>

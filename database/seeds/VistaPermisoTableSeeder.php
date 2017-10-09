@@ -63,7 +63,7 @@ class VistaPermisoTableSeeder extends Seeder
             [47,"Agregar Unidad Seccion","agregar_unidad_seccion",1,[1,2]],
             [48,"Editar Unidad Seccion","editar_unidad_seccion",1,[1,2]],
             [49,"Notas Unidad Seccion","notas_unidad_seccion",2,[3]],
-            [50,"Detalle Notas Unidad Seccion","detalle_notas_unidad_seccion",2,[3]],
+            [50,"Detalle Notas Unidad Seccion","detalle_notas_unidad_seccion",2,[1,2,3]],
             [51,"Notas Seccion","notas_seccion",2,[3]],
             [52,"Reporte Notas Seccion","reporte_notas_seccion",2,[3]],
             [53,"Notas Estudiante Seccion","notas_estudiante_seccion",2,[3]],
@@ -116,12 +116,13 @@ class VistaPermisoTableSeeder extends Seeder
             [100,"Cargar Estudiantes","cargar_estudiantes",1,[1,2]],
             [101,"Ver Seccion","ver_seccion",1,[1,2]],
             [102,"Eliminar Actividad","eliminar_actividad",2,[3]],
-            [103,"Plantillas de Unidad","plantillas_unidad",1,[1,2]],
-            [104,"Agregar Plantilla Unidad","agregar_plantilla_unidad",1,[1,2]],
-            [105,"Editar plantilla unidad","editar_plantilla_unidad",1,[1,2]],
-            [106,"Detalle Plantillas de Unidad","detalle_plantilla_unidad",1,[1,2]],
-            [107,"Agregar Detalle Plantilla Unidad","agregar_detalle_plantilla_unidad",1,[1,2]],
-            [108,"Editar Detalle plantilla unidad","editar_detalle_plantilla_unidad",1,[1,2]]
+            [103,"Agregar Mensaje a Foro","estudiantes.agregar_mensaje_foro",3,[4]],
+            [104,"Plantillas de Unidad","plantillas_unidad",1,[1,2]],
+            [105,"Agregar Plantilla Unidad","agregar_plantilla_unidad",1,[1,2]],
+            [106,"Editar plantilla unidad","editar_plantilla_unidad",1,[1,2]],
+            [107,"Detalle Plantillas de Unidad","detalle_plantilla_unidad",1,[1,2]],
+            [108,"Agregar Detalle Plantilla Unidad","agregar_detalle_plantilla_unidad",1,[1,2]],
+            [109,"Editar Detalle plantilla unidad","editar_detalle_plantilla_unidad",1,[1,2]]
         );            
 
         foreach($vistas as $vista)

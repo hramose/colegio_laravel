@@ -49,7 +49,7 @@ class NotasHelper {
 				$notas['unidades'][$unidad->id]['estudiantes'][$estudiante->estudiante_id]['cursos'] = [];
 				$promedios[$estudiante->estudiante_id]['codigo'] = $estudiante->codigo;
 				$promedios[$estudiante->estudiante_id]['estudiante'] = $estudiante->estudiante;
-				$promedios[$estudiante->estudiante_id]['cursos'] = [];
+				//$promedios[$estudiante->estudiante_id]['cursos'] = [];
 				foreach($cursos as $curso)
 				{
 					$notas['unidades'][$unidad->id]['estudiantes'][$estudiante->estudiante_id]['cursos'][$curso->id]['curso'] = $curso;
