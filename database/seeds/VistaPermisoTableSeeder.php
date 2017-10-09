@@ -116,6 +116,12 @@ class VistaPermisoTableSeeder extends Seeder
             [100,"Cargar Estudiantes","cargar_estudiantes",1,[1,2]],
             [101,"Ver Seccion","ver_seccion",1,[1,2]],
             [102,"Eliminar Actividad","eliminar_actividad",2,[3]],
+            [103,"Plantillas de Unidad","plantillas_unidad",1,[1,2]],
+            [104,"Agregar Plantilla Unidad","agregar_plantilla_unidad",1,[1,2]],
+            [105,"Editar plantilla unidad","editar_plantilla_unidad",1,[1,2]],
+            [106,"Detalle Plantillas de Unidad","detalle_plantilla_unidad",1,[1,2]],
+            [107,"Agregar Detalle Plantilla Unidad","agregar_detalle_plantilla_unidad",1,[1,2]],
+            [108,"Editar Detalle plantilla unidad","editar_detalle_plantilla_unidad",1,[1,2]]
         );            
 
         foreach($vistas as $vista)

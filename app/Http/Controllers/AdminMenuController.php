@@ -30,6 +30,7 @@ class AdminMenuController extends BaseController{
 			$subMenu->push((object)['title' => 'Grados', 'url' => URL::route('grados')]);
 			$subMenu->push((object)['title' => 'Maestros', 'url' => URL::route('maestros')]);
 			$subMenu->push((object)['title' => 'Materias', 'url' => URL::route('materias')]);
+			$subMenu->push((object)['title' => 'Plantillas de Unidad', 'url' => URL::route('plantillas_unidad')]);
 			$subMenu->push((object)['title' => 'Tipos Actividades', 'url' => URL::route('tipos_actividades')]);
 			$menu->push((object)['title' => 'Catálogos', 'url' => '#', 'subMenu'=> $subMenu]);
 			

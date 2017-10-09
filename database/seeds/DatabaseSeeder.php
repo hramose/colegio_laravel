@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             $this->call(TipoActividadTableSeeder::class);
             $this->call(ModuloTableSeeder::class);
             $this->call(VistaPermisoTableSeeder::class);
+            $this->call(PlantillaUnidadTableSeeder::class);
 
             $maestros = factory(\App\App\Entities\Persona::class, 10)
             					->states('maestro')->create();

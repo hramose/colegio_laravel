@@ -77,6 +77,24 @@ Route::group(['prefix' => 'secciones'], function () {
 	Route::get('ver/{seccion}','SeccionController@ver')->name('ver_seccion');
 });
 
+/* PLANTILLAS DE UNIDADES */
+Route::group(['prefix' => 'plantillas-unidad'], function () {
+	Route::get('listado','PlantillaUnidadController@listado')->name('plantillas_unidad');
+	Route::get('agregar','PlantillaUnidadController@mostrarAgregar')->name('agregar_plantilla_unidad');
+	Route::post('agregar','PlantillaUnidadController@agregar')->name('agregar_plantilla_unidad');
+	Route::get('editar/{id}','PlantillaUnidadController@mostrarEditar')->name('editar_plantilla_unidad');
+	Route::put('editar/{id}','PlantillaUnidadController@editar')->name('editar_plantilla_unidad');
+});
+
+/* DETALLE DE PLANTILLAS DE UNIDADES */
+Route::group(['prefix' => 'detalle-plantillas-unidad'], function () {
+	Route::get('listado/{plantilla_unidad}','DetallePlantillaUnidadController@listado')->name('detalle_plantilla_unidad');
+	Route::get('agregar/{plantilla_unidad}','DetallePlantillaUnidadController@mostrarAgregar')->name('agregar_detalle_plantilla_unidad');
+	Route::post('agregar/{plantilla_unidad}','DetallePlantillaUnidadController@agregar')->name('agregar_detalle_plantilla_unidad');
+	Route::get('editar/{id}','DetallePlantillaUnidadController@mostrarEditar')->name('editar_detalle_plantilla_unidad');
+	Route::put('editar/{id}','DetallePlantillaUnidadController@editar')->name('editar_detalle_plantilla_unidad');
+});
+
 /* CURSOS */
 Route::group(['prefix' => 'cursos'], function () {
 	Route::get('listado/{seccionId}','CursoController@listado')->name('cursos');
