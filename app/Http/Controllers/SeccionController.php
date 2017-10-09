@@ -13,6 +13,7 @@ use App\App\Repositories\PersonaRepo;
 use App\App\Repositories\UnidadSeccionRepo;
 use App\App\Repositories\EstudianteSeccionRepo;
 use App\App\Repositories\CursoRepo;
+use App\App\Repositories\PlantillaUnidadRepo;
 
 use App\App\Helpers\NotasHelper;
 
@@ -24,9 +25,10 @@ class SeccionController extends BaseController {
 	protected $personaRepo;
 	protected $unidadSeccionRepo;
 	protected $estudianteSeccionRepo;
+	protected $plantillaUnidadRepo;
 	protected $cursoRepo;
 
-	public function __construct(SeccionRepo $seccionRepo, GradoRepo $gradoRepo, CicloRepo $cicloRepo, PersonaRepo $personaRepo, UnidadSeccionRepo $unidadSeccionRepo, EstudianteSeccionRepo $estudianteSeccionRepo, CursoRepo $cursoRepo)
+	public function __construct(SeccionRepo $seccionRepo, GradoRepo $gradoRepo, CicloRepo $cicloRepo, PersonaRepo $personaRepo, UnidadSeccionRepo $unidadSeccionRepo, EstudianteSeccionRepo $estudianteSeccionRepo, CursoRepo $cursoRepo, PlantillaUnidadRepo $plantillaUnidadRepo)
 	{
 		$this->seccionRepo = $seccionRepo;
 		$this->gradoRepo = $gradoRepo;
@@ -35,6 +37,7 @@ class SeccionController extends BaseController {
 		$this->unidadSeccionRepo = $unidadSeccionRepo;
 		$this->estudianteSeccionRepo = $estudianteSeccionRepo;
 		$this->cursoRepo = $cursoRepo;
+		$this->plantillaUnidadRepo = $plantillaUnidadRepo;
 		View::composer('layouts.admin', 'App\Http\Controllers\AdminMenuController');
 	}
 
@@ -52,8 +55,9 @@ class SeccionController extends BaseController {
 		$grados = $this->gradoRepo->getByEstado(['A'],'descripcion');
 		$secciones = Variable::getSecciones();
 		$estados = Variable::getEstadosGenerales();
+		$plantillas = $this->plantillaUnidadRepo->all('descripcion')->pluck('descripcion','id')->toArray();
 		return view('administracion/secciones/agregar', 
-			compact('ciclo','maestros','grados','secciones','estados'));
+			compact('ciclo','maestros','grados','secciones','estados','plantillas'));
 	}
 
 	public function agregar()

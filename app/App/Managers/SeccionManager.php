@@ -2,6 +2,8 @@
 
 namespace App\App\Managers;
 use App\App\Entities\Seccion;
+use App\App\Entities\UnidadSeccion;
+use App\App\Repositories\DetallePlantillaUnidadRepo;
 use Exception;
 
 class SeccionManager extends BaseManager
@@ -35,6 +37,7 @@ class SeccionManager extends BaseManager
 
 	function agregarSecciones($cicloId)
 	{
+		$detallePlantillaUnidadRepo = new DetallePlantillaUnidadRepo();
 		try{
 			\DB::beginTransaction();
 
@@ -47,6 +50,22 @@ class SeccionManager extends BaseManager
 					$seccion->maestro_id = $s['maestro'];
 					$seccion->estado = 'A';
 					$seccion->save();
+
+					if($s['plantilla'] != ''){
+						$unidades = $detallePlantillaUnidadRepo->getByPlantilla($s['plantilla']);
+						foreach($unidades as $unidad)
+						{
+							$us = new UnidadSeccion();
+							$us->seccion_id = $seccion->id;
+							$us->unidad = $unidad->unidad;
+							$us->nota_ganar = $unidad->nota_ganar;
+							$us->porcentaje = $unidad->porcentaje;
+							$us->estado = 'A';
+							$us->save();
+						}
+
+					}
+
 				}
 
 			\DB::commit();

@@ -19,7 +19,8 @@
 					<tr>
 						<th width="200px">GRADO</th>
 						<th width="200px">SECCION</th>
-						<th>MAESTRO</th>
+						<th width="300px">MAESTRO</th>
+                        <th>PLANTILLA</th>
 					</tr>
 				</thead>
 				<tbody>							
@@ -43,6 +44,7 @@
 	var maestros = '';
 	var secciones = '';
 	var grados = '';
+    var plantillas = '';
 	var filasActuales = 0;
 
     $(function(){
@@ -69,6 +71,11 @@
     		grados += '<option value="{{$grado->id}}">{{$grado->descripcion}}</option>';
     	@endforeach
 
+        plantillas += '<option value="">Seleccione</option>';
+        @foreach($plantillas  as $key => $plantilla)
+            plantillas += '<option value="{{$key}}">{{$plantilla}}</option>';
+        @endforeach
+
     	$('#form').on('submit', submit);
 
     });
@@ -80,6 +87,7 @@
     	html += '<td><select name=secciones['+filasActuales+'][grado] class="form-control" data-required="true" >' + grados + '</select></td>';
     	html += '<td><select name=secciones['+filasActuales+'][seccion] class="form-control" data-required="true" >' + secciones + '</select></td>';
     	html += '<td><select name=secciones['+filasActuales+'][maestro] class="form-control buscar-select" data-required="true" >' + maestros + '</select></td>';
+        html += '<td><select name=secciones['+filasActuales+'][plantilla] class="form-control buscar-select" data-required="true" >' + plantillas + '</select></td>';
     	html += '</tr>';
     	$('#tableDetalleSeccion tr:last').after(html);
     	$("select.buscar-select").select2();
