@@ -87,7 +87,7 @@
     	html += '<td><select name=secciones['+filasActuales+'][grado] class="form-control" data-required="true" >' + grados + '</select></td>';
     	html += '<td><select name=secciones['+filasActuales+'][seccion] class="form-control" data-required="true" >' + secciones + '</select></td>';
     	html += '<td><select name=secciones['+filasActuales+'][maestro] class="form-control buscar-select" data-required="true" >' + maestros + '</select></td>';
-        html += '<td><select name=secciones['+filasActuales+'][plantilla] class="form-control buscar-select" data-required="true" >' + plantillas + '</select></td>';
+        html += '<td><select name=secciones['+filasActuales+'][plantilla] class="form-control buscar-select" data-required="false" >' + plantillas + '</select></td>';
     	html += '</tr>';
     	$('#tableDetalleSeccion tr:last').after(html);
     	$("select.buscar-select").select2();
