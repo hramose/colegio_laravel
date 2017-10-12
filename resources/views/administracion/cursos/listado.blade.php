@@ -10,7 +10,6 @@ Cursos - {{$seccion->grado->descripcion}} {{$seccion->descripcion_seccion}}
 	<div class="box-body">
 		<div class="table-responsive">
 			<a href="{{route('agregar_curso',$seccion->id)}}" class="btn btn-primary btn-flat">Agregar</a>
-			<a href="{{route('trasladar_cursos',[$seccion->id,0])}}" class="btn btn-warning btn-flat">Trasladar</a>
 			<a href="{{route('ordenar_cursos',$seccion->id)}}" class="btn btn-info btn-flat">Ordenar</a>
 			<a href="{{route('ordenar_cursos_por_nombre',$seccion->id)}}" class="btn btn-info btn-flat">Ordenar por Nombre</a>
 			<a href="{{route('secciones')}}" class="btn btn-danger btn-flat">Regresar</a>
