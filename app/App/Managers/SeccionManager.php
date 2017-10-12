@@ -73,8 +73,8 @@ class SeccionManager extends BaseManager
 		catch(\Exception $ex)
 		{
 			$mensaje = $ex->getMessage();
-			if(str_contains($mensaje, 'uq_seccion')){
-				throw new SaveDataException("Error", new \Exception('La sección ya existe. ERROR DB: ' . $ex->errorInfo[2], 1));
+			if(str_contains($mensaje, 'uq_seccion_cgs')){
+				throw new SaveDataException("Error", new \Exception('Intentó agregar una sección que ya existe. ERROR DB: ' . $ex->errorInfo[2], 1));
 			}
 			throw new SaveDataException("Error", $ex);
 		}

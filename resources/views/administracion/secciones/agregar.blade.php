@@ -11,7 +11,7 @@
 		<a onclick="agregarFila();" class="btn btn-primary btn-flat btn-sm fa fa-plus"></a>
 		<br/><br/>
 		<div class="alert alert-danger alert-dismissable" id="errorSecciones" style="display: none" >
-			<span id="txtErrorSecciones"></span>
+			<div id="errores"></div>
         </div>
 		<div class="table-responsive">
 			<table class="table table-responsive" id="tableDetalleSeccion">
@@ -55,6 +55,7 @@
 		});
 
 		$('#errorSecciones').hide();
+        $('select').removeClass('has-error');
 
     	maestros += '<option value="">Seleccione</option>';
     	@foreach($maestros as $maestro)
@@ -83,9 +84,9 @@
     function agregarFila()
     {
     	filasActuales++;
-    	var html = '<tr class="seccion">';
-    	html += '<td><select name=secciones['+filasActuales+'][grado] class="form-control" data-required="true" >' + grados + '</select></td>';
-    	html += '<td><select name=secciones['+filasActuales+'][seccion] class="form-control" data-required="true" >' + secciones + '</select></td>';
+    	var html = '<tr class="seccion" id="'+filasActuales+'">';
+    	html += '<td><select name=secciones['+filasActuales+'][grado] class="form-control" data-required="true" id="grado'+filasActuales+'">' + grados + '</select></td>';
+    	html += '<td><select name=secciones['+filasActuales+'][seccion] class="form-control" data-required="true" id="seccion'+filasActuales+'">' + secciones + '</select></td>';
     	html += '<td><select name=secciones['+filasActuales+'][maestro] class="form-control buscar-select" data-required="true" >' + maestros + '</select></td>';
         html += '<td><select name=secciones['+filasActuales+'][plantilla] class="form-control buscar-select" data-required="false" >' + plantillas + '</select></td>';
     	html += '</tr>';
@@ -95,12 +96,67 @@
 
     function submit()
     {
+        existenErrores = false;
+        errores = [];
     	$('#errorSecciones').hide();
     	if($('.seccion').length <= 0){
-    		$('#txtErrorSecciones').text('Ingrese alguna sección.');
-    		$('#errorSecciones').show();
-    		return false;
+            existenErrores = true;
+    		//$('#txtErrorSecciones').text('Ingrese alguna sección.');
+            errores.push('Ingrese alguna sección');
+    		
     	}
+
+        /*validando secciones iguales*/
+        filas = $('.seccion');
+        $.each(filas, function(index, value){
+            $.each(filas, function(index2, value2){
+                if(index != index2){
+                    id1 = $(value).attr('id');
+                    id2 = $(value2).attr('id');
+
+                    grado1Id = $('#grado'+id1).val();
+                    seccion1Id = $('#seccion'+id1).val();
+                    grado2Id = $('#grado'+id2).val();
+                    seccion2Id = $('#seccion'+id2).val();
+
+                    if(grado1Id == grado2Id && seccion1Id == seccion2Id){
+                        existenErrores = true;
+                        grado = $('#grado'+id1+' option:selected' ).text();
+                        seccion = $('#seccion'+id1+' option:selected' ).text();
+
+                        textoError = 'Ingreso de sección duplicada: ' + grado + ' ' + seccion;
+
+                        existeTextoError = false;
+                        $.each(errores, function(index,error){
+                            if(error == textoError){
+                                existeTextoError = true;
+                            }
+                        });
+                        if(!existeTextoError)
+                            errores.push(textoError);
+
+                        $('#grado'+id1).addClass('has-error');
+                        $('#seccion'+id1).addClass('has-error');
+                        $('#grado'+id2).addClass('has-error');
+                        $('#seccion'+id2).addClass('has-error');
+
+
+                    }
+                }
+            });    
+        });
+
+
+        if(existenErrores){
+            lista = '<ul style="margin:0;">';
+            $.each(errores, function(index, value){
+                lista += '<li>' + value + '</li>';
+            });
+            lista += '</ul>';
+            $('#errores').html(lista);
+            $('#errorSecciones').show();
+            return false;
+        }
     }
 </script>
 @endsection

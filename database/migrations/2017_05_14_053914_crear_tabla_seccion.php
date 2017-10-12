@@ -28,7 +28,7 @@ class CrearTablaSeccion extends Migration
             $table->foreign('grado_id')->references('id')->on('grado');
             $table->foreign('maestro_id')->references('id')->on('persona');
 
-            $table->unique(['ciclo_id', 'grado_id','seccion']);
+            $table->unique(['ciclo_id', 'grado_id','seccion', 'uq_seccion_cgs']);
         });
     }
 
